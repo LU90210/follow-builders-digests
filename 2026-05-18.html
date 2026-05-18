@@ -1,3 +1,344 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>setup test</title></head>
-<body><p>follow-builders publish.js setup test. If you see this, the pipeline works.</p></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-05-18</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  /* Language toggle: pure CSS, falls back to stacked sections in old WebViews. */
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  /* By default both sections show (graceful fallback). When a radio is
+     checked, the opposite section hides. */
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  section.themes {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  section.themes h2 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .theme {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .theme:last-child { border-bottom: 0; }
+  .theme h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .theme .contributors {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .theme .contributors a { color: var(--accent); text-decoration: none; }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-05-18</h1>
+  <div class="meta">3 builders · 1 blog posts · 1 podcast episodes · 1 themes · generated 2026-05-18 12:59 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Anthropic memory feature reactions</h3>
+        <div class="theme-synthesis"><p>Anthropic shipped persistent memory yesterday. Three builders converge on the same critique: enterprise customers will struggle with the per-org isolation model, not the feature itself.</p><p>Watch Aaron Levie for the sharpest take.</p></div>
+        <div class="contributors">→ <a href="#item-i1">Aaron Levie</a>, <a href="#item-i2">Amjad Masad</a>, <a href="#item-i3">Justine Moore</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+    <h3>Aaron Levie</h3>
+    <div class="bio">Box CEO</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie argues Anthropic&#39;s new memory feature solves a real problem at the technical level but creates a deployment problem at the enterprise level.</p><p>The per-org isolation model assumes each company is one tenant, but most Box customers have shared workspaces spanning multiple legal entities. He predicts enterprises will either build their own memory layer on top or wait for Anthropic to ship multi-tenant scoping.</p></div>
+    <blockquote>Anthropic&#39;s memory is impressive but the per-org isolation will be a nightmare for shared workspaces.</blockquote>
+    <details><summary>Linked context (1)</summary><div class="ctx-link">
+        <div class="gist">Anthropic launches persistent memory for Claude. Scoped per organization. Enterprise tier gets retention controls. Currently no cross-org sharing.</div>
+        <a href="https://www.anthropic.com/news/memory" target="_blank" rel="noopener">Introducing Memory</a>
+      </div></details>
+    <div class="images"><figure>
+        <img src="https://example.com/chart.png" alt="Bar chart: memory recall accuracy 78% (Claude 4.6) vs 92% (Claude 4.7 with memory enabled)." loading="lazy">
+        <figcaption>Bar chart: memory recall accuracy 78% (Claude 4.6) vs 92% (Claude 4.7 with memory enabled).</figcaption>
+      </figure></div>
+    <div class="source">→ <a href="https://x.com/levie/status/1234567890" target="_blank" rel="noopener">https://x.com/levie/status/1234567890</a></div>
+  </article><article class="item" id="item-i2">
+    <h3>Amjad Masad</h3>
+    <div class="bio">Replit CEO</div>
+    <div class="synthesis"><p>Replit CEO Amjad Masad is bullish on Anthropic&#39;s memory release but flags a specific gap: it solves single-agent recall, not multi-agent coordination. Replit&#39;s Agent 4 needs shared state across parallel sub-agents, and Anthropic&#39;s per-conversation memory doesn&#39;t address that.</p></div>
+    <blockquote>Memory in Claude is great but we&#39;re still going to need our own layer for multi-agent coordination.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/amasad/status/9876543210" target="_blank" rel="noopener">https://x.com/amasad/status/9876543210</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Justine Moore</h3>
+    <div class="bio">a16z partner</div>
+    <div class="synthesis"><p>a16z partner Justine Moore notes Anthropic&#39;s memory release will accelerate consumer AI products that need long-term user context — therapy apps, coaching apps, custom tutors. Sees this as the missing piece for products built on Claude that have struggled to retain users past month one.</p></div>
+    
+    
+    
+    <div class="source">→ <a href="https://x.com/venturetwins/status/5555555555" target="_blank" rel="noopener">https://x.com/venturetwins/status/5555555555</a></div>
+  </article><h2 class="section-title">Official blogs</h2><article class="item" id="item-i4">
+    <h3>Anthropic Engineering</h3>
+    <div class="bio">Anthropic Engineering blog</div>
+    <div class="synthesis"><p>Anthropic Engineering describes the design constraints behind harnesses for long-running agent applications. Key claim: the dominant failure mode for multi-hour agents is not model capability but harness state corruption across tool boundaries.</p></div>
+    
+    
+    
+    <div class="source">→ <a href="https://www.anthropic.com/engineering/harness-design" target="_blank" rel="noopener">https://www.anthropic.com/engineering/harness-design</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i5">
+    <h3>On Deck Podcast</h3>
+    <div class="bio">Episode: How Anthropic Scaled Engineering Org From 50 to 500</div>
+    <div class="synthesis"><p>The Takeaway: Scaling an AI engineering org is a hiring-philosophy problem, not a recruiting-throughput problem.</p><p>Anthropic&#39;s head of engineering describes how the org grew 10x in 18 months without the usual quality dilution by anchoring on a &#39;taste&#39; bar — candidates who could articulate why a feature shouldn&#39;t ship, not just how to ship it. The result: fewer technically-strong-but-direction-confused PRs, lower coordination cost.</p><p>Most memorable: the explicit rejection of the meta-FAANG playbook. &#39;We hired for taste, not just skill, because at 500 engineers your bottleneck becomes is this the right thing to build not can we build it.&#39;</p></div>
+    <blockquote>We hired for taste, not just skill, because at 500 engineers your bottleneck becomes &#39;is this the right thing to build&#39; not &#39;can we build it.&#39;</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=fakefakefake" target="_blank" rel="noopener">https://www.youtube.com/watch?v=fakefakefake</a></div>
+  </article></section>
+<section data-lang="zh"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Anthropic memory feature reactions</h3>
+        <div class="theme-synthesis"><p>Anthropic 昨天发布了持久 memory 功能。三位 builder 给出相同的批评：企业客户难以接受的是 per-org 隔离模型，而不是功能本身。</p><p>关注 Aaron Levie 的最尖锐评论。</p></div>
+        <div class="contributors">→ <a href="#item-i1">Aaron Levie</a>, <a href="#item-i2">Amjad Masad</a>, <a href="#item-i3">Justine Moore</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+    <h3>Aaron Levie</h3>
+    <div class="bio">Box CEO</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie 认为 Anthropic 新的 memory 功能在技术上解决了一个真问题，但在企业部署层面制造了新问题。</p><p>per-org 隔离模型假设每家公司是单一租户，但大多数 Box 客户拥有跨越多个法律实体的共享工作空间。他预测企业要么会在上层构建自己的 memory 层，要么会等 Anthropic 推出多租户作用域。</p></div>
+    <blockquote>Anthropic&#39;s memory is impressive but the per-org isolation will be a nightmare for shared workspaces.</blockquote>
+    <details><summary>Linked context (1)</summary><div class="ctx-link">
+        <div class="gist">Anthropic launches persistent memory for Claude. Scoped per organization. Enterprise tier gets retention controls. Currently no cross-org sharing.</div>
+        <a href="https://www.anthropic.com/news/memory" target="_blank" rel="noopener">Introducing Memory</a>
+      </div></details>
+    <div class="images"><figure>
+        <img src="https://example.com/chart.png" alt="Bar chart: memory recall accuracy 78% (Claude 4.6) vs 92% (Claude 4.7 with memory enabled)." loading="lazy">
+        <figcaption>Bar chart: memory recall accuracy 78% (Claude 4.6) vs 92% (Claude 4.7 with memory enabled).</figcaption>
+      </figure></div>
+    <div class="source">→ <a href="https://x.com/levie/status/1234567890" target="_blank" rel="noopener">https://x.com/levie/status/1234567890</a></div>
+  </article><article class="item" id="item-i2">
+    <h3>Amjad Masad</h3>
+    <div class="bio">Replit CEO</div>
+    <div class="synthesis"><p>Replit CEO Amjad Masad 看好 Anthropic 的 memory 发布，但指出一个具体的缺口：它解决的是单 agent 的回忆，而不是多 agent 协调。Replit 的 Agent 4 需要在并行 sub-agent 之间共享状态，Anthropic 的 per-conversation memory 没有解决这个问题。</p></div>
+    <blockquote>Memory in Claude is great but we&#39;re still going to need our own layer for multi-agent coordination.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/amasad/status/9876543210" target="_blank" rel="noopener">https://x.com/amasad/status/9876543210</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Justine Moore</h3>
+    <div class="bio">a16z partner</div>
+    <div class="synthesis"><p>a16z 合伙人 Justine Moore 指出 Anthropic 的 memory 发布会加速需要长期用户上下文的消费级 AI 产品——治疗类、教练类、个性化辅导类。她认为这是基于 Claude 构建、却难以留住用户超过一个月的产品所缺失的那一块。</p></div>
+    
+    
+    
+    <div class="source">→ <a href="https://x.com/venturetwins/status/5555555555" target="_blank" rel="noopener">https://x.com/venturetwins/status/5555555555</a></div>
+  </article><h2 class="section-title">Official blogs</h2><article class="item" id="item-i4">
+    <h3>Anthropic Engineering</h3>
+    <div class="bio">Anthropic Engineering blog</div>
+    <div class="synthesis"><p>Anthropic Engineering 描述了长时运行 agent 应用的 harness 设计约束。核心论断：多小时 agent 的主要失败模式不是模型能力，而是 harness 在工具边界上的状态损坏。</p></div>
+    
+    
+    
+    <div class="source">→ <a href="https://www.anthropic.com/engineering/harness-design" target="_blank" rel="noopener">https://www.anthropic.com/engineering/harness-design</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i5">
+    <h3>On Deck Podcast</h3>
+    <div class="bio">Episode: How Anthropic Scaled Engineering Org From 50 to 500</div>
+    <div class="synthesis"><p>核心观点：扩张 AI 工程组织是雇佣哲学问题，而非招聘吞吐问题。</p><p>Anthropic 工程负责人讲述了组织如何在 18 个月里扩张 10 倍，又没有经历常见的质量稀释——靠的是对&#39;品味&#39;的锚定：候选人能够清晰表达为什么某个功能不应该上线，而不是仅仅怎么上线。结果是：技术过硬但方向迷茫的 PR 更少，协调成本更低。</p><p>最记得住的一句：明确拒绝了 meta-FAANG 的剧本。&#39;We hired for taste, not just skill, because at 500 engineers your bottleneck becomes is this the right thing to build not can we build it.&#39;</p></div>
+    <blockquote>We hired for taste, not just skill, because at 500 engineers your bottleneck becomes &#39;is this the right thing to build&#39; not &#39;can we build it.&#39;</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=fakefakefake" target="_blank" rel="noopener">https://www.youtube.com/watch?v=fakefakefake</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
