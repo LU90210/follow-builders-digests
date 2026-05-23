@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-05-23</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  /* Language toggle: pure CSS, falls back to stacked sections in old WebViews. */
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  /* By default both sections show (graceful fallback). When a radio is
+     checked, the opposite section hides. */
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  section.themes {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  section.themes h2 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .theme {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .theme:last-child { border-bottom: 0; }
+  .theme h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .theme .contributors {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .theme .contributors a { color: var(--accent); text-decoration: none; }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-05-23</h1>
+  <div class="meta">10 builders · 1 podcast episode · 1 theme · generated 2026-05-23 00:04 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>AI Is Reshaping What &#39;Technical Talent&#39; Means</h3>
+        <div class="theme-synthesis"><p>Builders are converging on a single idea: AI isn&#39;t eliminating technical jobs, it&#39;s radically expanding what technical talent looks like. From Box CEO Aaron Levie&#39;s Fortune 500 conversations to YC President Garry Tan&#39;s call to &#39;boil the ocean,&#39; the consensus is that the ceiling has been raised, not lowered.</p></div>
+        <div class="contributors">→ <a href="#item-i4">Aaron Levie</a>, <a href="#item-i5">Garry Tan</a>, <a href="#item-i2">Peter Yang</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+    <h3>Swyx</h3>
+    <div class="bio">achieve ambition with intentionality, intensity, integrity &amp; insanity.  affiliations: - @dxtipshq  - @cognition - @temporalio - @aidotengineer - @latentspacepod</div>
+    <div class="synthesis"><p>Swyx, who runs Latent Space and works across multiple AI communities, noted that the &#39;agentic Excel&#39; concept is essentially what you get when you expand a side panel into the main workspace. It&#39;s a quick architectural insight into how spreadsheet interfaces are being reimagined for agentic workflows.</p></div>
+    <blockquote>@gabrielchua the agentic excel thing is basically what u get when u expand the side panel to be the main thing
+
+https://t.co/mYvd97PpNq</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/swyx/status/2056201387172843800" target="_blank" rel="noopener">https://x.com/swyx/status/2056201387172843800</a></div>
+  </article><article class="item" id="item-i2">
+    <h3>Peter Yang</h3>
+    <div class="bio">Practical AI tutorials and interviews for busy people | Join 140K+ readers at https://t.co/XYKTmGVH14 | Product at Roblox</div>
+    <div class="synthesis"><p>Product lead at Roblox and newsletter author Peter Yang shared a sharp lesson on building evals for AI products: stop running &#39;eval theater&#39; on generic academic benchmarks. Instead, read real customer conversations, use Claude to synthesize feedback into themes, and design evaluations that get harder as models improve. Yang&#39;s point is that product sense comes from user traces, not leaderboard chasing.</p></div>
+    <blockquote>5. Build evals based on real traces + feedback
+
+Read actual customer conversations with your model to build product sense, and use Claude to synthesize feedback into top themes.
+
+Don&#39;t run &quot;eval theater&quot; on generic academic benchmarks. As models get smarter, evals need to get harder to keep producing signal.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2056178053848703019" target="_blank" rel="noopener">https://x.com/petergyang/status/2056178053848703019</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Amjad Masad</h3>
+    <div class="bio">ceo @replit. civilizationist</div>
+    <div class="synthesis"><p>Replit CEO Amjad Masad highlighted what small and medium businesses are actually building with AI—signaling a shift from enterprise hype to grassroots adoption. While the tweet is brief, it underscores Replit&#39;s bet that the next wave of software will be built by non-traditional developers at SMBs, not just big tech labs.</p></div>
+    <blockquote>What SMBs are building https://t.co/MmPNmWvPLx</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/amasad/status/2056083305468944820" target="_blank" rel="noopener">https://x.com/amasad/status/2056083305468944820</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Aaron Levie</h3>
+    <div class="bio">ceo @box - your business lives in content. unleash it with AI</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie argues that AI is creating a temporary mismatch between traditional CS career paths and emerging demand. In a conversation with a Fortune 500 pharma CEO, he heard firsthand that every industry now needs more technical talent—not to build customer-facing software, but to implement agentic systems. Levie&#39;s core message: colleges and companies both need to rethink how they pipeline people into these new roles, because the skills are still in demand even if the job descriptions have changed.</p></div>
+    <blockquote>Right now there’s a temporary mismatch between the jobs that used to be sought after in some fields and the new jobs that are becoming in demand in those fields.
+
+For instance, if you studied CS, for years the general direction of travel was often to join a tech company and build customer-facing software in some form. A significant portion of the CS pipeline from college to hire was built for this.
+
+When you realize that AI is going to make coding abundant, you realize everyone will need technical talent to implement agentic systems. This means the types of roles engineers should be thinking about radically expands.
+
+I was talking to a Fortune 500 pharma CEO a week ago that commented on how much more technical talent they need right now. The job may be different from what it was 5 years ago when thinking about tech, but the demand for the skills are still there. And this is what I’m hearing from every CIO and CEO across nearly every industry right now.
+
+We definitely need colleges to wake up to this; but we equally need companies think about how they craft pipelines into these jobs.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2056219645796090197" target="_blank" rel="noopener">https://x.com/levie/status/2056219645796090197</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO @ycombinator —Founder @garryslist—Creator of GStack &amp; GBrain—designer/engineer who helps founders—SF Dem accelerating the boom loop</div>
+    <div class="synthesis"><p>YC President &amp; CEO Garry Tan fired back at Ken Griffin&#39;s cost-cutting mentality with a contrarian take: the ceiling just got raised. Tan believes a young builder will soon assemble an AI-human-computer symbiosis team that outperforms entire legacy operations. His advice? &#39;Boil the ocean, don&#39;t cut your costs&#39;—invest aggressively in AI-driven expansion rather than shrinking into irrelevance.</p></div>
+    <blockquote>Ken Griffin doesn’t understand the ceiling just got raised. Some 20-something maybe reading this will build the cracked AI-human-computer-symbiosis team that will supersede his whole operation because he is too distracted about lowering cost
+
+Boil the ocean don’t cut your costs https://t.co/gxgx3IzLEa</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2056123737544757733" target="_blank" rel="noopener">https://x.com/garrytan/status/2056123737544757733</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Matt Turck</h3>
+    <div class="bio">VC at @FirstMarkCap.  Host: MAD Podcast; Organizer: Data Driven NYC, Author: MAD Landscape.</div>
+    <div class="synthesis"><p>FirstMark VC and MAD Podcast host Matt Turck posted a wry observation about venture fund economics: when a multi-billion dollar fund finally gets a $1B exit, the champagne comes out. It&#39;s a reminder of how rare and celebrated outsized outcomes are, even at the largest funds.</p></div>
+    <blockquote>When a multi-billion dollar venture fund has a $1B exit in its portfolio https://t.co/NIOVPfBSVT</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/mattturck/status/2056129724565373406" target="_blank" rel="noopener">https://x.com/mattturck/status/2056129724565373406</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Zara Zhang</h3>
+    <div class="bio">Builder. Dangerously skips permissions. Harvard’17. GitHub: https://t.co/KCuEajezlL YouTube: https://t.co/8xzbGWtf6w</div>
+    <div class="synthesis"><p>Builder Zara Zhang offered a pithy reminder for founders: people consistently overestimate how hard it is to build something, and underestimate how hard it is to win people&#39;s attention once it&#39;s built. It&#39;s a framing that shifts focus from engineering difficulty to distribution and storytelling—often the real bottleneck for startups.</p></div>
+    <blockquote>People consistently overestimate how hard it is to build something and underestimate how hard it is to win people’s attention once you’ve built it</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/zarazhangrui/status/2056132881630826952" target="_blank" rel="noopener">https://x.com/zarazhangrui/status/2056132881630826952</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">partner @fpvventures - investing in seed/A. previous: early hire @meter, @opendoor, @atlassian &amp; others. love @shimoleejhaveri + 👦👧</div>
+    <div class="synthesis"><p>FPV Ventures partner Nikunj Kothari warned employees joining recently minted unicorns about a &#39;triple whammy&#39;: tranched valuations inflate strike prices, 409A valuations make early exercise expensive, and stock packages look bigger on paper than they are in reality. His advice: treat equity due diligence like an investor would, and use AI tools to model exit math before signing.</p></div>
+    <blockquote>Employees joining some recently minted unicorn* companies are facing a triple whammy..
+
+1) tranched valuations are very common now means their entry strike price at that valuation is often &gt;2x of the lead preferred price.
+
+2) this means your strike price will be quite high and so will be your 409a. you’ll paying a pretty penny if you try to early exercise and if not then you’ll have to wait a while till they grow into that valuation.  
+
+3) stock packages seem great “on paper” but are massively inflated because of this tranched valuation. so you can say total comp is very high but the real comp is not that high (at least today). this is another reason companies chase a higher valuation so they can give lower equity raises. 
+
+Make sure you go with wide eyes and use Claude/ChatGPT to do some exit math on your equity. Joining a unicorn company can offer far more than just comp (learning, experience, strong mission, great team) and that should be the core reason for joining. But do your own due diligence on the company you’re joining just like an investor would. 
+
+* Not all unicorn companies are the same - some are fundamentally better and have meaningfully grown into the valuation than others. Some are growing way faster than the ones with fundamentals. Point is to do your homework vs treating every company that’s valued similarly and putting them in the same bucket.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2056125669466333672" target="_blank" rel="noopener">https://x.com/nikunj/status/2056125669466333672</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Aditya Agarwal</h3>
+    <div class="bio">General Partner @SouthPkCommons, Co-Founder @Bevel_Health | Ex: Early Eng @facebook, CTO @Dropbox, Board @Flipkart | Optimist, Builder, Dad</div>
+    <div class="synthesis"><p>South Park Commons GP and former Dropbox CTO Aditya Agarwal shared a balanced weekend snapshot: Friday was for AI-assisted coding, Saturday was for human sports and his kid&#39;s dance recital. The understated point? Meaning and purpose aren&#39;t disappearing—they&#39;re just shifting between human and machine labor.</p></div>
+    <blockquote>On Friday I used AI to write a lot of code.
+
+And then on Saturday I watched humans play sports (FA Cup Final) and dance (my kid&#39;s dance recital).
+
+I am not worried that we won&#39;t have meaning and purpose.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/adityaag/status/2056015684145127612" target="_blank" rel="noopener">https://x.com/adityaag/status/2056015684145127612</a></div>
+  </article><article class="item" id="item-i10">
+    <h3>Sam Altman</h3>
+    <div class="bio">AI is cool i guess</div>
+    <div class="synthesis"><p>OpenAI CEO Sam Altman announced that ChatGPT Images 2.0 has crossed more than 1 billion images created in India alone. The milestone signals massive global adoption of generative image tools, with India emerging as one of the highest-usage markets for OpenAI&#39;s visual products.</p></div>
+    <blockquote>ChatGPT Images 2.0 💚 India.
+
+Already more than 1 billion images created there; awesome to see.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/sama/status/2056165722804654196" target="_blank" rel="noopener">https://x.com/sama/status/2056165722804654196</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i11">
+    <h3>AI &amp; I by Every</h3>
+    <div class="bio">Podcast</div>
+    <div class="synthesis"><p>Noah Breyer, founder of Alethic and co-founder of Percolate, has built what might be the most integrated Claude Code setup in the wild. He runs a home server in his basement hosting his entire Obsidian vault, then layers Claude Code on top—turning his phone into a thinking partner that can research across his notes and the web, ask sharp questions, and maintain a running log of what he&#39;s learned. The episode is a deep walkthrough of his stack and workflow: how he uses Claude not just as a coding assistant, but as a genuine second brain for writing, research, and shipping code from anywhere. For anyone trying to push Claude Code beyond the terminal, this is the blueprint.</p></div>
+    <blockquote>Claude Code Can Be Your Second Brain</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=in7i-EVDDlk" target="_blank" rel="noopener">https://www.youtube.com/watch?v=in7i-EVDDlk</a></div>
+  </article></section>
+<section data-lang="zh"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>AI Is Reshaping What &#39;Technical Talent&#39; Means</h3>
+        <div class="theme-synthesis"><p>Builders 们正在形成一个共识：AI 并没有消灭技术岗位，而是在重新定义&#39;技术人才&#39;的含义。从 Box CEO Aaron Levie 与财富 500 强 CEO 的对话，到 YC President Garry Tan 的&#39;boil the ocean&#39;（去扩大规模，而非削减成本），大家的判断一致：天花板被抬高了，而不是降低了。</p></div>
+        <div class="contributors">→ <a href="#item-i4">Aaron Levie</a>, <a href="#item-i5">Garry Tan</a>, <a href="#item-i2">Peter Yang</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+    <h3>Swyx</h3>
+    <div class="bio">achieve ambition with intentionality, intensity, integrity &amp; insanity.  affiliations: - @dxtipshq  - @cognition - @temporalio - @aidotengineer - @latentspacepod</div>
+    <div class="synthesis"><p>Latent Space 主理人 Swyx 指出，&#39;agentic Excel&#39;的概念本质上就是把侧边栏扩展成主工作区。这是一个关于电子表格界面如何为 agentic 工作流重新设计的快速架构洞察。</p></div>
+    <blockquote>@gabrielchua the agentic excel thing is basically what u get when u expand the side panel to be the main thing
+
+https://t.co/mYvd97PpNq</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/swyx/status/2056201387172843800" target="_blank" rel="noopener">https://x.com/swyx/status/2056201387172843800</a></div>
+  </article><article class="item" id="item-i2">
+    <h3>Peter Yang</h3>
+    <div class="bio">Practical AI tutorials and interviews for busy people | Join 140K+ readers at https://t.co/XYKTmGVH14 | Product at Roblox</div>
+    <div class="synthesis"><p>Roblox 产品负责人、newsletter 作者 Peter Yang 分享了一条关于为 AI 产品构建 evals 的犀利建议：别再在通用学术 benchmark 上跑&#39;eval theater&#39;（评估表演）了。相反，去读真实的客户对话，用 Claude 把反馈提炼成主题，并设计随模型变强而变难的评估。Yang 的核心观点是：产品感来自用户轨迹，而不是刷榜。</p></div>
+    <blockquote>5. Build evals based on real traces + feedback
+
+Read actual customer conversations with your model to build product sense, and use Claude to synthesize feedback into top themes.
+
+Don&#39;t run &quot;eval theater&quot; on generic academic benchmarks. As models get smarter, evals need to get harder to keep producing signal.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2056178053848703019" target="_blank" rel="noopener">https://x.com/petergyang/status/2056178053848703019</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Amjad Masad</h3>
+    <div class="bio">ceo @replit. civilizationist</div>
+    <div class="synthesis"><p>Replit CEO Amjad Masad 展示了中小企业（SMB）正在用 AI 构建什么——这标志着从企业级炒作到草根采用的转变。虽然这条推文很简短，但它凸显了 Replit 的押注：下一波软件将由中小企业里的非传统开发者构建，而不仅仅是大厂实验室。</p></div>
+    <blockquote>What SMBs are building https://t.co/MmPNmWvPLx</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/amasad/status/2056083305468944820" target="_blank" rel="noopener">https://x.com/amasad/status/2056083305468944820</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Aaron Levie</h3>
+    <div class="bio">ceo @box - your business lives in content. unleash it with AI</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie 认为，AI 正在造成传统 CS 职业路径与新兴需求之间的暂时错配。他与一位财富 500 强药企 CEO 交流后了解到，各行各业现在都需要更多技术人才——不是为了做面向客户的软件，而是为了部署 agentic 系统。Levie 的核心观点：大学和公司都需要重新思考如何把人输送进这些新岗位，因为技能仍然抢手，只是岗位描述变了。</p></div>
+    <blockquote>Right now there’s a temporary mismatch between the jobs that used to be sought after in some fields and the new jobs that are becoming in demand in those fields.
+
+For instance, if you studied CS, for years the general direction of travel was often to join a tech company and build customer-facing software in some form. A significant portion of the CS pipeline from college to hire was built for this.
+
+When you realize that AI is going to make coding abundant, you realize everyone will need technical talent to implement agentic systems. This means the types of roles engineers should be thinking about radically expands.
+
+I was talking to a Fortune 500 pharma CEO a week ago that commented on how much more technical talent they need right now. The job may be different from what it was 5 years ago when thinking about tech, but the demand for the skills are still there. And this is what I’m hearing from every CIO and CEO across nearly every industry right now.
+
+We definitely need colleges to wake up to this; but we equally need companies think about how they craft pipelines into these jobs.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2056219645796090197" target="_blank" rel="noopener">https://x.com/levie/status/2056219645796090197</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO @ycombinator —Founder @garryslist—Creator of GStack &amp; GBrain—designer/engineer who helps founders—SF Dem accelerating the boom loop</div>
+    <div class="synthesis"><p>YC President &amp; CEO Garry Tan 对 Ken Griffin 的削减成本思维做出了反击：天花板刚刚被抬高了。Tan 相信，某个二十多岁的 builder 很快会组建一支 AI-human-computer symbiosis（人机共生）团队，超越整个传统机构。他的建议？&#39;Boil the ocean, don&#39;t cut your costs&#39;（去扩大规模，不要削减成本）——在 AI 驱动的扩张上大胆投入，而不是萎缩至无关紧要。</p></div>
+    <blockquote>Ken Griffin doesn’t understand the ceiling just got raised. Some 20-something maybe reading this will build the cracked AI-human-computer-symbiosis team that will supersede his whole operation because he is too distracted about lowering cost
+
+Boil the ocean don’t cut your costs https://t.co/gxgx3IzLEa</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2056123737544757733" target="_blank" rel="noopener">https://x.com/garrytan/status/2056123737544757733</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Matt Turck</h3>
+    <div class="bio">VC at @FirstMarkCap.  Host: MAD Podcast; Organizer: Data Driven NYC, Author: MAD Landscape.</div>
+    <div class="synthesis"><p>FirstMark 投资人、MAD Podcast 主持人 Matt Turck 发了一个略带讽刺的观察：当一只数十亿美元的基金终于迎来一个 10 亿美元退出时，香槟就开起来了。这提醒我们，即便对于最大的基金来说，超额回报也是罕见且值得庆祝的。</p></div>
+    <blockquote>When a multi-billion dollar venture fund has a $1B exit in its portfolio https://t.co/NIOVPfBSVT</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/mattturck/status/2056129724565373406" target="_blank" rel="noopener">https://x.com/mattturck/status/2056129724565373406</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Zara Zhang</h3>
+    <div class="bio">Builder. Dangerously skips permissions. Harvard’17. GitHub: https://t.co/KCuEajezlL YouTube: https://t.co/8xzbGWtf6w</div>
+    <div class="synthesis"><p>Builder Zara Zhang 给创业者提了一个精辟的提醒：人们总是高估&#39;做出东西&#39;的难度，却低估&#39;赢得注意力&#39;的难度。这个框架把焦点从工程难度转移到了分发和讲故事上——而这往往是初创公司真正的瓶颈。</p></div>
+    <blockquote>People consistently overestimate how hard it is to build something and underestimate how hard it is to win people’s attention once you’ve built it</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/zarazhangrui/status/2056132881630826952" target="_blank" rel="noopener">https://x.com/zarazhangrui/status/2056132881630826952</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">partner @fpvventures - investing in seed/A. previous: early hire @meter, @opendoor, @atlassian &amp; others. love @shimoleejhaveri + 👦👧</div>
+    <div class="synthesis"><p>FPV Ventures 合伙人 Nikunj Kothari 警告加入新晋独角兽公司的员工注意&#39;三重打击&#39;：分段估值（tranched valuations）抬高了行权价，409A 估值让早期行权变得昂贵，而股票包在纸面上看起来比实际更值钱。他的建议：像投资人一样做股权尽职调查，在签字前用 AI 工具建模退出回报。</p></div>
+    <blockquote>Employees joining some recently minted unicorn* companies are facing a triple whammy..
+
+1) tranched valuations are very common now means their entry strike price at that valuation is often &gt;2x of the lead preferred price.
+
+2) this means your strike price will be quite high and so will be your 409a. you’ll paying a pretty penny if you try to early exercise and if not then you’ll have to wait a while till they grow into that valuation.  
+
+3) stock packages seem great “on paper” but are massively inflated because of this tranched valuation. so you can say total comp is very high but the real comp is not that high (at least today). this is another reason companies chase a higher valuation so they can give lower equity raises. 
+
+Make sure you go with wide eyes and use Claude/ChatGPT to do some exit math on your equity. Joining a unicorn company can offer far more than just comp (learning, experience, strong mission, great team) and that should be the core reason for joining. But do your own due diligence on the company you’re joining just like an investor would. 
+
+* Not all unicorn companies are the same - some are fundamentally better and have meaningfully grown into the valuation than others. Some are growing way faster than the ones with fundamentals. Point is to do your homework vs treating every company that’s valued similarly and putting them in the same bucket.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2056125669466333672" target="_blank" rel="noopener">https://x.com/nikunj/status/2056125669466333672</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Aditya Agarwal</h3>
+    <div class="bio">General Partner @SouthPkCommons, Co-Founder @Bevel_Health | Ex: Early Eng @facebook, CTO @Dropbox, Board @Flipkart | Optimist, Builder, Dad</div>
+    <div class="synthesis"><p>South Park Commons GP、前 Dropbox CTO Aditya Agarwal 分享了一个平衡的周末快照：周五用 AI 写代码，周六看人类体育比赛和孩子舞蹈表演。言外之意？意义和目的并没有消失——它们只是在人与机器劳动之间重新分配。</p></div>
+    <blockquote>On Friday I used AI to write a lot of code.
+
+And then on Saturday I watched humans play sports (FA Cup Final) and dance (my kid&#39;s dance recital).
+
+I am not worried that we won&#39;t have meaning and purpose.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/adityaag/status/2056015684145127612" target="_blank" rel="noopener">https://x.com/adityaag/status/2056015684145127612</a></div>
+  </article><article class="item" id="item-i10">
+    <h3>Sam Altman</h3>
+    <div class="bio">AI is cool i guess</div>
+    <div class="synthesis"><p>OpenAI CEO Sam Altman 宣布，仅在印度，ChatGPT Images 2.0 生成的图片数量就已突破 10 亿张。这一里程碑标志着生成式图像工具在全球的大规模普及，印度也成为 OpenAI 视觉产品使用量最高的市场之一。</p></div>
+    <blockquote>ChatGPT Images 2.0 💚 India.
+
+Already more than 1 billion images created there; awesome to see.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/sama/status/2056165722804654196" target="_blank" rel="noopener">https://x.com/sama/status/2056165722804654196</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i11">
+    <h3>AI &amp; I by Every</h3>
+    <div class="bio">Podcast</div>
+    <div class="synthesis"><p>Alethic 创始人、Percolate 联合创始人 Noah Breyer 打造了可能是目前最深度集成的 Claude Code 工作流。他在地下室跑了一台家用服务器，托管整个 Obsidian 知识库，再在上面叠加 Claude Code——把手机变成一个能跨笔记和网页做研究、提出尖锐问题、并持续记录所学所思的思考伙伴。这期节目深度拆解了他的技术栈和工作流：他如何把 Claude 不只是当作编程助手，而是当作真正的 second brain（第二大脑），用来写作、研究、随时随地发代码。对于想把 Claude Code 玩出终端之外的人来说，这是一份蓝图。</p></div>
+    <blockquote>Claude Code Can Be Your Second Brain</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=in7i-EVDDlk" target="_blank" rel="noopener">https://www.youtube.com/watch?v=in7i-EVDDlk</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
