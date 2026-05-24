@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-05-24</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  /* Language toggle: pure CSS, falls back to stacked sections in old WebViews. */
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  /* By default both sections show (graceful fallback). When a radio is
+     checked, the opposite section hides. */
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  section.themes {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  section.themes h2 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .theme {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .theme:last-child { border-bottom: 0; }
+  .theme h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .theme .contributors {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .theme .contributors a { color: var(--accent); text-decoration: none; }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-05-24</h1>
+  <div class="meta">11 builders · 1 blog post · 1 podcast episode · 2 themes · generated 2026-05-24 01:01 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Google I/O: World Models and Agentic AI</h3>
+        <div class="theme-synthesis"><p>Google I/O showcased Omni as a genuine world model and Spark as a next-generation consumer agent, signaling Google&#39;s bet that simulation and action are the next frontier after language. Builders are debating whether world models need pure visual understanding or can piggyback on language, and whether today&#39;s scaffolding around agents will eventually be written by the models themselves.</p></div>
+        <div class="contributors">→ <a href="#item-i1">Oriol Vinyals</a>, <a href="#item-i2">Swyx</a>, <a href="#item-i3">Google Labs</a></div>
+      </div><div class="theme">
+        <h3>AI Agents as Teammates, Not Tools</h3>
+        <div class="theme-synthesis"><p>Multiple builders this week framed AI agents as teammates rather than tools—whether in coding, security, or creative work. The consensus is that agents amplify demand for human judgment rather than replace it, creating a Jevons paradox for security engineers and a premium on taste for developers and writers.</p></div>
+        <div class="contributors">→ <a href="#item-i4">Aaron Levie</a>, <a href="#item-i5">Peter Yang</a>, <a href="#item-i6">Swyx</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i2">
+    <h3>Swyx</h3>
+    <div class="bio">Founder, Latent Space Podcast; DXTips, Cognition, Temporal</div>
+    <div class="synthesis"><p>Swyx argues that scaling transformers alone is hitting diminishing returns because the architecture is &#39;demonstrably inefficient&#39; at certain kinds of reasoning. He points to a mental framework for learning rungs—pattern matching, reasoning, hypothesis generation—and suggests that adversarial world models (which he wrote about earlier this year) are necessary to climb toward the &#39;Kolmogorov-limit generator of reality.&#39; The implication: the next breakthrough may come from a simpler system that can hypothesize and falsify, not just a bigger one that interpolates.</p></div>
+    <blockquote>Throwing more params, more power, more everything at a demonstrably inefficient paradigm will be outclassed by the simple solution that can hypothesize and seek truth rather than backfit a house of cards.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/swyx/status/2058073815301972368" target="_blank" rel="noopener">https://x.com/swyx/status/2058073815301972368</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Google Labs</h3>
+    <div class="bio">Google’s home for latest AI tools and experiments</div>
+    <div class="synthesis"><p>Google Labs used I/O to rebrand its experiments portal and surface new tools. While the tweet is promotional, it situates the broader I/O narrative: Google is packaging its research—world models, agents, multimodal APIs—into consumer-facing experiments faster than before. For builders, the signal is that Google&#39;s internal &#39;lab&#39; pipeline is now closer to product.</p></div>
+    <blockquote>Take a quick break from scrolling and check out https://t.co/TcBfiPohNK. We had a bit of a refresh!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/GoogleLabs/status/2057884277384360416" target="_blank" rel="noopener">https://x.com/GoogleLabs/status/2057884277384360416</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO of Box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie reads the Mythos security update and sees a textbook Jevons paradox: AI makes it easier to generate and detect vulnerabilities, which increases—not decreases—the volume of work that requires human triage and judgment. His take is that security engineering is about to boom because the limiting factor shifts from discovery to remediation.</p></div>
+    <blockquote>We&#39;ve made it far easier to create and find security issues, which means the new bottleneck is our ability to actually review, respond to, and fix the issues.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2058006473620463985" target="_blank" rel="noopener">https://x.com/levie/status/2058006473620463985</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Peter Yang</h3>
+    <div class="bio">Product at Roblox; AI tutorials and interviews</div>
+    <div class="synthesis"><p>Peter Yang offers a six-step playbook for employees navigating the agentic era: read the signals, learn Codex and Claude Code, build side projects, develop a GitHub history, become top 10% at a craft, and let the market determine your value. His core argument is that AI compresses the middle of the skill distribution, which raises the premium on taste, judgment, and demonstrable craft. The antidote to replaceability is public proof of work.</p></div>
+    <blockquote>AI gets people to average really fast. But that just means customers are willing to pay more for human craft and taste.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2057830781352034322" target="_blank" rel="noopener">https://x.com/petergyang/status/2057830781352034322</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Swyx</h3>
+    <div class="bio">Founder, Latent Space Podcast; DXTips, Cognition, Temporal</div>
+    <div class="synthesis"><p>Swyx introduces Kakuna, a subagent system focused on &#39;hardening&#39; codebases through checklists and parallel execution. The design philosophy is &#39;mullet factory&#39;—party in front (unique features), dark in back (production principles). It encodes strong opinions on how AI engineers should structure apps for both human and agent access, emphasizing that the anti-entropy layer of software development can be automated while creative work stays human.</p></div>
+    <blockquote>Kakuna: skills with checklists that only know how to harden your codebase. /plan with it then let it /goal for a day, it comes back with same functionality but all the boring stuff done for you + an audit of its own work.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/swyx/status/2057876022553690327" target="_blank" rel="noopener">https://x.com/swyx/status/2057876022553690327</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO of Y Combinator</div>
+    <div class="synthesis"><p>YC CEO Garry Tan shipped GBrain v0.40.0, adding a voice agent layer to OpenClaw and Hermes agents using Gemini Live. The release underscores a broader trend: voice is becoming the default interface for personal AI agents, with large context windows and tool use making &#39;Mars as a friend, Venus as your EA&#39; a plausible near-term reality. For builders, the signal is that voice infrastructure is now commodity enough to ship in an open-source side project.</p></div>
+    <blockquote>GBrain just shipped v0.40.0 gives your OpenClaw/Hermes Agent + GBrain a voice agent. It&#39;s based on Gemini Live. Large context, great tool use, full brain access.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2058053659527913566" target="_blank" rel="noopener">https://x.com/garrytan/status/2058053659527913566</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO of Y Combinator</div>
+    <div class="synthesis"><p>Garry Tan reframes Geoffrey Moore&#39;s chasm for the AI era: when the alternative to your product is literally nothing—no incumbent, no status quo—pragmatist buyers behave like visionaries. He argues that the most exciting YC companies aren&#39;t disrupting incumbents but filling voids where the bar is zero. The tactical advice: if your customer&#39;s current alternative is &#39;nothing,&#39; ship the 60% solution now instead of chasing whole-product perfection.</p></div>
+    <blockquote>When the bar is zero, when the alternative is literally &#39;we die&#39; or &#39;we do this entirely by hand with 2,000 people&#39;? The chasm doesn&#39;t exist for those.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2058043367704195271" target="_blank" rel="noopener">https://x.com/garrytan/status/2058043367704195271</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Matt Turck</h3>
+    <div class="bio">VC at FirstMark Capital; host of MAD Podcast</div>
+    <div class="synthesis"><p>FirstMark VC Matt Turck amplifies Yann Dubois&#39;s observation that OpenAI&#39;s recent public breakthroughs are the result of continuous, compounding progress rather than singular leaps. The builder takeaway: the labs that win are the ones that optimize for iteration velocity and cumulative marginal gains, not just headline demos.</p></div>
+    <blockquote>AI progress has been pretty wild over the last few months but behind the scenes at OpenAI, it&#39;s continuous progress compounding.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/mattturck/status/2057913362608972256" target="_blank" rel="noopener">https://x.com/mattturck/status/2057913362608972256</a></div>
+  </article><article class="item" id="item-i10">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner at FPV Ventures</div>
+    <div class="synthesis"><p>FPV Ventures partner Nikunj Kothari closed a Series A lead this week and made a point of noting the company is &#39;not AI.&#39; In a funding environment where every pitch deck claims generative AI, deliberately non-AI bets can be contrarian signals. His second tweet—&#39;This time is too important to NOT be doing your life&#39;s best work&#39;—frames the current moment as one where capital and talent are converging on problems that matter, regardless of the underlying tech stack.</p></div>
+    <blockquote>Docs signed, wire released, excited to lead the Series A of a special company.. PS: It&#39;s not AI</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2057947701762019751" target="_blank" rel="noopener">https://x.com/nikunj/status/2057947701762019751</a></div>
+  </article><article class="item" id="item-i11">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">Founder, OpenClaw; previously PSPDFKit</div>
+    <div class="synthesis"><p>OpenClaw founder Peter Steinberger notes that GitHub has natively shipped a feature his team previously had to enforce with bots: a per-person PR limit. The subtext is that as AI agents generate more code, repository hygiene and review bandwidth become bottlenecks. Native tooling for rate-limiting agent output is a small but telling signal that GitHub sees agent-generated PRs as a first-class workload.</p></div>
+    <blockquote>We used bots so far to enforce a 10PR per &#39;person&#39; limit. Great to see GitHub shipping that natively!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2057946259709628781" target="_blank" rel="noopener">https://x.com/steipete/status/2057946259709628781</a></div>
+  </article><article class="item" id="item-i12">
+    <h3>Dan Shipper</h3>
+    <div class="bio">CEO of Every</div>
+    <div class="synthesis"><p>Every CEO Dan Shipper is speaking about his essay &#39;After Automation,&#39; which explores what work looks like when AI handles the repeatable. His framing suggests that the post-automation economy rewards taste, curation, and human connection—areas where agents are assistants rather than replacements. For builders, the essay is a prompt to design products that augment judgment rather than just accelerate output.</p></div>
+    <blockquote>I&#39;ll be talking about my piece: After Automation!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/danshipper/status/2057885219936473195" target="_blank" rel="noopener">https://x.com/danshipper/status/2057885219936473195</a></div>
+  </article><article class="item" id="item-i14">
+    <h3>Kevin Weil</h3>
+    <div class="bio">Former CPO+Science at OpenAI; President at Planet; product lead at Instagram and Twitter</div>
+    <div class="synthesis"><p>Former OpenAI CPO Kevin Weil shares a simple but resonant mantra: &#39;Make no little plans.&#39; In an era where AI compresses execution cycles, the differentiator between impactful builders and incremental ones is the size of the ambition they choose to pursue. The tweet is short, but the context—Weil&#39;s career spanning Twitter, Instagram, Planet, and OpenAI—gives it weight.</p></div>
+    <blockquote>Make no little plans.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/kevinweil/status/2057987544663364045" target="_blank" rel="noopener">https://x.com/kevinweil/status/2057987544663364045</a></div>
+  </article><article class="item" id="item-i15">
+    <h3>Claude</h3>
+    <div class="bio">Anthropic&#39;s AI assistant</div>
+    <div class="synthesis"><p>Anthropic&#39;s official account spotlights Kay Zhu, co-founder and CTO of Genspark AI, in its &#39;Problem Solvers&#39; series. The emphasis on team over tooling is a deliberate narrative: as AI infrastructure commoditizes, the moat shifts from model access to execution velocity and team cohesion. For founders, the signal is that investors and platforms are increasingly underwriting people, not just prompts.</p></div>
+    <blockquote>In a market moving this fast, where anyone can build, he thinks the team is what makes the difference.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/claudeai/status/2057854403558653983" target="_blank" rel="noopener">https://x.com/claudeai/status/2057854403558653983</a></div>
+  </article><h2 class="section-title">Official blogs</h2><article class="item" id="item-i13">
+    <h3>Anthropic</h3>
+    <div class="bio">Claude Blog</div>
+    <div class="synthesis"><p>Anthropic shipped three major upgrades to Claude Managed Agents: Dreaming, Outcomes, and multiagent orchestration. Dreaming lets agents review their own session history to extract patterns and curate memories between runs—essentially scheduled self-reflection. Outcomes adds a rubric-based grader that evaluates agent output in a separate context window, improving task success by up to 10 points on hard problems and boosting docx/pptx generation quality by 8–10%. Multiagent orchestration allows a lead agent to delegate parallel subtasks to specialists with their own models and tools, complete with persistent events and full traceability in the Claude Console. Early adopters include Harvey (6x completion rate improvement), Netflix (parallel log analysis), and Spiral by Every (Haiku lead + Opus writers with outcomes-based quality gates).</p></div>
+    <blockquote>Today we&#39;re launching dreaming in Claude Managed Agents as a research preview. Dreaming extends memory by reviewing past sessions to find patterns and help agents self-improve.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://claude.com/blog/new-in-claude-managed-agents" target="_blank" rel="noopener">https://claude.com/blog/new-in-claude-managed-agents</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
+    <h3>Oriol Vinyals</h3>
+    <div class="bio">Co-lead of Gemini at Google DeepMind</div>
+    <div class="synthesis"><p>The Takeaway: Google believes world models are the next layer after language, but the &#39;GPT moment&#39; for pure visual understanding—extracting physics from video without text—hasn&#39;t arrived yet. Oriol Vinyals, co-lead of Gemini, explains that Omni represents real progress in interactive video generation and simulation, yet the holy grail is learning concepts directly from pixels without language as a crutch. He notes that evaluation is the hardest open problem: once you add language to a world model, it becomes impossible to tell whether the model truly understands physics or is just regurgitating textbook explanations. For robotics, world models could eventually replace expensive physical training with simulation, but the precision gap for motor control—grasping forces, tactile feedback—remains wide.</p></div>
+    <blockquote>Could we train on all the videos ever produced and images and get to the same level of understanding that clearly the language models using language get to?</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=NQczevdpxq0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=NQczevdpxq0</a></div>
+  </article></section>
+<section data-lang="zh"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Google I/O: World Models and Agentic AI</h3>
+        <div class="theme-synthesis"><p>Google I/O 发布了 Omni 世界模型和 Spark 消费级 agent，表明 Google 押注仿真与行动是语言之后的下一个前沿。builder 们正在争论：世界模型是否需要纯粹视觉理解，还是可借助语言旁路；今天的 agent 脚手架最终是否会被模型自己编写。</p></div>
+        <div class="contributors">→ <a href="#item-i1">Oriol Vinyals</a>, <a href="#item-i2">Swyx</a>, <a href="#item-i3">Google Labs</a></div>
+      </div><div class="theme">
+        <h3>AI Agents as Teammates, Not Tools</h3>
+        <div class="theme-synthesis"><p>本周多位 builder 将 AI agent 定位为队友而非工具——无论是在编程、安全还是创意工作中。共识是 agent 放大对人类判断的需求，而非取代它：安全工程师迎来 Jevons 悖论，开发者和写作者则因品味而获得溢价。</p></div>
+        <div class="contributors">→ <a href="#item-i4">Aaron Levie</a>, <a href="#item-i5">Peter Yang</a>, <a href="#item-i6">Swyx</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i2">
+    <h3>Swyx</h3>
+    <div class="bio">Founder, Latent Space Podcast; DXTips, Cognition, Temporal</div>
+    <div class="synthesis"><p>Swyx 认为单纯扩展 transformer 正面临收益递减，因为该架构在某些推理类型上 &#39;明显低效&#39;。他提出一个学习层级框架——模式识别、推理、假设生成——并指出对抗性世界模型（他年初曾撰文讨论）是通往 &#39;Kolmogorov 极限现实生成器&#39; 的必要路径。这意味着：下一个突破可能来自能够假设并证伪的更简单系统，而非只会插值的更大模型。</p></div>
+    <blockquote>Throwing more params, more power, more everything at a demonstrably inefficient paradigm will be outclassed by the simple solution that can hypothesize and seek truth rather than backfit a house of cards.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/swyx/status/2058073815301972368" target="_blank" rel="noopener">https://x.com/swyx/status/2058073815301972368</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Google Labs</h3>
+    <div class="bio">Google’s home for latest AI tools and experiments</div>
+    <div class="synthesis"><p>Google Labs 借 I/O 重新包装其实验门户并推出新工具。虽然推文本身偏宣传，但它印证了一个更大的叙事：Google 正把研究成果——世界模型、agent、多模态 API——更快地转化为面向消费者的实验。对 builder 而言，信号是 Google 内部 &#39;实验室&#39; 管线与产品的距离正在缩短。</p></div>
+    <blockquote>Take a quick break from scrolling and check out https://t.co/TcBfiPohNK. We had a bit of a refresh!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/GoogleLabs/status/2057884277384360416" target="_blank" rel="noopener">https://x.com/GoogleLabs/status/2057884277384360416</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO of Box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie 在解读 Mythos 安全更新时看到了典型的 Jevons 悖论：AI 让生成和发现漏洞变得更容易，反而增加了需要人工分类与判断的工作量。他认为安全工程即将爆发，因为瓶颈从发现转向了修复。</p></div>
+    <blockquote>We&#39;ve made it far easier to create and find security issues, which means the new bottleneck is our ability to actually review, respond to, and fix the issues.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2058006473620463985" target="_blank" rel="noopener">https://x.com/levie/status/2058006473620463985</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Peter Yang</h3>
+    <div class="bio">Product at Roblox; AI tutorials and interviews</div>
+    <div class="synthesis"><p>Peter Yang 为员工提供了应对 agent 时代的六步指南：读懂信号、学习 Codex 和 Claude Code、做 side project、积累 GitHub 履历、把某项手艺做到前 10%、让市场决定你的价值。他的核心论点是 AI 压缩了技能分布的中段，从而抬高了品味、判断力和可证明手艺的溢价。对抗可替代性的解药是公开的作品证明。</p></div>
+    <blockquote>AI gets people to average really fast. But that just means customers are willing to pay more for human craft and taste.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2057830781352034322" target="_blank" rel="noopener">https://x.com/petergyang/status/2057830781352034322</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Swyx</h3>
+    <div class="bio">Founder, Latent Space Podcast; DXTips, Cognition, Temporal</div>
+    <div class="synthesis"><p>Swyx 介绍了 Kakuna，一个通过 checklist 和并行执行来 &#39;加固&#39; 代码库的 subagent 系统。其设计理念是 &#39;mullet 工厂&#39;——前面派对（独特功能），后面黑暗（生产原则）。它对 AI 工程师如何构建面向人类和 agent 的应用有强烈主张，强调软件开发中的反熵层可以自动化，而创意工作仍属于人类。</p></div>
+    <blockquote>Kakuna: skills with checklists that only know how to harden your codebase. /plan with it then let it /goal for a day, it comes back with same functionality but all the boring stuff done for you + an audit of its own work.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/swyx/status/2057876022553690327" target="_blank" rel="noopener">https://x.com/swyx/status/2057876022553690327</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO of Y Combinator</div>
+    <div class="synthesis"><p>YC CEO Garry Tan 发布了 GBrain v0.40.0，为 OpenClaw 和 Hermes agent 增加了基于 Gemini Live 的语音 agent 层。这次发布凸显了一个更广泛的趋势：语音正成为个人 AI agent 的默认交互界面，大上下文窗口和工具调用让 &#39;Mars 做朋友、Venus 做助理&#39; 成为近期可实现的现实。对 builder 而言，信号是语音基础设施已足够商品化，可以在开源 side project 中交付。</p></div>
+    <blockquote>GBrain just shipped v0.40.0 gives your OpenClaw/Hermes Agent + GBrain a voice agent. It&#39;s based on Gemini Live. Large context, great tool use, full brain access.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2058053659527913566" target="_blank" rel="noopener">https://x.com/garrytan/status/2058053659527913566</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO of Y Combinator</div>
+    <div class="synthesis"><p>Garry Tan 为 AI 时代重新诠释了 Geoffrey Moore 的 &#39;鸿沟&#39;：当你的产品的替代方案 literally 是零——没有现有玩家、没有现状——实用主义者买家会像愿景者一样行动。他认为最令人兴奋的 YC 公司并非颠覆在位者，而是填补 &#39;门槛为零&#39; 的空白。战术建议：如果客户当前的替代方案是 &#39;什么都没有&#39;，现在就交付 60% 的解决方案，而不是追求完整产品。</p></div>
+    <blockquote>When the bar is zero, when the alternative is literally &#39;we die&#39; or &#39;we do this entirely by hand with 2,000 people&#39;? The chasm doesn&#39;t exist for those.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2058043367704195271" target="_blank" rel="noopener">https://x.com/garrytan/status/2058043367704195271</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Matt Turck</h3>
+    <div class="bio">VC at FirstMark Capital; host of MAD Podcast</div>
+    <div class="synthesis"><p>FirstMark VC Matt Turck 转发了 Yann Dubois 的观察：OpenAI 最近的公开突破是持续、复利式进步的结果，而非单次飞跃。builder 的 takeaway：胜出的实验室是那些优化迭代速度和累积边际收益的团队，而不仅仅是会做 headline demo 的团队。</p></div>
+    <blockquote>AI progress has been pretty wild over the last few months but behind the scenes at OpenAI, it&#39;s continuous progress compounding.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/mattturck/status/2057913362608972256" target="_blank" rel="noopener">https://x.com/mattturck/status/2057913362608972256</a></div>
+  </article><article class="item" id="item-i10">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner at FPV Ventures</div>
+    <div class="synthesis"><p>FPV Ventures 合伙人 Nikunj Kothari 本周完成了一笔 Series A 领投，并特意注明该公司 &#39;不是 AI&#39;。在每一份 pitch deck 都声称使用生成式 AI 的融资环境中，刻意选择非 AI 标的反而可能是逆势信号。他的另一条推文——&#39;这个时代太重要了，不能不去做你一生中最好的工作&#39;——将当下定义为资本与人才汇聚于真正重要问题的时刻，无论底层技术栈是什么。</p></div>
+    <blockquote>Docs signed, wire released, excited to lead the Series A of a special company.. PS: It&#39;s not AI</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2057947701762019751" target="_blank" rel="noopener">https://x.com/nikunj/status/2057947701762019751</a></div>
+  </article><article class="item" id="item-i11">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">Founder, OpenClaw; previously PSPDFKit</div>
+    <div class="synthesis"><p>OpenClaw 创始人 Peter Steinberger 注意到 GitHub 原生上线了一个他的团队此前需要用 bot 强制执行的功能：每人 PR 上限。潜台词是：随着 AI agent 生成更多代码，仓库整洁度和 review 带宽成为瓶颈。原生限制 agent 产出的工具虽小，却表明 GitHub 已将 agent 生成的 PR 视为一级工作负载。</p></div>
+    <blockquote>We used bots so far to enforce a 10PR per &#39;person&#39; limit. Great to see GitHub shipping that natively!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2057946259709628781" target="_blank" rel="noopener">https://x.com/steipete/status/2057946259709628781</a></div>
+  </article><article class="item" id="item-i12">
+    <h3>Dan Shipper</h3>
+    <div class="bio">CEO of Every</div>
+    <div class="synthesis"><p>Every CEO Dan Shipper 正在分享他的文章《After Automation》，探讨当 AI 处理可重复工作时，工作会变成什么样。他的框架暗示后自动化经济奖励品味、策展和人际连接——在这些领域 agent 是助手而非替代者。对 builder 而言，这篇文章提醒他们要设计增强判断力的产品，而非仅仅加速产出。</p></div>
+    <blockquote>I&#39;ll be talking about my piece: After Automation!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/danshipper/status/2057885219936473195" target="_blank" rel="noopener">https://x.com/danshipper/status/2057885219936473195</a></div>
+  </article><article class="item" id="item-i14">
+    <h3>Kevin Weil</h3>
+    <div class="bio">Former CPO+Science at OpenAI; President at Planet; product lead at Instagram and Twitter</div>
+    <div class="synthesis"><p>前 OpenAI CPO Kevin Weil 分享了一句简单却有力的座右铭：&#39;Make no little plans.&#39; 在 AI 压缩执行周期的时代，有影响力的 builder 和渐进式 builder 之间的区别在于他们选择的抱负大小。推文虽短，但结合 Weil 横跨 Twitter、Instagram、Planet 和 OpenAI 的履历，分量十足。</p></div>
+    <blockquote>Make no little plans.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/kevinweil/status/2057987544663364045" target="_blank" rel="noopener">https://x.com/kevinweil/status/2057987544663364045</a></div>
+  </article><article class="item" id="item-i15">
+    <h3>Claude</h3>
+    <div class="bio">Anthropic&#39;s AI assistant</div>
+    <div class="synthesis"><p>Anthropic 官方账号在其 &#39;Problem Solvers&#39; 系列中 spotlight 了 Genspark AI 联合创始人兼 CTO Kay Zhu。强调团队而非工具是一种刻意叙事：随着 AI 基础设施商品化，护城河从模型获取转向执行速度和团队凝聚力。对创始人而言，信号是投资人和平台越来越看重人，而不仅是 prompt。</p></div>
+    <blockquote>In a market moving this fast, where anyone can build, he thinks the team is what makes the difference.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/claudeai/status/2057854403558653983" target="_blank" rel="noopener">https://x.com/claudeai/status/2057854403558653983</a></div>
+  </article><h2 class="section-title">Official blogs</h2><article class="item" id="item-i13">
+    <h3>Anthropic</h3>
+    <div class="bio">Claude Blog</div>
+    <div class="synthesis"><p>Anthropic 为 Claude Managed Agents 发布了三项重大升级：Dreaming、Outcomes 和多 agent 编排。Dreaming 让 agent 回顾自己的会话历史以提取模式并在运行间整理记忆——本质上是定时自我反思。Outcomes 增加了一个基于评分标准的 grader，在独立上下文窗口中评估 agent 输出，在难题上将任务成功率提升多达 10 个百分点，并将 docx/pptx 生成质量提高 8–10%。多 agent 编排允许主 agent 将并行子任务委派给拥有独立模型和工具的专家，具备持久事件和 Claude Console 中的完整可追溯性。早期采用者包括 Harvey（完成率提升约 6 倍）、Netflix（并行日志分析）和 Every 的 Spiral（Haiku 主控 + Opus 写手，配合基于 outcomes 的质量门禁）。</p></div>
+    <blockquote>Today we&#39;re launching dreaming in Claude Managed Agents as a research preview. Dreaming extends memory by reviewing past sessions to find patterns and help agents self-improve.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://claude.com/blog/new-in-claude-managed-agents" target="_blank" rel="noopener">https://claude.com/blog/new-in-claude-managed-agents</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
+    <h3>Oriol Vinyals</h3>
+    <div class="bio">Co-lead of Gemini at Google DeepMind</div>
+    <div class="synthesis"><p>核心观点：Google 认为世界模型是语言之后的下一层，但纯视觉理解的 &#39;GPT 时刻&#39;——从无文本视频中提取物理规律——尚未到来。Gemini 联合负责人 Oriol Vinyals 指出，Omni 在交互式视频生成和仿真方面取得了实质进展，但圣杯在于不借助语言、直接从像素中学习概念。他强调评估是最难的开放问题：一旦给世界模型加上语言，就无法判断它是真正理解物理，还是在背诵教科书。对机器人而言，世界模型最终有望用仿真替代昂贵的物理训练，但运动控制的精度缺口——抓取力度、触觉反馈——仍然很大。</p></div>
+    <blockquote>Could we train on all the videos ever produced and images and get to the same level of understanding that clearly the language models using language get to?</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=NQczevdpxq0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=NQczevdpxq0</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
