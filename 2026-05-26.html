@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-05-26</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  /* Language toggle: pure CSS, falls back to stacked sections in old WebViews. */
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  /* By default both sections show (graceful fallback). When a radio is
+     checked, the opposite section hides. */
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  section.themes {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  section.themes h2 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .theme {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .theme:last-child { border-bottom: 0; }
+  .theme h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .theme .contributors {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .theme .contributors a { color: var(--accent); text-decoration: none; }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-05-26</h1>
+  <div class="meta">9 builders · 1 podcast episode · generated 2026-05-26 09:01 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i2">
+    <h3>Peter Yang</h3>
+    <div class="bio">Product leader and writer</div>
+    <div class="synthesis"><p>Peter Yang gives a concise verdict on the new OpenAI Codex: excellent at self-testing via browser automation, but still behind Claude on design and frontend tasks. It&#39;s a nuanced take that reflects the current state of AI coding tools—different models excel at different parts of the stack.</p></div>
+    <blockquote>Codex is very good. I&#39;m especially impressed by how it uses the browse to test its own work. But any design related / frontend tasks, Claude still wins.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2059099566377693305" target="_blank" rel="noopener">https://x.com/petergyang/status/2059099566377693305</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Peter Yang</h3>
+    <div class="bio">Product leader and writer</div>
+    <div class="synthesis"><p>Peter Yang shares a lesson from Ryan Carson: in the AI agent era, building systems and documentation first is no longer procrastination—it&#39;s the prerequisite for shipping effectively. Carson ships 10 PRs a day by baking documentation into cron jobs with skill files, effectively doing the work of 10 people.</p></div>
+    <blockquote>What used to feel like procrastination (building systems instead of the MVP) is now a prerequisite to ship effectively with AI agents.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2059029752858775581" target="_blank" rel="noopener">https://x.com/petergyang/status/2059029752858775581</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO of Box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie pushes back on AI job-loss pessimism, arguing that automation doesn&#39;t eliminate work—it raises expectations. When tasks get automated, the market demands more comprehensive financial analysis, deeper legal advice, better software in previously unautomated niches. The world isn&#39;t static; jobs evolve because competitive pressure forces everyone to do more with the same automation.</p></div>
+    <blockquote>What happens is we constantly just demand more from everything. Instead of automating a task and delivering the same value proposition, but cheaper, we just expect more from the overall product or service.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2059025559896883489" target="_blank" rel="noopener">https://x.com/levie/status/2059025559896883489</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO of Y Combinator</div>
+    <div class="synthesis"><p>Y Combinator CEO Garry Tan shares a practical eval framework: use three frontier models as judges to rate your agent&#39;s skill file outputs, ask why it isn&#39;t a 10, and iterate. Combined with unit tests and skill files, this creates a self-improving system that &#39;stays better forever.&#39;</p></div>
+    <blockquote>By evals I mean literally tell the agent: given what we discussed about what we are doing and why and what happened, use three different frontier models to look at inputs and outputs of your skill file calling the code, and rate it on effectiveness.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2059148823403082154" target="_blank" rel="noopener">https://x.com/garrytan/status/2059148823403082154</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner at FPV Ventures</div>
+    <div class="synthesis"><p>FPV Ventures partner Nikunj Kothari defends why a VC should be building: the AI space moves so fast that prior assumptions expire every few months. Building is the only way to stay at the frontier, discover undocumented model capabilities, and actually understand the tools you&#39;re investing in.</p></div>
+    <blockquote>The space is moving so fast that the only way you can learn and stay at the frontier is by building. Priors need to be rethought every few months.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2058927145519562867" target="_blank" rel="noopener">https://x.com/nikunj/status/2058927145519562867</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">Founder of PSPDFKit, OpenClaw contributor</div>
+    <div class="synthesis"><p>Peter Steinberger details OpenClaw&#39;s aggressive dependency diet: replacing Sharp and Jimp with photon, a Rust-compiled WebAssembly image processor, slashing the bundle from 140MB to 2MB. It&#39;s a case study in how modern AI infrastructure projects are ruthlessly optimizing for size and speed.</p></div>
+    <blockquote>OpenClaw&#39;s dependency purge continues. Killed Sharp and Jimp. Replaced it with photon, a small WebAssembly that runs compiled Rust for image processing. 2MB vs 140MB.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2058922222790525272" target="_blank" rel="noopener">https://x.com/steipete/status/2058922222790525272</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">Founder of PSPDFKit, OpenClaw contributor</div>
+    <div class="synthesis"><p>Peter Steinberger offers a practical tip for skill authors: keep descriptions token-efficient. Verbose skill descriptions bloat every context window, wasting tokens and slowing inference. He even built a tool to find the worst offenders.</p></div>
+    <blockquote>Folks: when you write skills, ask your agent to be token efficient, relax grammer. I see too many skills that write books in the skill description, and all that crap is loaded into every context.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2058917897590673525" target="_blank" rel="noopener">https://x.com/steipete/status/2058917897590673525</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Dan Shipper</h3>
+    <div class="bio">CEO of Every</div>
+    <div class="synthesis"><p>Every CEO Dan Shipper quotes the Pope on AI&#39;s existential fork: a new Tower of Babel (fragmentation and confusion) or a city where humanity and technology coexist. He wryly notes the Pope has obviously been reading Every&#39;s 2024 coverage.</p></div>
+    <blockquote>Humanity, created by God in all its grandeur is today facing a pivotal choice: either to construct a new Tower of Babel or to build the city in which God and humanity dwell together.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/danshipper/status/2058962119287038145" target="_blank" rel="noopener">https://x.com/danshipper/status/2058962119287038145</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
+    <h3>Ivan Burazin</h3>
+    <div class="bio">CEO of Daytona, agent infrastructure startup</div>
+    <div class="synthesis"><p>Ivan Burazin, CEO of Daytona, makes a first-principles case for why every AI agent needs its own sandbox—a dedicated, isolated computer environment. He frames agents as &#39;digital knowledge workers&#39; that need real machines to install tools, execute code, browse the web, and operate securely without sharing credentials with their human operators. Daytona spins up sandboxes in 60 milliseconds and can launch 50,000 in under 90 seconds, with customers requesting up to 5 million concurrent instances. Burazin argues that current models don&#39;t actually learn on the job—they only retain context through memory—so the infrastructure layer (sandbox + tools + memory + orchestration) is where the real moat lies. He also warns that a global CPU shortage may arrive faster than people think, and that the current transformer/GPU paradigm may not be the end state of AI.</p></div>
+    <blockquote>My argument is that every agent will need at least one sandbox, sometimes more.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=kMXJrzAa5fM" target="_blank" rel="noopener">https://www.youtube.com/watch?v=kMXJrzAa5fM</a></div>
+  </article></section>
+<section data-lang="zh"><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i2">
+    <h3>Peter Yang</h3>
+    <div class="bio">Product leader and writer</div>
+    <div class="synthesis"><p>Peter Yang 对新版 OpenAI Codex 给出了简洁的评价：通过浏览器自动化自我测试的能力很强，但在设计和前端任务上仍不如 Claude。这反映了当前 AI 编程工具的现状——不同模型在技术栈的不同环节各有优势。</p></div>
+    <blockquote>Codex is very good. I&#39;m especially impressed by how it uses the browse to test its own work. But any design related / frontend tasks, Claude still wins.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2059099566377693305" target="_blank" rel="noopener">https://x.com/petergyang/status/2059099566377693305</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Peter Yang</h3>
+    <div class="bio">Product leader and writer</div>
+    <div class="synthesis"><p>Peter Yang 分享了 Ryan Carson 的经验：在 AI agent 时代，先搭建系统和文档不再是拖延，而是高效交付的前提。Carson 通过将文档嵌入 cron job 和 skill file，每天发 10 个 PR，相当于 10 个人的产出。</p></div>
+    <blockquote>What used to feel like procrastination (building systems instead of the MVP) is now a prerequisite to ship effectively with AI agents.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2059029752858775581" target="_blank" rel="noopener">https://x.com/petergyang/status/2059029752858775581</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO of Box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie 反驳了 AI 导致失业的悲观论调，认为自动化不会消灭工作，而是提高了期望。当任务被自动化后，市场会要求更全面的金融分析、更深入的法律建议、以及此前认为无法自动化的细分领域里更好的软件。世界不是静态的；工作会进化，因为竞争压力迫使所有人用同样的自动化做更多的事。</p></div>
+    <blockquote>What happens is we constantly just demand more from everything. Instead of automating a task and delivering the same value proposition, but cheaper, we just expect more from the overall product or service.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2059025559896883489" target="_blank" rel="noopener">https://x.com/levie/status/2059025559896883489</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO of Y Combinator</div>
+    <div class="synthesis"><p>Y Combinator CEO Garry Tan 分享了一个实用的 eval 框架：用三个 frontier model 作为裁判来评分 agent 的 skill file 输出，追问为什么不是满分，然后迭代。配合单元测试和 skill file，这能构建一个&quot;永远保持优秀&quot;的自改进系统。</p></div>
+    <blockquote>By evals I mean literally tell the agent: given what we discussed about what we are doing and why and what happened, use three different frontier models to look at inputs and outputs of your skill file calling the code, and rate it on effectiveness.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2059148823403082154" target="_blank" rel="noopener">https://x.com/garrytan/status/2059148823403082154</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner at FPV Ventures</div>
+    <div class="synthesis"><p>FPV Ventures 合伙人 Nikunj Kothari 解释了为什么投资人也要写代码：AI 领域变化太快，每隔几个月就要重新审视之前的假设。只有亲自 building 才能保持在最前沿，发现模型尚未被文档化的新能力，并真正理解你投资的产品。</p></div>
+    <blockquote>The space is moving so fast that the only way you can learn and stay at the frontier is by building. Priors need to be rethought every few months.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2058927145519562867" target="_blank" rel="noopener">https://x.com/nikunj/status/2058927145519562867</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">Founder of PSPDFKit, OpenClaw contributor</div>
+    <div class="synthesis"><p>Peter Steinberger 详细介绍了 OpenClaw 激进的依赖瘦身：用 photon（一个 Rust 编译的 WebAssembly 图像处理器）替换 Sharp 和 Jimp，将包体积从 140MB 压缩到 2MB。这是现代 AI 基础设施项目如何在体积和速度上极致优化的典型案例。</p></div>
+    <blockquote>OpenClaw&#39;s dependency purge continues. Killed Sharp and Jimp. Replaced it with photon, a small WebAssembly that runs compiled Rust for image processing. 2MB vs 140MB.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2058922222790525272" target="_blank" rel="noopener">https://x.com/steipete/status/2058922222790525272</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">Founder of PSPDFKit, OpenClaw contributor</div>
+    <div class="synthesis"><p>Peter Steinberger 给 skill 作者提了一个实用建议：保持描述 token-efficient。冗长的 skill 描述会膨胀每次调用的 context window，浪费 token 并拖慢推理速度。他甚至写了一个工具来找出最糟糕的违规者。</p></div>
+    <blockquote>Folks: when you write skills, ask your agent to be token efficient, relax grammer. I see too many skills that write books in the skill description, and all that crap is loaded into every context.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2058917897590673525" target="_blank" rel="noopener">https://x.com/steipete/status/2058917897590673525</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Dan Shipper</h3>
+    <div class="bio">CEO of Every</div>
+    <div class="synthesis"><p>Every CEO Dan Shipper 引用了教皇关于 AI 存在性抉择的论述：是建造一座新的巴别塔（分裂与混乱），还是建造一座人与技术共存的城市。他调侃说教皇显然一直在读 Every 2024 年的报道。</p></div>
+    <blockquote>Humanity, created by God in all its grandeur is today facing a pivotal choice: either to construct a new Tower of Babel or to build the city in which God and humanity dwell together.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/danshipper/status/2058962119287038145" target="_blank" rel="noopener">https://x.com/danshipper/status/2058962119287038145</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
+    <h3>Ivan Burazin</h3>
+    <div class="bio">CEO of Daytona, agent infrastructure startup</div>
+    <div class="synthesis"><p>Daytona CEO Ivan Burazin 从第一性原理出发，论证了为什么每个 AI agent 都需要自己的 sandbox——一个独立、隔离的计算机环境。他将 agent 视为&quot;数字知识工作者&quot;，需要真实的机器来安装工具、执行代码、浏览网页，并在不共享人类凭证的情况下安全运行。Daytona 能在 60 毫秒内启动 sandbox，90 秒内启动 5 万个，甚至有客户要求同时运行 500 万个实例。Burazin 指出，当前模型并不会在工作中真正&quot;学习&quot;，它们只是通过 memory 保留上下文，因此基础设施层（sandbox + 工具 + memory + 编排）才是真正的护城河。他还警告，全球 CPU 短缺可能比人们预想的来得更快，而当前的 transformer/GPU 范式未必是 AI 的终局。</p></div>
+    <blockquote>My argument is that every agent will need at least one sandbox, sometimes more.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=kMXJrzAa5fM" target="_blank" rel="noopener">https://www.youtube.com/watch?v=kMXJrzAa5fM</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
