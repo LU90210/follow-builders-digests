@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-05-29</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  /* Language toggle: pure CSS, falls back to stacked sections in old WebViews. */
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  /* By default both sections show (graceful fallback). When a radio is
+     checked, the opposite section hides. */
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  section.themes {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  section.themes h2 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .theme {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .theme:last-child { border-bottom: 0; }
+  .theme h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .theme .contributors {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .theme .contributors a { color: var(--accent); text-decoration: none; }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-05-29</h1>
+  <div class="meta">4 blog posts · 1 podcast episode · 1 theme · generated 2026-05-29 00:04 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Anthropic&#39;s Managed Agents Push</h3>
+        <div class="theme-synthesis"><p>Anthropic is making a concerted push on Managed Agents this week, shipping both a deep engineering post on the meta-harness architecture and new enterprise features including self-hosted sandboxes and MCP tunnels. The cluster of releases signals a maturation of Claude from chatbot to long-horizon agent platform — but the engineering blog is refreshingly honest about the trade-offs, including a postmortem on recent quality regressions in Claude Code.</p></div>
+        <div class="contributors">→ <a href="#item-i2">Anthropic Engineering</a>, <a href="#item-i3">Anthropic Engineering</a>, <a href="#item-i4">Claude Blog</a></div>
+      </div>
+  </section><h2 class="section-title">Official blogs</h2><article class="item" id="item-i2">
+    <h3>Anthropic Engineering</h3>
+    <div class="bio">Anthropic Engineering blog</div>
+    <div class="synthesis"><p>Anthropic published a rare public postmortem on recent Claude Code quality complaints, tracing them to three separate client-side changes — not model degradation. The culprits: a March 4 switch from high to medium reasoning effort (reverted April 7), a March 26 bug that kept clearing old thinking every turn instead of just once after idle (fixed April 10), and an April 16 system prompt tweak to reduce verbosity that accidentally hurt coding quality (reverted April 20). The aggregate effect looked like broad, inconsistent degradation because each change hit different traffic slices on different schedules. The post is a useful window into how hard it is to distinguish real model regressions from prompt and client-layer changes — and a reminder that even top labs ship bugs that feel like &#39;the model got dumber.&#39;</p></div>
+    <blockquote>We take reports about degradation very seriously. We never intentionally degrade our models, and we were able to immediately confirm that our API and inference layer were unaffected.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.anthropic.com/engineering/april-23-postmortem" target="_blank" rel="noopener">https://www.anthropic.com/engineering/april-23-postmortem</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Anthropic Engineering</h3>
+    <div class="bio">Anthropic Engineering blog</div>
+    <div class="synthesis"><p>This is the architectural deep-dive behind Managed Agents. Anthropic&#39;s engineering team explains how they virtualized an agent into three abstractions — session (append-only log), harness (the loop that calls Claude and routes tool calls), and sandbox (execution environment) — so each can be swapped without disturbing the others. The goal is to build a &#39;meta-harness&#39; that outlasts any particular model version or implementation, much like OS abstractions (process, file) outlasted hardware generations. A concrete win: decoupling the &#39;brain&#39; from the &#39;hands&#39; (sandbox) cut p50 time-to-first-token by ~60% and p95 by over 90%, because sessions no longer pay container setup cost unless they actually need one. The post also candidly admits that harness assumptions go stale as models improve — context resets added for Sonnet 4.5&#39;s &#39;context anxiety&#39; turned out to be dead weight on Opus 4.5.</p></div>
+    <blockquote>We expect harnesses to continue evolving. So we built Managed Agents: a hosted service in the Claude Platform that runs long-horizon agents on your behalf through a small set of interfaces meant to outlast any particular implementation.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.anthropic.com/engineering/managed-agents" target="_blank" rel="noopener">https://www.anthropic.com/engineering/managed-agents</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Claude Blog</h3>
+    <div class="bio">Claude Blog</div>
+    <div class="synthesis"><p>Anthropic is shipping two enterprise-focused Managed Agents features: self-hosted sandboxes (public beta) and MCP tunnels (research preview). Self-hosted sandboxes let companies keep sensitive files and execution inside their own perimeter — or with managed providers like Cloudflare, Daytona, Modal, and Vercel — while Anthropic handles the orchestration layer. MCP tunnels allow agents to reach private MCP servers (internal databases, APIs, knowledge bases) without exposing them to the public internet, via a lightweight gateway that makes a single outbound connection. Named customers already building on the stack include Amplitude (Design Agent on Cloudflare), Clay (Sculptor GTM agent on Daytona), and Rogo (finance analyst agent on Vercel). It&#39;s a clear bid to make Claude palatable to security-conscious enterprises that won&#39;t let code or data leave their infrastructure.</p></div>
+    <blockquote>Starting today, Claude Managed Agents can operate in a sandbox you control and connect to your private Model Context Protocol (MCP) servers.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://claude.com/blog/claude-managed-agents-updates" target="_blank" rel="noopener">https://claude.com/blog/claude-managed-agents-updates</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Claude Blog</h3>
+    <div class="bio">Claude Blog</div>
+    <div class="synthesis"><p>Claude&#39;s connector directory has grown to over 200 integrations since launching last July, and Anthropic is now pushing into consumer territory. New additions include AllTrails, Audible, Booking.com, Instacart, Intuit TurboTax, Resy, Spotify, StubHub, Taskrabbit, Thumbtack, Tripadvisor, Uber, and Uber Eats. The product tweak: connectors now dynamically surface based on conversation context rather than requiring the user to manually invoke them. Anthropic is also stressing its ad-free stance — &#39;no paid placements or sponsored answers&#39; — and that connected app data isn&#39;t used for model training. It&#39;s a modest but telling expansion of Claude&#39;s ambition from work assistant to general-purpose life concierge.</p></div>
+    <blockquote>Today we&#39;re expanding what you can connect to Claude. Alongside the work tools you already use, you can now connect the apps you use throughout your week, including AllTrails, Instacart, Audible, Tripadvisor, Intuit TurboTax, and more.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://claude.com/blog/connectors-for-everyday-life" target="_blank" rel="noopener">https://claude.com/blog/connectors-for-everyday-life</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
+    <h3>Dan Shipper</h3>
+    <div class="bio">Every co-founder and writer</div>
+    <div class="synthesis"><p>The Takeaway: More AI automation paradoxically creates more demand for human experts, not less. Dan Shipper, co-founder of the AI-native media company Every, makes a contrarian case against the doom narrative sweeping the industry. Every has grown from 4 to 30 people since GPT-3 while becoming &#39;as agent-native as it gets&#39; — yet Shipper insists the work has only multiplied. His core argument: AI makes &#39;yesterday&#39;s expert competence cheap,&#39; which floods the zone with okay-but-not-quite-right output. That glut devalues generic work and simultaneously increases demand for experts who can shepherd it across the finish line or build systems to filter it. He points to Every&#39;s own Kieran building an entire inbox end-to-end in a month — something &#39;totally impossible&#39; before — as proof that the floor rising lets experts reach higher. Shipper also pushes back on the idea that benchmarks mean human obsolescence. He notes that once a benchmark is saturated, it&#39;s trivial to &#39;unsaturate&#39; it with a broader framing — and that anything humans can articulate as a difference, models will eventually hill-climb toward. The real gap, he argues, is that humans have wants, needs, and playful curiosity that aren&#39;t in the training data. Agents are built to be compliant, not self-motivated. &#39;The further away an agent gets from a human, the less valuable it is.&#39;</p></div>
+    <blockquote>If you just ride the models, you&#39;re going to be fine. If you care about leading a really ambitious life, I truly think that this is going to make that more possible for more people.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=dCmOTURRf1Y" target="_blank" rel="noopener">https://www.youtube.com/watch?v=dCmOTURRf1Y</a></div>
+  </article></section>
+<section data-lang="zh"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Anthropic&#39;s Managed Agents Push</h3>
+        <div class="theme-synthesis"><p>Anthropic 本周在 Managed Agents 上集中发力，既发布了一篇关于 meta-harness 架构的深度工程长文，也推出了面向企业的新功能，包括 self-hosted sandbox 和 MCP tunnels。这一系列发布标志着 Claude 正从聊天机器人向长周期 agent 平台演进——而工程博客对近期 Claude Code 质量回退的坦诚复盘，也让这轮攻势显得尤为实在。</p></div>
+        <div class="contributors">→ <a href="#item-i2">Anthropic Engineering</a>, <a href="#item-i3">Anthropic Engineering</a>, <a href="#item-i4">Claude Blog</a></div>
+      </div>
+  </section><h2 class="section-title">Official blogs</h2><article class="item" id="item-i2">
+    <h3>Anthropic Engineering</h3>
+    <div class="bio">Anthropic Engineering blog</div>
+    <div class="synthesis"><p>Anthropic 罕见地发布了一份关于近期 Claude Code 质量投诉的公开复盘，将问题追溯到三个独立的客户端改动，而非模型本身退化。元凶包括：3 月 4 日将默认 reasoning effort 从高改为中（4 月 7 日回滚）、3 月 26 日的一个 bug 导致 idle 后清理历史 thinking 的逻辑在后续每一轮都重复触发（4 月 10 日修复）、以及 4 月 16 日为降低冗长度而调整 system prompt 却意外损害了代码质量（4 月 20 日回滚）。由于三个改动影响的是不同流量切片且时间错开，叠加起来就像是一次大范围、不规律的能力下滑。这篇文章让我们看到：区分 &#39;模型真变笨了&#39; 和 &#39;客户端层改动导致的错觉&#39; 有多困难——也提醒我们，即便是顶尖实验室也会上线让用户感觉 &#39;模型变蠢了&#39; 的 bug。</p></div>
+    <blockquote>We take reports about degradation very seriously. We never intentionally degrade our models, and we were able to immediately confirm that our API and inference layer were unaffected.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.anthropic.com/engineering/april-23-postmortem" target="_blank" rel="noopener">https://www.anthropic.com/engineering/april-23-postmortem</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Anthropic Engineering</h3>
+    <div class="bio">Anthropic Engineering blog</div>
+    <div class="synthesis"><p>这是一篇关于 Managed Agents 架构的深度长文。Anthropic 工程团队将 agent 虚拟化为三个抽象层——session（只追加日志）、harness（调用 Claude 并路由 tool call 的循环）和 sandbox（执行环境）——使得每一层都可以独立替换而不影响其他层。目标是打造一个能超越任何特定模型版本或实现的 &#39;meta-harness&#39;，就像操作系统里的 process、file 等抽象比底层硬件寿命更长一样。一个具体的性能收益：将 &#39;大脑&#39; 与 &#39;手脚&#39;（sandbox）解耦后，p50 TTFT 降低了约 60%，p95 降低超过 90%，因为不需要 container 的会话不再承担容器启动开销。文章也坦诚承认，harness 的假设会随着模型能力提升而失效——为 Sonnet 4.5 的 &#39;context anxiety&#39; 添加的 context reset，在 Opus 4.5 上变成了 dead weight。</p></div>
+    <blockquote>We expect harnesses to continue evolving. So we built Managed Agents: a hosted service in the Claude Platform that runs long-horizon agents on your behalf through a small set of interfaces meant to outlast any particular implementation.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.anthropic.com/engineering/managed-agents" target="_blank" rel="noopener">https://www.anthropic.com/engineering/managed-agents</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Claude Blog</h3>
+    <div class="bio">Claude Blog</div>
+    <div class="synthesis"><p>Anthropic 推出了两项面向企业的 Managed Agents 功能：self-hosted sandboxes（公开 beta）和 MCP tunnels（研究预览）。Self-hosted sandbox 让企业可以把敏感文件和执行环境留在自己的基础设施内——或交由 Cloudflare、Daytona、Modal、Vercel 等托管提供商——而 Anthropic 只负责 orchestration 层。MCP tunnels 则让 agent 无需将内部 MCP server（数据库、私有 API、知识库等）暴露到公网即可访问，通过一个轻量级网关建立单一出站连接实现。已公布的客户案例包括 Amplitude（在 Cloudflare 上构建 Design Agent）、Clay（在 Daytona 上运行 GTM agent Sculptor）和 Rogo（在 Vercel 上搭建金融分析师 agent）。这显然是 Anthropic 向那些不允许代码和数据离开自有基础设施的安全敏感型企业伸出的橄榄枝。</p></div>
+    <blockquote>Starting today, Claude Managed Agents can operate in a sandbox you control and connect to your private Model Context Protocol (MCP) servers.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://claude.com/blog/claude-managed-agents-updates" target="_blank" rel="noopener">https://claude.com/blog/claude-managed-agents-updates</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Claude Blog</h3>
+    <div class="bio">Claude Blog</div>
+    <div class="synthesis"><p>自去年 7 月上线以来，Claude 的 connector 目录已增长到 200 多个集成，而 Anthropic 现在正把触角伸向消费级场景。新增应用包括 AllTrails、Audible、Booking.com、Instacart、Intuit TurboTax、Resy、Spotify、StubHub、Taskrabbit、Thumbtack、Tripadvisor、Uber 和 Uber Eats。产品层面的微调是：connector 不再依赖用户手动唤起，而是根据对话上下文动态推荐。Anthropic 同时强调了 &#39;无广告、无付费植入&#39; 的立场，并承诺连接应用的数据不会用于模型训练。这是一次温和但意味深长的扩张——Claude 的野心正从工作助手向通用生活管家延伸。</p></div>
+    <blockquote>Today we&#39;re expanding what you can connect to Claude. Alongside the work tools you already use, you can now connect the apps you use throughout your week, including AllTrails, Instacart, Audible, Tripadvisor, Intuit TurboTax, and more.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://claude.com/blog/connectors-for-everyday-life" target="_blank" rel="noopener">https://claude.com/blog/connectors-for-everyday-life</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
+    <h3>Dan Shipper</h3>
+    <div class="bio">Every co-founder and writer</div>
+    <div class="synthesis"><p>核心观点：更多的 AI 自动化反而会增加对人类专家的需求，而不是减少。Every 联合创始人 Dan Shipper 对当下席卷行业的末日叙事提出了反直觉的反驳。这家自 GPT-3 时代起就极度 agent-native 的公司，人员从 4 人扩张到了 30 人——但 Shipper 坚称工作量只增不减。他的核心论点是：AI 让 &#39;昨天的专家能力&#39; 变得廉价，导致市场上充斥着大量 &#39;差不多对、但又不完全对&#39; 的产出。这种泛滥压低了平庸工作的价值，同时却提升了能把这些半成品打磨到交付水准的专家需求。他以公司内 Kieran 在一个月内从零搭建完整 inbox 为例——这在以前 &#39;完全不可能&#39;——证明当底线被抬高后，专家能触及的上限也更高。Shipper 还反驳了 &#39;benchmark 饱和即人类失业&#39; 的说法。他指出，一旦某个 benchmark 被刷满，换个更宽泛的 framing 就能立刻 &#39;取消饱和&#39;；而且人类一旦能清晰说出自己比模型强在哪，模型就会朝着那个方向 hill-climb。真正的鸿沟在于，人类拥有欲望、需求和 playful 的好奇心，而这些并不在训练数据里。Agent 天生被设计成服从，而非自我驱动。&#39;The further away an agent gets from a human, the less valuable it is.&#39;</p></div>
+    <blockquote>If you just ride the models, you&#39;re going to be fine. If you care about leading a really ambitious life, I truly think that this is going to make that more possible for more people.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=dCmOTURRf1Y" target="_blank" rel="noopener">https://www.youtube.com/watch?v=dCmOTURRf1Y</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
