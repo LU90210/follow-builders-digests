@@ -221,7 +221,7 @@
 <input type="radio" name="lang" id="lang-zh">
 <header class="digest-header">
   <h1>AI Builders Digest — 2026-05-31</h1>
-  <div class="meta">8 builders · 1 podcast episode · 1 theme · generated 2026-05-31 00:01 UTC</div>
+  <div class="meta">8 builders · 1 podcast episode · 2 themes · generated 2026-05-31 07:02 UTC</div>
   <div class="lang-toggle">
     <label for="lang-en">English</label>
     <label for="lang-zh">中文</label>
@@ -231,22 +231,29 @@
 <section data-lang="en"><section class="themes">
     <h2>Themes today</h2>
     <div class="theme">
-        <h3>Agentic AI Goes Mainstream</h3>
-        <div class="theme-synthesis"><p>Multiple builders are converging on the same signal: AI agents are no longer experimental—they&#39;re rewriting how real companies ship software. From Salesforce&#39;s 231-day migration collapsing to 13 days with Claude Code, to OpenAI&#39;s Jan Dubois explaining how reliability thresholds finally make agentic coding trustworthy, the conversation has shifted from &#39;will agents work?&#39; to &#39;how fast can we reorganize around them?&#39;.</p></div>
-        <div class="contributors">→ <a href="#item-i1">Boris Cherny</a>, <a href="#item-i2">Jan Dubois</a>, <a href="#item-i3">Thibault Sottiaux</a></div>
+        <h3>Salesforce&#39;s Agentic Transformation with Claude Code</h3>
+        <div class="theme-synthesis"><p>Salesforce published a detailed case study on going agentic with Claude Code, and the results are striking: a 231-day migration shipped in 13 days, one PR delivered 21 endpoints at 100% test coverage, and total incidents dropped 5% despite higher output. The cluster of builders around this story is less about celebrating the numbers and more about what they signal — that the teams seeing the biggest wins are completely changing how they work, not just speeding up what they already do.</p></div>
+        <div class="contributors">→ <a href="#item-i2">Boris Cherny</a>, <a href="#item-i3">Thibault Sottiaux</a></div>
+      </div><div class="theme">
+        <h3>The Rise of AI Agents and the Need for Guardians</h3>
+        <div class="theme-synthesis"><p>As autonomous AI agents proliferate in enterprises — from coding assistants like Claude Code and Codex to low-code platforms — a new security paradigm is emerging. Onyx Security CEO Maxim Bar Kogan argues that traditional security tools (identity, endpoint, API security) are ill-equipped for agents that need broad permissions to be useful, and that enterprises now need specialized &#39;guardian&#39; agents trained to oversee other agents. The consensus among builders is that agentic adoption is outpacing security controls, creating both risk and opportunity.</p></div>
+        <div class="contributors">→ <a href="#item-i1">Maxim Bar Kogan</a>, <a href="#item-i2">Boris Cherny</a>, <a href="#item-i6">Josh Woodward</a></div>
       </div>
-  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i2">
     <h3>Boris Cherny</h3>
     <div class="bio">Claude Code @anthropicai</div>
-    <div class="synthesis"><p>Anthropic&#39;s Boris Cherny surfaced Salesforce&#39;s agentic transformation case study—a migration they estimated at 231 days shipped in 13 using Claude Code. A single PR delivered 21 endpoints with 100% test coverage. Quality didn&#39;t trade off against speed: total incidents actually dropped 5% despite more PRs shipping, because security guardrails and quality standards were built into the agentic workflow itself. Cherny&#39;s core point: the biggest AI wins come from deleting steps and handoffs, not just speeding up existing processes.</p></div>
-    <blockquote>Salesforce published a detailed writeup on going agentic with Claude Code. A migration they&#39;d scoped at 231 days shipped in 13. One PR delivered 21 endpoints at 100% test coverage.</blockquote>
-    
+    <div class="synthesis"><p>Cherny surfaced Salesforce&#39;s agentic transformation writeup, highlighting numbers that have become reference points for the industry: a migration scoped at 231 days shipped in 13, and a single PR delivering 21 endpoints with 100% test coverage. But the deeper point he&#39;s making is about organizational redesign — the biggest wins come from deleting steps, removing handoffs, and letting agents own workflows end-to-end. Quality went up alongside output: total incidents dropped 5% even as more PRs shipped, because security guardrails and quality standards were built into the agentic workflow itself. The productivity-vs-quality tradeoff that many fear isn&#39;t materializing.</p></div>
+    <blockquote>The teams seeing the biggest wins from AI are completely changing how they work, not speeding up what they already do. What steps can you delete, what handoffs go away, what can an agent just own end to end.</blockquote>
+    <details><summary>Linked context (1)</summary><div class="ctx-link">
+        <div class="gist">Salesforce&#39;s detailed writeup on going agentic with Claude Code: 231-day migration in 13 days, 21 endpoints in one PR at 100% test coverage, incidents down 5%.</div>
+        <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">Salesforce agentic transformation thread</a>
+      </div></details>
     
     <div class="source">→ <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">https://x.com/bcherny/status/2060390852619272526</a></div>
   </article><article class="item" id="item-i3">
     <h3>Thibault Sottiaux</h3>
     <div class="bio">Codex &amp; ChatGPT @OpenAI</div>
-    <div class="synthesis"><p>OpenAI&#39;s Thibault Sottiaux, who works on Codex and ChatGPT, teased a milestone adoption number coming soon. His tone—&#39;We are still early. So early.&#39;—suggests Codex is crossing a meaningful usage threshold. In a separate post, he asked whether people still trust benchmarks or just listen to friends when choosing models, reflecting a broader builder sentiment that lived experience is overtaking leaderboard scores as the real signal.</p></div>
+    <div class="synthesis"><p>Sottiaux teased a significant Codex adoption metric he&#39;s tracking internally, suggesting OpenAI is seeing traction with its coding agent that hasn&#39;t been publicly disclosed yet. The framing — &#39;we are still early. So early.&#39; — is a deliberate counter-narrative to the perception that the coding-agent market is already mature or winner-take-all. He also asked a pointed question about whether people still trust benchmarks or just listen to friends, reflecting a broader builder sentiment that lived experience with models is replacing leaderboard chasing as the primary evaluation signal.</p></div>
     <blockquote>I looked at a number today on a codex dashboard and it made me happy. More news about the number soon. 👀 Thanks to everyone who keeps adopting codex. We are still early. So early.</blockquote>
     
     
@@ -254,15 +261,15 @@
   </article><article class="item" id="item-i4">
     <h3>Aaron Levie</h3>
     <div class="bio">CEO @box</div>
-    <div class="synthesis"><p>Box CEO Aaron Levie made a contrarian bull case for the software application layer: a company spending $500M to build its own version of existing software is, paradoxically, the best possible advertisement for that software layer. His point is that the sheer cost and complexity of DIY enterprise tools validates the value of ready-made applications—even as AI makes building from scratch more tempting.</p></div>
+    <div class="synthesis"><p>Levie reacted to news of a major company spending $500 million to build its own version of an existing software application, framing it as the ultimate validation of the app layer. His argument: if incumbents are willing to spend at that scale to replicate rather than buy, it signals both the strategic value of software and the limitations of current vendor offerings. The nuance he acknowledges — that headlines flatten complexity — doesn&#39;t blunt his core bullishness on independent software companies.</p></div>
     <blockquote>The app layer couldn&#39;t get a better advertisement than a company spending $500M to build their own version of it. Obviously lots of nuance here that can&#39;t be captured in the headline, but this should make you very bullish on software.</blockquote>
     
     
     <div class="source">→ <a href="https://x.com/levie/status/2060525104384418271" target="_blank" rel="noopener">https://x.com/levie/status/2060525104384418271</a></div>
   </article><article class="item" id="item-i5">
     <h3>Peter Steinberger</h3>
-    <div class="bio">OpenClaw + OpenAI</div>
-    <div class="synthesis"><p>Peter Steinberger announced Vince&#39;s joining his team at OpenClaw, framing it as a bet on people who &#39;understand the new ways software is built.&#39; Steinberger, who describes himself as having &#39;come back from retirement to mess with AI,&#39; has been vocal about how agentic development changes engineering orgs. The hire signals OpenClaw is doubling down on builders who grok the post-AI workflow.</p></div>
+    <div class="bio">Polyagentmorous ClawFather @OpenClaw + @OpenAI</div>
+    <div class="synthesis"><p>Steinberger announced a key hire for OpenClaw — &#39;Vince&#39; — emphasizing that &#39;very few people understand the new ways, how software is built. He gets it.&#39; The framing positions OpenClaw as operating in a paradigm shift where traditional software engineering intuition may be a liability, and the ability to work with agents is the scarce skill. His earlier tweet (&#39;I smell a takedown in 3...2...1&#39;) suggests the team is also bracing for competitive or regulatory pushback as they build in public.</p></div>
     <blockquote>Couldn&#39;t be more excited to have Vince on board. Very few people understand the new ways, how software is built. He gets it.</blockquote>
     
     
@@ -270,63 +277,62 @@
   </article><article class="item" id="item-i6">
     <h3>Josh Woodward</h3>
     <div class="bio">VP, Google Labs / Gemini App / Google AI Studio</div>
-    <div class="synthesis"><p>Google Labs VP Josh Woodward shared two Gemini-powered demos: one turning a car photo into a Lamborghini-style render, and another making multilingual content &#39;ridiculously easy.&#39; Both are lightweight but signal Google&#39;s continued push to make Gemini&#39;s multimodal capabilities accessible through simple, shareable micro-experiences.</p></div>
-    <blockquote>Multilingual is now &#39;ridiculously easy&#39;</blockquote>
+    <div class="synthesis"><p>Woodward shared two product updates from the Google ecosystem: one highlighting that multilingual capabilities are now &#39;ridiculously easy&#39; and another showcasing a visual transformation tool (&#39;Turn your car into a Lamborghini&#39;). The multilingual claim is the more strategically significant — if Google has genuinely solved frictionless multilingual model deployment, it lowers a major barrier for global AI product rollouts. The Lamborghini demo, while lighter, signals continued investment in consumer-facing generative media tools.</p></div>
+    <blockquote>Multilingual is now &#39;ridiculously easy&#39;:</blockquote>
     
     
     <div class="source">→ <a href="https://x.com/joshwoodward/status/2060443093825094091" target="_blank" rel="noopener">https://x.com/joshwoodward/status/2060443093825094091</a></div>
   </article><article class="item" id="item-i7">
     <h3>Garry Tan</h3>
     <div class="bio">President &amp; CEO @ycombinator</div>
-    <div class="synthesis"><p>Y Combinator CEO Garry Tan delivered a classic founder reframing: money isn&#39;t the missing ingredient—traction is. His line that &#39;you don&#39;t have a funding problem, you have a people don&#39;t want it yet problem&#39; is the kind of sharp, repeatable advice that circulates in founder circles for weeks. Tan also posted about UC admissions policy, but the business tweet carries the signal.</p></div>
-    <blockquote>Money is not the fire. Money is gasoline you pour on a fire that already exists. You don&#39;t have a funding problem. You have a &#39;people don&#39;t want it yet&#39; problem.</blockquote>
+    <div class="synthesis"><p>Tan delivered a classic YC-founder mantra: funding follows traction, not the other way around. The line &#39;Money is gasoline you pour on a fire that already exists&#39; is his reframing of a common founder excuse — &#39;if only we had money we&#39;d do X.&#39; His other tweets of the day focused on UC Regents policy and admissions, showing he&#39;s actively using his platform for both startup philosophy and local political advocacy.</p></div>
+    <blockquote>Money is not the fire. Money is gasoline you pour on a fire that already exists. You don&#39;t have a funding problem. You have a &#39;people don&#39;t want it yet&#39; problem. Go make the first fire.</blockquote>
     
     
     <div class="source">→ <a href="https://x.com/garrytan/status/2060600088079356292" target="_blank" rel="noopener">https://x.com/garrytan/status/2060600088079356292</a></div>
   </article><article class="item" id="item-i8">
     <h3>Dan Shipper</h3>
     <div class="bio">CEO @every</div>
-    <div class="synthesis"><p>Every CEO Dan Shipper quote-tweeted a demo with a two-word endorsement: &#39;extremely sick.&#39; Shipper&#39;s curation is itself a signal—he runs the subscription media brand positioning itself as &#39;the only subscription you need to stay at the edge of AI.&#39; When he amplifies something, it&#39;s worth noting.</p></div>
+    <div class="synthesis"><p>Shipper&#39;s single-word endorsement — &#39;extremely sick&#39; — of a quoted tweet signals his curation role in the AI builder ecosystem. As CEO of Every (the AI-focused subscription publication), his reactions function as implicit recommendations for his audience. The brevity suggests the quoted content was self-evidently impressive to those already deep in the space.</p></div>
     <blockquote>extremely sick</blockquote>
     
     
     <div class="source">→ <a href="https://x.com/danshipper/status/2060487621915152571" target="_blank" rel="noopener">https://x.com/danshipper/status/2060487621915152571</a></div>
-  </article><article class="item" id="item-i9">
-    <h3>Nikunj Kothari</h3>
-    <div class="bio">Partner @fpvventures</div>
-    <div class="synthesis"><p>FPV Ventures partner Nikunj Kothari celebrated a founder getting into Y Combinator, offering a window into the investor&#39;s enthusiasm for the upcoming batch. Light signal, but it keeps the pulse on who&#39;s entering the YC funnel.</p></div>
-    <blockquote>Always fun to see what it&#39;s like for someone to go through the @ycombinator interview process.. SO happy for this kid, and excited to meet the upcoming batch!</blockquote>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
+    <h3>Maxim Bar Kogan</h3>
+    <div class="bio">Co-founder &amp; CEO, Onyx Security</div>
+    <div class="synthesis"><p>The pivotal insight driving Onyx Security is that AutoGPT gave everyone a glimpse of a future where models decide what to do and then execute it in a loop — and that future is now arriving with Claude Code, Cowork, and OpenCloud. Bar Kogan&#39;s team trains small, specialized models that act as a &#39;chess intuition&#39; layer: they rapidly flag high-risk agent actions so that smarter oversight agents only need to intervene at critical moments. This keeps costs and latency low while catching dangerous behavior. The chess analogy is apt — grandmasters don&#39;t calculate every move, they intuit when to stop and think. Onyx&#39;s approach is similarly about efficient computation: spend intelligence where risk is high, not everywhere. The company also reveals that over 50% of enterprise AI usage today is autonomous coding agents, with low-code automations at 45% and first-party custom agents at just 2% — a distribution that suggests most enterprises are adopting off-the-shelf agentic tools faster than they can build their own.</p></div>
+    <blockquote>As you&#39;re exponentially doing more things with the AIs, you&#39;re going to start having really bad actions happen. And we&#39;ve seen some of that happen lately with agents accidentally publishing code and tokens that they weren&#39;t supposed to.</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/nikunj/status/2060580468781953169" target="_blank" rel="noopener">https://x.com/nikunj/status/2060580468781953169</a></div>
-  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i2">
-    <h3>Jan Dubois</h3>
-    <div class="bio">Co-leads Post-Training Frontiers team @OpenAI; previously Stanford Alpaca</div>
-    <div class="synthesis"><p>OpenAI&#39;s Jan Dubois, who co-leads the Post-Training Frontiers team, explains why AI progress suddenly feels like a step function even though capability gains are continuous. The key threshold was reliability: around December 2024, OpenAI crossed the point where models could be trusted for sustained real-world work. Dubois breaks down three forces behind the acceleration: (1) reliability making tools actually usable, (2) AI-assisted coding speeding up internal R&amp;D loops, and (3) reinforcement learning expanding from verifiable domains (math, coding competitions) into messy real-world tasks. On GPT 5.5, he&#39;s most proud of efficiency—most tasks now run ~2x faster—and the company-wide alignment required to ship it.</p></div>
-    <blockquote>You need to reach this level of reliability to really make any of these AI tools very useful, and I think we just crossed that probably December last year, at least at OpenAI. Now we can trust these models to do a lot of the work that we are doing.</blockquote>
-    
-    
-    <div class="source">→ <a href="https://www.youtube.com/watch?v=DhD1zZ8w8Mw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DhD1zZ8w8Mw</a></div>
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=QDsbFLEt9ro" target="_blank" rel="noopener">https://www.youtube.com/watch?v=QDsbFLEt9ro</a></div>
   </article></section>
 <section data-lang="zh"><section class="themes">
     <h2>Themes today</h2>
     <div class="theme">
-        <h3>Agentic AI Goes Mainstream</h3>
-        <div class="theme-synthesis"><p>多位 builder 正在发出同一个信号：AI Agent 不再是实验性概念，而是正在重写真实公司的软件交付方式。从 Salesforce 用 Claude Code 将原本 231 天的迁移压缩到 13 天，到 OpenAI 的 Jan Dubois 解释可靠性阈值如何终于让 Agent 编程变得可信赖，讨论已经从 &#39;Agent 能行吗？&#39; 转向 &#39;我们能多快围绕它重组工作流？&#39;</p></div>
-        <div class="contributors">→ <a href="#item-i1">Boris Cherny</a>, <a href="#item-i2">Jan Dubois</a>, <a href="#item-i3">Thibault Sottiaux</a></div>
+        <h3>Salesforce&#39;s Agentic Transformation with Claude Code</h3>
+        <div class="theme-synthesis"><p>Salesforce 发布了一份关于使用 Claude Code 实现 agentic 转型的详细案例研究，结果令人瞩目：原本预估 231 天的迁移在 13 天内完成，一个 PR 交付了 21 个端点且测试覆盖率达到 100%，尽管产出增加，总事故数反而下降了 5%。围绕这个故事的 builder 们关注的不是数字本身，而是它们传递的信号——那些获得最大收益的团队正在彻底改变工作方式，而不仅仅是加速现有流程。</p></div>
+        <div class="contributors">→ <a href="#item-i2">Boris Cherny</a>, <a href="#item-i3">Thibault Sottiaux</a></div>
+      </div><div class="theme">
+        <h3>The Rise of AI Agents and the Need for Guardians</h3>
+        <div class="theme-synthesis"><p>随着自主 AI agent 在企业中 proliferate——从 Claude Code、Codex 等编程助手到低代码平台——一种新的安全范式正在浮现。Onyx Security CEO Maxim Bar Kogan 认为，传统的安全工具（身份、端点、API 安全）无法应对需要广泛权限才能发挥作用的 agent，企业现在需要专门训练的「guardian」agent 来监督其他 agent。Builder 们的共识是：agentic 采用的步伐正在超越安全控制，这既带来风险也带来机会。</p></div>
+        <div class="contributors">→ <a href="#item-i1">Maxim Bar Kogan</a>, <a href="#item-i2">Boris Cherny</a>, <a href="#item-i6">Josh Woodward</a></div>
       </div>
-  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i2">
     <h3>Boris Cherny</h3>
     <div class="bio">Claude Code @anthropicai</div>
-    <div class="synthesis"><p>Anthropic 的 Boris Cherny 分享了 Salesforce 的 Agent 转型案例研究：一个原本预估 231 天的迁移，用 Claude Code 在 13 天内完成。一个 PR 就交付了 21 个端点，测试覆盖率 100%。质量并没有因为速度而妥协：尽管发布的 PR 更多，总事故率反而下降了 5%，因为安全护栏和质量标准被直接内置到了 Agent 工作流中。Cherny 的核心观点是：AI 带来的最大收益来自删除步骤和交接，而不仅仅是加速现有流程。</p></div>
-    <blockquote>Salesforce published a detailed writeup on going agentic with Claude Code. A migration they&#39;d scoped at 231 days shipped in 13. One PR delivered 21 endpoints at 100% test coverage.</blockquote>
-    
+    <div class="synthesis"><p>Cherny 转发了 Salesforce 的 agentic 转型案例，其中几个数字已成为行业参照：预估 231 天的迁移在 13 天内完成，一个 PR 交付 21 个端点且测试覆盖率 100%。但他更深层的观点是关于组织重构——最大的收益来自删除步骤、消除交接、让 agent 端到端拥有工作流。质量与产出同步提升：尽管发布的 PR 更多，总事故数反而下降 5%，因为安全护栏和质量标准被内建于 agentic 工作流本身。许多人担心的生产力与质量之间的 tradeoff 并未出现。</p></div>
+    <blockquote>The teams seeing the biggest wins from AI are completely changing how they work, not speeding up what they already do. What steps can you delete, what handoffs go away, what can an agent just own end to end.</blockquote>
+    <details><summary>Linked context (1)</summary><div class="ctx-link">
+        <div class="gist">Salesforce&#39;s detailed writeup on going agentic with Claude Code: 231-day migration in 13 days, 21 endpoints in one PR at 100% test coverage, incidents down 5%.</div>
+        <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">Salesforce agentic transformation thread</a>
+      </div></details>
     
     <div class="source">→ <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">https://x.com/bcherny/status/2060390852619272526</a></div>
   </article><article class="item" id="item-i3">
     <h3>Thibault Sottiaux</h3>
     <div class="bio">Codex &amp; ChatGPT @OpenAI</div>
-    <div class="synthesis"><p>OpenAI 负责 Codex 和 ChatGPT 的 Thibault Sottiaux 预告了一个即将公布的里程碑式采用数据。他的语气——&#39;我们还处于早期。非常早期。&#39;——暗示 Codex 正在跨越一个有意义的采用阈值。在另一条推文中，他发问：人们选择模型时还相信 benchmark 吗，还是只听朋友的推荐？这反映了更广泛的 builder 共识：实际使用体验正在取代排行榜分数，成为真正的信号。</p></div>
+    <div class="synthesis"><p>Sottiaux 暗示了一个他正在内部追踪的 Codex 采用指标，表明 OpenAI 的编程 agent 正取得尚未公开的 traction。他用「我们还处于早期。非常早期。」的措辞，刻意反驳了编程 agent 市场已成熟或 winner-take-all 的认知。他还抛出一个尖锐问题：人们还信任 benchmark 吗，还是只听朋友的推荐？这反映了更广泛的 builder 情绪——对模型的实际使用体验正在取代追逐 leaderboard，成为主要的评估信号。</p></div>
     <blockquote>I looked at a number today on a codex dashboard and it made me happy. More news about the number soon. 👀 Thanks to everyone who keeps adopting codex. We are still early. So early.</blockquote>
     
     
@@ -334,15 +340,15 @@
   </article><article class="item" id="item-i4">
     <h3>Aaron Levie</h3>
     <div class="bio">CEO @box</div>
-    <div class="synthesis"><p>Box CEO Aaron Levie 为软件应用层提出了一个逆向看涨论点：一家公司花 5 亿美元自建现有软件的替代版本， paradoxically（悖论地），恰恰是对该软件层最好的广告。他的观点是，DIY 企业工具的巨大成本和复杂性反而验证了现成应用的价值——尽管 AI 让从零开始构建变得更具诱惑力。</p></div>
+    <div class="synthesis"><p>Levie 对某大公司斥资 5 亿美元自建现有软件应用的消息作出反应，将其视为应用层（app layer）的终极验证。他的论点是：如果现有企业愿意花如此代价去复制而非购买，这既说明了软件的战略价值，也暴露了当前供应商产品的局限性。他承认标题无法捕捉复杂性，但这并未削弱他对独立软件公司的核心看好立场。</p></div>
     <blockquote>The app layer couldn&#39;t get a better advertisement than a company spending $500M to build their own version of it. Obviously lots of nuance here that can&#39;t be captured in the headline, but this should make you very bullish on software.</blockquote>
     
     
     <div class="source">→ <a href="https://x.com/levie/status/2060525104384418271" target="_blank" rel="noopener">https://x.com/levie/status/2060525104384418271</a></div>
   </article><article class="item" id="item-i5">
     <h3>Peter Steinberger</h3>
-    <div class="bio">OpenClaw + OpenAI</div>
-    <div class="synthesis"><p>Peter Steinberger 宣布 Vince 加入他的 OpenClaw 团队，将其定位为对 &#39;理解软件构建新方式&#39; 的人才的押注。Steinberger 自称 &#39;从退休状态回来折腾 AI&#39;，一直在发声讨论 Agent 开发如何改变工程组织。这次招聘信号表明，OpenClaw 正在加倍押注那些真正理解后 AI 时代工作流的人才。</p></div>
+    <div class="bio">Polyagentmorous ClawFather @OpenClaw + @OpenAI</div>
+    <div class="synthesis"><p>Steinberger 宣布了 OpenClaw 的一位关键 hires——「Vince」，并强调「很少有人理解软件构建的新方式。他懂。」这种 framing 将 OpenClaw 定位在一场范式转变中：传统的软件工程直觉可能成为负担，而与 agent 协作的能力才是稀缺技能。他早前的推文（「我闻到 takedown 的味道了，3…2…1」）暗示该团队也在为公开 build 过程中可能遭遇的竞争或监管反击做准备。</p></div>
     <blockquote>Couldn&#39;t be more excited to have Vince on board. Very few people understand the new ways, how software is built. He gets it.</blockquote>
     
     
@@ -350,43 +356,35 @@
   </article><article class="item" id="item-i6">
     <h3>Josh Woodward</h3>
     <div class="bio">VP, Google Labs / Gemini App / Google AI Studio</div>
-    <div class="synthesis"><p>Google Labs VP Josh Woodward 分享了两个由 Gemini 驱动的演示：一个是将汽车照片渲染成兰博基尼风格，另一个让多语言内容变得 &#39;ridiculously easy（简单得离谱）&#39;。两者都很轻量，但传递了 Google 持续推动 Gemini 多模态能力通过简单、可分享的微体验触达用户的信号。</p></div>
-    <blockquote>Multilingual is now &#39;ridiculously easy&#39;</blockquote>
+    <div class="synthesis"><p>Woodward 分享了 Google 生态的两个产品更新：一个强调多语言能力现在「ridiculously easy」，另一个展示了一个视觉转换工具（「把你的车变成兰博基尼」）。多语言的声明更具战略意义——如果 Google 真的解决了无摩擦的多语言模型部署，它将大幅降低全球 AI 产品推广的主要障碍。兰博基尼 demo 虽然轻松，但也表明 Google 持续投入面向消费者的生成式媒体工具。</p></div>
+    <blockquote>Multilingual is now &#39;ridiculously easy&#39;:</blockquote>
     
     
     <div class="source">→ <a href="https://x.com/joshwoodward/status/2060443093825094091" target="_blank" rel="noopener">https://x.com/joshwoodward/status/2060443093825094091</a></div>
   </article><article class="item" id="item-i7">
     <h3>Garry Tan</h3>
     <div class="bio">President &amp; CEO @ycombinator</div>
-    <div class="synthesis"><p>Y Combinator CEO Garry Tan 给出了一个经典的创始人视角重构：钱不是缺失的要素——traction（牵引力）才是。他的金句 &#39;你不是有融资问题，你是有 &#39;人们还不需要它&#39; 的问题&#39; 是那种会在创始人圈子里流传数周的犀利建议。Tan 也发了关于 UC 招生政策的推文，但商业这条才是有价值的信号。</p></div>
-    <blockquote>Money is not the fire. Money is gasoline you pour on a fire that already exists. You don&#39;t have a funding problem. You have a &#39;people don&#39;t want it yet&#39; problem.</blockquote>
+    <div class="synthesis"><p>Tan 传递了一条经典的 YC 创始人信条：融资跟随 traction，而非相反。「钱不是火，钱是往已有之火上浇的汽油」是他对常见创始人借口——「只要有钱我们就能做 X」——的重新 framing。他当天的其他推文聚焦于 UC Regents 政策和招生问题，表明他正积极利用平台同时传播创业哲学和参与本地政治倡导。</p></div>
+    <blockquote>Money is not the fire. Money is gasoline you pour on a fire that already exists. You don&#39;t have a funding problem. You have a &#39;people don&#39;t want it yet&#39; problem. Go make the first fire.</blockquote>
     
     
     <div class="source">→ <a href="https://x.com/garrytan/status/2060600088079356292" target="_blank" rel="noopener">https://x.com/garrytan/status/2060600088079356292</a></div>
   </article><article class="item" id="item-i8">
     <h3>Dan Shipper</h3>
     <div class="bio">CEO @every</div>
-    <div class="synthesis"><p>Every CEO Dan Shipper 引用转发了一个演示，只用两个词评价：&#39;extremely sick（太牛了）&#39;。Shipper 的策展本身就是一种信号——他运营的订阅媒体品牌定位为 &#39;你唯一需要的 AI 前沿订阅&#39;。当他放大某个内容时，值得关注。</p></div>
+    <div class="synthesis"><p>Shipper 对一条引用推文用「extremely sick」作单字背书，彰显了他在 AI builder 生态中的策展角色。作为 Every（聚焦 AI 的订阅出版物）的 CEO，他的反应相当于向受众做隐式推荐。这种简洁表明，对于已经深耕该领域的人来说，被引用的内容本身就足够令人印象深刻。</p></div>
     <blockquote>extremely sick</blockquote>
     
     
     <div class="source">→ <a href="https://x.com/danshipper/status/2060487621915152571" target="_blank" rel="noopener">https://x.com/danshipper/status/2060487621915152571</a></div>
-  </article><article class="item" id="item-i9">
-    <h3>Nikunj Kothari</h3>
-    <div class="bio">Partner @fpvventures</div>
-    <div class="synthesis"><p>FPV Ventures 合伙人 Nikunj Kothari 庆祝一位创始人入选 Y Combinator，展现了投资人对即将到来的 batch 的热情。信号较轻，但让我们得以感知谁正在进入 YC 的漏斗。</p></div>
-    <blockquote>Always fun to see what it&#39;s like for someone to go through the @ycombinator interview process.. SO happy for this kid, and excited to meet the upcoming batch!</blockquote>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
+    <h3>Maxim Bar Kogan</h3>
+    <div class="bio">Co-founder &amp; CEO, Onyx Security</div>
+    <div class="synthesis"><p>驱动 Onyx Security 的核心洞察是：AutoGPT 让所有人窥见了一个未来——模型自主决定做什么，然后在循环中执行——而这个未来正随着 Claude Code、Cowork 和 OpenCloud 的到来成为现实。Bar Kogan 的团队训练小型专用模型，作为「chess intuition」层：它们快速标记高风险的 agent 行为，让更智能的监督 agent 只在关键时刻介入。这既控制了成本和延迟，又能捕捉危险行为。国际象棋的比喻很贴切——大师不会计算每一步，而是凭直觉知道何时该停下来思考。Onyx 的方法同样关乎高效计算：把智能花在风险高的地方，而非处处。该公司还透露，目前企业 AI 使用中超过 50% 是自主编程 agent，低代码自动化占 45%，自研 first-party agent 仅占 2%——这一分布表明，大多数企业采用现成 agentic 工具的速度远快于自建。</p></div>
+    <blockquote>As you&#39;re exponentially doing more things with the AIs, you&#39;re going to start having really bad actions happen. And we&#39;ve seen some of that happen lately with agents accidentally publishing code and tokens that they weren&#39;t supposed to.</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/nikunj/status/2060580468781953169" target="_blank" rel="noopener">https://x.com/nikunj/status/2060580468781953169</a></div>
-  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i2">
-    <h3>Jan Dubois</h3>
-    <div class="bio">Co-leads Post-Training Frontiers team @OpenAI; previously Stanford Alpaca</div>
-    <div class="synthesis"><p>OpenAI Post-Training Frontiers 团队联合负责人 Jan Dubois 解释了为什么 AI 进步突然感觉像阶跃函数，尽管能力提升实际上是连续的。关键阈值是可靠性：大约在 2024 年 12 月，OpenAI 跨过了模型可以被信赖用于持续真实工作的临界点。Dubois 拆解了加速背后的三股力量：(1) 可靠性让工具真正可用，(2) AI 辅助编程加速内部研发循环，(3) 强化学习从可验证领域（数学、编程竞赛）扩展到混乱的真实世界任务。谈到 GPT 5.5，他最自豪的是效率——大多数任务现在运行速度快了约 2 倍——以及全公司上下为交付它所展现出的协同一致性。</p></div>
-    <blockquote>You need to reach this level of reliability to really make any of these AI tools very useful, and I think we just crossed that probably December last year, at least at OpenAI. Now we can trust these models to do a lot of the work that we are doing.</blockquote>
-    
-    
-    <div class="source">→ <a href="https://www.youtube.com/watch?v=DhD1zZ8w8Mw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DhD1zZ8w8Mw</a></div>
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=QDsbFLEt9ro" target="_blank" rel="noopener">https://www.youtube.com/watch?v=QDsbFLEt9ro</a></div>
   </article></section>
 </main>
 <footer class="digest-footer">
