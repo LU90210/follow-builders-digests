@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-05-31</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  /* Language toggle: pure CSS, falls back to stacked sections in old WebViews. */
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  /* By default both sections show (graceful fallback). When a radio is
+     checked, the opposite section hides. */
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  section.themes {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  section.themes h2 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .theme {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .theme:last-child { border-bottom: 0; }
+  .theme h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .theme .contributors {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .theme .contributors a { color: var(--accent); text-decoration: none; }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-05-31</h1>
+  <div class="meta">8 builders · 1 podcast episode · 1 theme · generated 2026-05-31 00:01 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Agentic AI Goes Mainstream</h3>
+        <div class="theme-synthesis"><p>Multiple builders are converging on the same signal: AI agents are no longer experimental—they&#39;re rewriting how real companies ship software. From Salesforce&#39;s 231-day migration collapsing to 13 days with Claude Code, to OpenAI&#39;s Jan Dubois explaining how reliability thresholds finally make agentic coding trustworthy, the conversation has shifted from &#39;will agents work?&#39; to &#39;how fast can we reorganize around them?&#39;.</p></div>
+        <div class="contributors">→ <a href="#item-i1">Boris Cherny</a>, <a href="#item-i2">Jan Dubois</a>, <a href="#item-i3">Thibault Sottiaux</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+    <h3>Boris Cherny</h3>
+    <div class="bio">Claude Code @anthropicai</div>
+    <div class="synthesis"><p>Anthropic&#39;s Boris Cherny surfaced Salesforce&#39;s agentic transformation case study—a migration they estimated at 231 days shipped in 13 using Claude Code. A single PR delivered 21 endpoints with 100% test coverage. Quality didn&#39;t trade off against speed: total incidents actually dropped 5% despite more PRs shipping, because security guardrails and quality standards were built into the agentic workflow itself. Cherny&#39;s core point: the biggest AI wins come from deleting steps and handoffs, not just speeding up existing processes.</p></div>
+    <blockquote>Salesforce published a detailed writeup on going agentic with Claude Code. A migration they&#39;d scoped at 231 days shipped in 13. One PR delivered 21 endpoints at 100% test coverage.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">https://x.com/bcherny/status/2060390852619272526</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Thibault Sottiaux</h3>
+    <div class="bio">Codex &amp; ChatGPT @OpenAI</div>
+    <div class="synthesis"><p>OpenAI&#39;s Thibault Sottiaux, who works on Codex and ChatGPT, teased a milestone adoption number coming soon. His tone—&#39;We are still early. So early.&#39;—suggests Codex is crossing a meaningful usage threshold. In a separate post, he asked whether people still trust benchmarks or just listen to friends when choosing models, reflecting a broader builder sentiment that lived experience is overtaking leaderboard scores as the real signal.</p></div>
+    <blockquote>I looked at a number today on a codex dashboard and it made me happy. More news about the number soon. 👀 Thanks to everyone who keeps adopting codex. We are still early. So early.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/thsottiaux/status/2060565265906290786" target="_blank" rel="noopener">https://x.com/thsottiaux/status/2060565265906290786</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO @box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie made a contrarian bull case for the software application layer: a company spending $500M to build its own version of existing software is, paradoxically, the best possible advertisement for that software layer. His point is that the sheer cost and complexity of DIY enterprise tools validates the value of ready-made applications—even as AI makes building from scratch more tempting.</p></div>
+    <blockquote>The app layer couldn&#39;t get a better advertisement than a company spending $500M to build their own version of it. Obviously lots of nuance here that can&#39;t be captured in the headline, but this should make you very bullish on software.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2060525104384418271" target="_blank" rel="noopener">https://x.com/levie/status/2060525104384418271</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">OpenClaw + OpenAI</div>
+    <div class="synthesis"><p>Peter Steinberger announced Vince&#39;s joining his team at OpenClaw, framing it as a bet on people who &#39;understand the new ways software is built.&#39; Steinberger, who describes himself as having &#39;come back from retirement to mess with AI,&#39; has been vocal about how agentic development changes engineering orgs. The hire signals OpenClaw is doubling down on builders who grok the post-AI workflow.</p></div>
+    <blockquote>Couldn&#39;t be more excited to have Vince on board. Very few people understand the new ways, how software is built. He gets it.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2060306947035832628" target="_blank" rel="noopener">https://x.com/steipete/status/2060306947035832628</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Josh Woodward</h3>
+    <div class="bio">VP, Google Labs / Gemini App / Google AI Studio</div>
+    <div class="synthesis"><p>Google Labs VP Josh Woodward shared two Gemini-powered demos: one turning a car photo into a Lamborghini-style render, and another making multilingual content &#39;ridiculously easy.&#39; Both are lightweight but signal Google&#39;s continued push to make Gemini&#39;s multimodal capabilities accessible through simple, shareable micro-experiences.</p></div>
+    <blockquote>Multilingual is now &#39;ridiculously easy&#39;</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/joshwoodward/status/2060443093825094091" target="_blank" rel="noopener">https://x.com/joshwoodward/status/2060443093825094091</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO @ycombinator</div>
+    <div class="synthesis"><p>Y Combinator CEO Garry Tan delivered a classic founder reframing: money isn&#39;t the missing ingredient—traction is. His line that &#39;you don&#39;t have a funding problem, you have a people don&#39;t want it yet problem&#39; is the kind of sharp, repeatable advice that circulates in founder circles for weeks. Tan also posted about UC admissions policy, but the business tweet carries the signal.</p></div>
+    <blockquote>Money is not the fire. Money is gasoline you pour on a fire that already exists. You don&#39;t have a funding problem. You have a &#39;people don&#39;t want it yet&#39; problem.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2060600088079356292" target="_blank" rel="noopener">https://x.com/garrytan/status/2060600088079356292</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Dan Shipper</h3>
+    <div class="bio">CEO @every</div>
+    <div class="synthesis"><p>Every CEO Dan Shipper quote-tweeted a demo with a two-word endorsement: &#39;extremely sick.&#39; Shipper&#39;s curation is itself a signal—he runs the subscription media brand positioning itself as &#39;the only subscription you need to stay at the edge of AI.&#39; When he amplifies something, it&#39;s worth noting.</p></div>
+    <blockquote>extremely sick</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/danshipper/status/2060487621915152571" target="_blank" rel="noopener">https://x.com/danshipper/status/2060487621915152571</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner @fpvventures</div>
+    <div class="synthesis"><p>FPV Ventures partner Nikunj Kothari celebrated a founder getting into Y Combinator, offering a window into the investor&#39;s enthusiasm for the upcoming batch. Light signal, but it keeps the pulse on who&#39;s entering the YC funnel.</p></div>
+    <blockquote>Always fun to see what it&#39;s like for someone to go through the @ycombinator interview process.. SO happy for this kid, and excited to meet the upcoming batch!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2060580468781953169" target="_blank" rel="noopener">https://x.com/nikunj/status/2060580468781953169</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i2">
+    <h3>Jan Dubois</h3>
+    <div class="bio">Co-leads Post-Training Frontiers team @OpenAI; previously Stanford Alpaca</div>
+    <div class="synthesis"><p>OpenAI&#39;s Jan Dubois, who co-leads the Post-Training Frontiers team, explains why AI progress suddenly feels like a step function even though capability gains are continuous. The key threshold was reliability: around December 2024, OpenAI crossed the point where models could be trusted for sustained real-world work. Dubois breaks down three forces behind the acceleration: (1) reliability making tools actually usable, (2) AI-assisted coding speeding up internal R&amp;D loops, and (3) reinforcement learning expanding from verifiable domains (math, coding competitions) into messy real-world tasks. On GPT 5.5, he&#39;s most proud of efficiency—most tasks now run ~2x faster—and the company-wide alignment required to ship it.</p></div>
+    <blockquote>You need to reach this level of reliability to really make any of these AI tools very useful, and I think we just crossed that probably December last year, at least at OpenAI. Now we can trust these models to do a lot of the work that we are doing.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=DhD1zZ8w8Mw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DhD1zZ8w8Mw</a></div>
+  </article></section>
+<section data-lang="zh"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Agentic AI Goes Mainstream</h3>
+        <div class="theme-synthesis"><p>多位 builder 正在发出同一个信号：AI Agent 不再是实验性概念，而是正在重写真实公司的软件交付方式。从 Salesforce 用 Claude Code 将原本 231 天的迁移压缩到 13 天，到 OpenAI 的 Jan Dubois 解释可靠性阈值如何终于让 Agent 编程变得可信赖，讨论已经从 &#39;Agent 能行吗？&#39; 转向 &#39;我们能多快围绕它重组工作流？&#39;</p></div>
+        <div class="contributors">→ <a href="#item-i1">Boris Cherny</a>, <a href="#item-i2">Jan Dubois</a>, <a href="#item-i3">Thibault Sottiaux</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+    <h3>Boris Cherny</h3>
+    <div class="bio">Claude Code @anthropicai</div>
+    <div class="synthesis"><p>Anthropic 的 Boris Cherny 分享了 Salesforce 的 Agent 转型案例研究：一个原本预估 231 天的迁移，用 Claude Code 在 13 天内完成。一个 PR 就交付了 21 个端点，测试覆盖率 100%。质量并没有因为速度而妥协：尽管发布的 PR 更多，总事故率反而下降了 5%，因为安全护栏和质量标准被直接内置到了 Agent 工作流中。Cherny 的核心观点是：AI 带来的最大收益来自删除步骤和交接，而不仅仅是加速现有流程。</p></div>
+    <blockquote>Salesforce published a detailed writeup on going agentic with Claude Code. A migration they&#39;d scoped at 231 days shipped in 13. One PR delivered 21 endpoints at 100% test coverage.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">https://x.com/bcherny/status/2060390852619272526</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Thibault Sottiaux</h3>
+    <div class="bio">Codex &amp; ChatGPT @OpenAI</div>
+    <div class="synthesis"><p>OpenAI 负责 Codex 和 ChatGPT 的 Thibault Sottiaux 预告了一个即将公布的里程碑式采用数据。他的语气——&#39;我们还处于早期。非常早期。&#39;——暗示 Codex 正在跨越一个有意义的采用阈值。在另一条推文中，他发问：人们选择模型时还相信 benchmark 吗，还是只听朋友的推荐？这反映了更广泛的 builder 共识：实际使用体验正在取代排行榜分数，成为真正的信号。</p></div>
+    <blockquote>I looked at a number today on a codex dashboard and it made me happy. More news about the number soon. 👀 Thanks to everyone who keeps adopting codex. We are still early. So early.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/thsottiaux/status/2060565265906290786" target="_blank" rel="noopener">https://x.com/thsottiaux/status/2060565265906290786</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO @box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie 为软件应用层提出了一个逆向看涨论点：一家公司花 5 亿美元自建现有软件的替代版本， paradoxically（悖论地），恰恰是对该软件层最好的广告。他的观点是，DIY 企业工具的巨大成本和复杂性反而验证了现成应用的价值——尽管 AI 让从零开始构建变得更具诱惑力。</p></div>
+    <blockquote>The app layer couldn&#39;t get a better advertisement than a company spending $500M to build their own version of it. Obviously lots of nuance here that can&#39;t be captured in the headline, but this should make you very bullish on software.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2060525104384418271" target="_blank" rel="noopener">https://x.com/levie/status/2060525104384418271</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">OpenClaw + OpenAI</div>
+    <div class="synthesis"><p>Peter Steinberger 宣布 Vince 加入他的 OpenClaw 团队，将其定位为对 &#39;理解软件构建新方式&#39; 的人才的押注。Steinberger 自称 &#39;从退休状态回来折腾 AI&#39;，一直在发声讨论 Agent 开发如何改变工程组织。这次招聘信号表明，OpenClaw 正在加倍押注那些真正理解后 AI 时代工作流的人才。</p></div>
+    <blockquote>Couldn&#39;t be more excited to have Vince on board. Very few people understand the new ways, how software is built. He gets it.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2060306947035832628" target="_blank" rel="noopener">https://x.com/steipete/status/2060306947035832628</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Josh Woodward</h3>
+    <div class="bio">VP, Google Labs / Gemini App / Google AI Studio</div>
+    <div class="synthesis"><p>Google Labs VP Josh Woodward 分享了两个由 Gemini 驱动的演示：一个是将汽车照片渲染成兰博基尼风格，另一个让多语言内容变得 &#39;ridiculously easy（简单得离谱）&#39;。两者都很轻量，但传递了 Google 持续推动 Gemini 多模态能力通过简单、可分享的微体验触达用户的信号。</p></div>
+    <blockquote>Multilingual is now &#39;ridiculously easy&#39;</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/joshwoodward/status/2060443093825094091" target="_blank" rel="noopener">https://x.com/joshwoodward/status/2060443093825094091</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Garry Tan</h3>
+    <div class="bio">President &amp; CEO @ycombinator</div>
+    <div class="synthesis"><p>Y Combinator CEO Garry Tan 给出了一个经典的创始人视角重构：钱不是缺失的要素——traction（牵引力）才是。他的金句 &#39;你不是有融资问题，你是有 &#39;人们还不需要它&#39; 的问题&#39; 是那种会在创始人圈子里流传数周的犀利建议。Tan 也发了关于 UC 招生政策的推文，但商业这条才是有价值的信号。</p></div>
+    <blockquote>Money is not the fire. Money is gasoline you pour on a fire that already exists. You don&#39;t have a funding problem. You have a &#39;people don&#39;t want it yet&#39; problem.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/garrytan/status/2060600088079356292" target="_blank" rel="noopener">https://x.com/garrytan/status/2060600088079356292</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Dan Shipper</h3>
+    <div class="bio">CEO @every</div>
+    <div class="synthesis"><p>Every CEO Dan Shipper 引用转发了一个演示，只用两个词评价：&#39;extremely sick（太牛了）&#39;。Shipper 的策展本身就是一种信号——他运营的订阅媒体品牌定位为 &#39;你唯一需要的 AI 前沿订阅&#39;。当他放大某个内容时，值得关注。</p></div>
+    <blockquote>extremely sick</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/danshipper/status/2060487621915152571" target="_blank" rel="noopener">https://x.com/danshipper/status/2060487621915152571</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner @fpvventures</div>
+    <div class="synthesis"><p>FPV Ventures 合伙人 Nikunj Kothari 庆祝一位创始人入选 Y Combinator，展现了投资人对即将到来的 batch 的热情。信号较轻，但让我们得以感知谁正在进入 YC 的漏斗。</p></div>
+    <blockquote>Always fun to see what it&#39;s like for someone to go through the @ycombinator interview process.. SO happy for this kid, and excited to meet the upcoming batch!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2060580468781953169" target="_blank" rel="noopener">https://x.com/nikunj/status/2060580468781953169</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i2">
+    <h3>Jan Dubois</h3>
+    <div class="bio">Co-leads Post-Training Frontiers team @OpenAI; previously Stanford Alpaca</div>
+    <div class="synthesis"><p>OpenAI Post-Training Frontiers 团队联合负责人 Jan Dubois 解释了为什么 AI 进步突然感觉像阶跃函数，尽管能力提升实际上是连续的。关键阈值是可靠性：大约在 2024 年 12 月，OpenAI 跨过了模型可以被信赖用于持续真实工作的临界点。Dubois 拆解了加速背后的三股力量：(1) 可靠性让工具真正可用，(2) AI 辅助编程加速内部研发循环，(3) 强化学习从可验证领域（数学、编程竞赛）扩展到混乱的真实世界任务。谈到 GPT 5.5，他最自豪的是效率——大多数任务现在运行速度快了约 2 倍——以及全公司上下为交付它所展现出的协同一致性。</p></div>
+    <blockquote>You need to reach this level of reliability to really make any of these AI tools very useful, and I think we just crossed that probably December last year, at least at OpenAI. Now we can trust these models to do a lot of the work that we are doing.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=DhD1zZ8w8Mw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DhD1zZ8w8Mw</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
