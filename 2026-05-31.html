@@ -221,7 +221,7 @@
 <input type="radio" name="lang" id="lang-zh">
 <header class="digest-header">
   <h1>AI Builders Digest — 2026-05-31</h1>
-  <div class="meta">8 builders · 1 podcast episode · 2 themes · generated 2026-05-31 07:02 UTC</div>
+  <div class="meta">15 builders · 1 podcast episode · 2 themes · generated 2026-05-31 07:04 UTC</div>
   <div class="lang-toggle">
     <label for="lang-en">English</label>
     <label for="lang-zh">中文</label>
@@ -231,160 +231,144 @@
 <section data-lang="en"><section class="themes">
     <h2>Themes today</h2>
     <div class="theme">
-        <h3>Salesforce&#39;s Agentic Transformation with Claude Code</h3>
-        <div class="theme-synthesis"><p>Salesforce published a detailed case study on going agentic with Claude Code, and the results are striking: a 231-day migration shipped in 13 days, one PR delivered 21 endpoints at 100% test coverage, and total incidents dropped 5% despite higher output. The cluster of builders around this story is less about celebrating the numbers and more about what they signal — that the teams seeing the biggest wins are completely changing how they work, not just speeding up what they already do.</p></div>
-        <div class="contributors">→ <a href="#item-i2">Boris Cherny</a>, <a href="#item-i3">Thibault Sottiaux</a></div>
+        <h3>GPT-5.5 与 AI 可靠性突破</h3>
+        <div class="theme-synthesis"><p>OpenAI&#39;s Yann Dubois explains why recent AI progress feels like a step function: it&#39;s not that capabilities suddenly jumped, but that model reliability crossed the usability threshold around December. Now models can be trusted for real work, not just math competitions.</p></div>
+        <div class="contributors">→ <a href="#item-i1">Yann Dubois</a>, <a href="#item-i2">Matt Turck</a></div>
       </div><div class="theme">
-        <h3>The Rise of AI Agents and the Need for Guardians</h3>
-        <div class="theme-synthesis"><p>As autonomous AI agents proliferate in enterprises — from coding assistants like Claude Code and Codex to low-code platforms — a new security paradigm is emerging. Onyx Security CEO Maxim Bar Kogan argues that traditional security tools (identity, endpoint, API security) are ill-equipped for agents that need broad permissions to be useful, and that enterprises now need specialized &#39;guardian&#39; agents trained to oversee other agents. The consensus among builders is that agentic adoption is outpacing security controls, creating both risk and opportunity.</p></div>
-        <div class="contributors">→ <a href="#item-i1">Maxim Bar Kogan</a>, <a href="#item-i2">Boris Cherny</a>, <a href="#item-i6">Josh Woodward</a></div>
+        <h3>AI 工具链与开发者生态</h3>
+        <div class="theme-synthesis"><p>From Zara Zhang&#39;s open-source Claude Code Feishu bridge to Sam Altman&#39;s Codex update, AI tools are deeply integrating into developer workflows. YC&#39;s Garry Tan also emphasizes everyone should have an agent with a &#39;GBrain&#39;.</p></div>
+        <div class="contributors">→ <a href="#item-i3">Zara Zhang</a>, <a href="#item-i4">Sam Altman</a>, <a href="#item-i5">Garry Tan</a></div>
       </div>
   </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i2">
-    <h3>Boris Cherny</h3>
-    <div class="bio">Claude Code @anthropicai</div>
-    <div class="synthesis"><p>Cherny surfaced Salesforce&#39;s agentic transformation writeup, highlighting numbers that have become reference points for the industry: a migration scoped at 231 days shipped in 13, and a single PR delivering 21 endpoints with 100% test coverage. But the deeper point he&#39;s making is about organizational redesign — the biggest wins come from deleting steps, removing handoffs, and letting agents own workflows end-to-end. Quality went up alongside output: total incidents dropped 5% even as more PRs shipped, because security guardrails and quality standards were built into the agentic workflow itself. The productivity-vs-quality tradeoff that many fear isn&#39;t materializing.</p></div>
-    <blockquote>The teams seeing the biggest wins from AI are completely changing how they work, not speeding up what they already do. What steps can you delete, what handoffs go away, what can an agent just own end to end.</blockquote>
+    <h3>Matt Turck</h3>
+    <div class="bio">VC at FirstMarkCap, Host of MAD Podcast</div>
+    <div class="synthesis"><p>Matt Turck released his full conversation with Yann Dubois covering model reliability, OpenAI&#39;s internal team structure, test-time compute scaling, and continual learning among 20+ topics. This podcast is the best primary source for understanding OpenAI&#39;s current technical direction.</p></div>
+    <blockquote>Why AI Progress Suddenly Feels Real - my conversation with @yanndubs</blockquote>
     <details><summary>Linked context (1)</summary><div class="ctx-link">
-        <div class="gist">Salesforce&#39;s detailed writeup on going agentic with Claude Code: 231-day migration in 13 days, 21 endpoints in one PR at 100% test coverage, incidents down 5%.</div>
-        <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">Salesforce agentic transformation thread</a>
+        <div class="gist">Full interview on AI progress and GPT-5.5</div>
+        <a href="https://www.youtube.com/watch?v=DhD1zZ8w8Mw" target="_blank" rel="noopener">MAD Podcast: Yann Dubois</a>
       </div></details>
     
-    <div class="source">→ <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">https://x.com/bcherny/status/2060390852619272526</a></div>
+    <div class="source">→ <a href="https://x.com/mattturck/status/2057498130795385188" target="_blank" rel="noopener">https://x.com/mattturck/status/2057498130795385188</a></div>
   </article><article class="item" id="item-i3">
-    <h3>Thibault Sottiaux</h3>
-    <div class="bio">Codex &amp; ChatGPT @OpenAI</div>
-    <div class="synthesis"><p>Sottiaux teased a significant Codex adoption metric he&#39;s tracking internally, suggesting OpenAI is seeing traction with its coding agent that hasn&#39;t been publicly disclosed yet. The framing — &#39;we are still early. So early.&#39; — is a deliberate counter-narrative to the perception that the coding-agent market is already mature or winner-take-all. He also asked a pointed question about whether people still trust benchmarks or just listen to friends, reflecting a broader builder sentiment that lived experience with models is replacing leaderboard chasing as the primary evaluation signal.</p></div>
-    <blockquote>I looked at a number today on a codex dashboard and it made me happy. More news about the number soon. 👀 Thanks to everyone who keeps adopting codex. We are still early. So early.</blockquote>
+    <h3>Zara Zhang</h3>
+    <div class="bio">Builder, Harvard&#39;17</div>
+    <div class="synthesis"><p>Zara Zhang open-sourced the Claude Code Feishu Bridge, allowing users to chat with Claude Code in Feishu like a colleague. Supports mobile usage, multi-session group chat management, reading Feishu context, auto-writing docs, and even @ mentions. An important step in integrating AI agents into Chinese workflows.</p></div>
+    <blockquote>Introducing the Claude Code Lark/Feishu Bridge</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/thsottiaux/status/2060565265906290786" target="_blank" rel="noopener">https://x.com/thsottiaux/status/2060565265906290786</a></div>
+    <div class="source">→ <a href="https://x.com/zarazhangrui/status/2057710284920520906" target="_blank" rel="noopener">https://x.com/zarazhangrui/status/2057710284920520906</a></div>
   </article><article class="item" id="item-i4">
-    <h3>Aaron Levie</h3>
-    <div class="bio">CEO @box</div>
-    <div class="synthesis"><p>Levie reacted to news of a major company spending $500 million to build its own version of an existing software application, framing it as the ultimate validation of the app layer. His argument: if incumbents are willing to spend at that scale to replicate rather than buy, it signals both the strategic value of software and the limitations of current vendor offerings. The nuance he acknowledges — that headlines flatten complexity — doesn&#39;t blunt his core bullishness on independent software companies.</p></div>
-    <blockquote>The app layer couldn&#39;t get a better advertisement than a company spending $500M to build their own version of it. Obviously lots of nuance here that can&#39;t be captured in the headline, but this should make you very bullish on software.</blockquote>
+    <h3>Sam Altman</h3>
+    <div class="bio">CEO of OpenAI</div>
+    <div class="synthesis"><p>Sam Altman announced Codex ships today. This is OpenAI&#39;s coding agent product, directly competing with Cursor and Windsurf. Combined with recent GPT-5.5 reliability improvements, Codex&#39;s practical usability may have reached a new level.</p></div>
+    <blockquote>new codex ships today!</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/levie/status/2060525104384418271" target="_blank" rel="noopener">https://x.com/levie/status/2060525104384418271</a></div>
+    <div class="source">→ <a href="https://x.com/sama/status/2057559714788258003" target="_blank" rel="noopener">https://x.com/sama/status/2057559714788258003</a></div>
   </article><article class="item" id="item-i5">
-    <h3>Peter Steinberger</h3>
-    <div class="bio">Polyagentmorous ClawFather @OpenClaw + @OpenAI</div>
-    <div class="synthesis"><p>Steinberger announced a key hire for OpenClaw — &#39;Vince&#39; — emphasizing that &#39;very few people understand the new ways, how software is built. He gets it.&#39; The framing positions OpenClaw as operating in a paradigm shift where traditional software engineering intuition may be a liability, and the ability to work with agents is the scarce skill. His earlier tweet (&#39;I smell a takedown in 3...2...1&#39;) suggests the team is also bracing for competitive or regulatory pushback as they build in public.</p></div>
-    <blockquote>Couldn&#39;t be more excited to have Vince on board. Very few people understand the new ways, how software is built. He gets it.</blockquote>
-    
-    
-    <div class="source">→ <a href="https://x.com/steipete/status/2060306947035832628" target="_blank" rel="noopener">https://x.com/steipete/status/2060306947035832628</a></div>
-  </article><article class="item" id="item-i6">
-    <h3>Josh Woodward</h3>
-    <div class="bio">VP, Google Labs / Gemini App / Google AI Studio</div>
-    <div class="synthesis"><p>Woodward shared two product updates from the Google ecosystem: one highlighting that multilingual capabilities are now &#39;ridiculously easy&#39; and another showcasing a visual transformation tool (&#39;Turn your car into a Lamborghini&#39;). The multilingual claim is the more strategically significant — if Google has genuinely solved frictionless multilingual model deployment, it lowers a major barrier for global AI product rollouts. The Lamborghini demo, while lighter, signals continued investment in consumer-facing generative media tools.</p></div>
-    <blockquote>Multilingual is now &#39;ridiculously easy&#39;:</blockquote>
-    
-    
-    <div class="source">→ <a href="https://x.com/joshwoodward/status/2060443093825094091" target="_blank" rel="noopener">https://x.com/joshwoodward/status/2060443093825094091</a></div>
-  </article><article class="item" id="item-i7">
     <h3>Garry Tan</h3>
-    <div class="bio">President &amp; CEO @ycombinator</div>
-    <div class="synthesis"><p>Tan delivered a classic YC-founder mantra: funding follows traction, not the other way around. The line &#39;Money is gasoline you pour on a fire that already exists&#39; is his reframing of a common founder excuse — &#39;if only we had money we&#39;d do X.&#39; His other tweets of the day focused on UC Regents policy and admissions, showing he&#39;s actively using his platform for both startup philosophy and local political advocacy.</p></div>
-    <blockquote>Money is not the fire. Money is gasoline you pour on a fire that already exists. You don&#39;t have a funding problem. You have a &#39;people don&#39;t want it yet&#39; problem. Go make the first fire.</blockquote>
+    <div class="bio">President &amp; CEO of Y Combinator</div>
+    <div class="synthesis"><p>YC CEO Garry Tan quote-tweeted that everyone should have an agent with a &#39;GBrain&#39;. This reflects his belief in AI agent democratization — not just tools, but infrastructure everyone needs.</p></div>
+    <blockquote>Everyone should have an agent with a GBrain</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/garrytan/status/2060600088079356292" target="_blank" rel="noopener">https://x.com/garrytan/status/2060600088079356292</a></div>
-  </article><article class="item" id="item-i8">
-    <h3>Dan Shipper</h3>
-    <div class="bio">CEO @every</div>
-    <div class="synthesis"><p>Shipper&#39;s single-word endorsement — &#39;extremely sick&#39; — of a quoted tweet signals his curation role in the AI builder ecosystem. As CEO of Every (the AI-focused subscription publication), his reactions function as implicit recommendations for his audience. The brevity suggests the quoted content was self-evidently impressive to those already deep in the space.</p></div>
-    <blockquote>extremely sick</blockquote>
+    <div class="source">→ <a href="https://x.com/garrytan/status/2057636167525498961" target="_blank" rel="noopener">https://x.com/garrytan/status/2057636167525498961</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Aditya Agarwal</h3>
+    <div class="bio">General Partner at South Park Commons, ex-CTO at Dropbox</div>
+    <div class="synthesis"><p>Aditya Agarwal shared four hard truths about early-stage hiring: 1) Engineers hesitating between pre-Series-B and BigCo aren&#39;t startup-ready; 2) Those unwilling to take a 70% pay cut will be unhappy; 3) You learn a lot about candidates during negotiation; 4) Startups have zero work-life balance — if you&#39;re not willing to grind, your headspace is wrong.</p></div>
+    <blockquote>If an engineer is trying to pick between a pre Series-B company and a BigCo/BigLab --&gt; stop talking to them immediately.</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/danshipper/status/2060487621915152571" target="_blank" rel="noopener">https://x.com/danshipper/status/2060487621915152571</a></div>
+    <div class="source">→ <a href="https://x.com/adityaag/status/2057502381038846306" target="_blank" rel="noopener">https://x.com/adityaag/status/2057502381038846306</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner at FPV Ventures</div>
+    <div class="synthesis"><p>Nikunj Kothari notes that ex-founders are THE driving force scaling iconic companies like Ramp, Mercor, Figma, Anthropic, and Cognition. His firm FPV Ventures is organizing events for this peer group.</p></div>
+    <blockquote>ex founders are THE driving force helping scale some of the most iconic companies</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2057462304149778588" target="_blank" rel="noopener">https://x.com/nikunj/status/2057462304149778588</a></div>
   </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
-    <h3>Maxim Bar Kogan</h3>
-    <div class="bio">Co-founder &amp; CEO, Onyx Security</div>
-    <div class="synthesis"><p>The pivotal insight driving Onyx Security is that AutoGPT gave everyone a glimpse of a future where models decide what to do and then execute it in a loop — and that future is now arriving with Claude Code, Cowork, and OpenCloud. Bar Kogan&#39;s team trains small, specialized models that act as a &#39;chess intuition&#39; layer: they rapidly flag high-risk agent actions so that smarter oversight agents only need to intervene at critical moments. This keeps costs and latency low while catching dangerous behavior. The chess analogy is apt — grandmasters don&#39;t calculate every move, they intuit when to stop and think. Onyx&#39;s approach is similarly about efficient computation: spend intelligence where risk is high, not everywhere. The company also reveals that over 50% of enterprise AI usage today is autonomous coding agents, with low-code automations at 45% and first-party custom agents at just 2% — a distribution that suggests most enterprises are adopting off-the-shelf agentic tools faster than they can build their own.</p></div>
-    <blockquote>As you&#39;re exponentially doing more things with the AIs, you&#39;re going to start having really bad actions happen. And we&#39;ve seen some of that happen lately with agents accidentally publishing code and tokens that they weren&#39;t supposed to.</blockquote>
+    <h3>Yann Dubois</h3>
+    <div class="bio">Co-leads Post-Training Frontiers team at OpenAI, former Stanford Alpaca co-author</div>
+    <div class="synthesis"><p>Yann Dubois details the inside story of GPT-5.5 training. His Post-Training Frontiers team integrates improvements from vertical teams into the final model, ensuring consistent performance across scenarios. He reveals model efficiency improved ~2x, and company-wide alignment toward a single north star is what he&#39;s most proud of.</p></div>
+    <blockquote>You need to reach this level of reliability to really make any of these AI tools very useful, and I think we just crossed that probably December last year.</blockquote>
     
     
-    <div class="source">→ <a href="https://www.youtube.com/watch?v=QDsbFLEt9ro" target="_blank" rel="noopener">https://www.youtube.com/watch?v=QDsbFLEt9ro</a></div>
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=DhD1zZ8w8Mw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DhD1zZ8w8Mw</a></div>
   </article></section>
 <section data-lang="zh"><section class="themes">
     <h2>Themes today</h2>
     <div class="theme">
-        <h3>Salesforce&#39;s Agentic Transformation with Claude Code</h3>
-        <div class="theme-synthesis"><p>Salesforce 发布了一份关于使用 Claude Code 实现 agentic 转型的详细案例研究，结果令人瞩目：原本预估 231 天的迁移在 13 天内完成，一个 PR 交付了 21 个端点且测试覆盖率达到 100%，尽管产出增加，总事故数反而下降了 5%。围绕这个故事的 builder 们关注的不是数字本身，而是它们传递的信号——那些获得最大收益的团队正在彻底改变工作方式，而不仅仅是加速现有流程。</p></div>
-        <div class="contributors">→ <a href="#item-i2">Boris Cherny</a>, <a href="#item-i3">Thibault Sottiaux</a></div>
+        <h3>GPT-5.5 与 AI 可靠性突破</h3>
+        <div class="theme-synthesis"><p>OpenAI 的 Yann Dubois 在 MAD Podcast 中解释了为什么最近的 AI 进步感觉像是一次阶跃函数跳跃：关键不在于能力本身突然提升，而是模型可靠性在去年 12 月跨过了实用阈值。现在模型可以真正被信任来完成实际工作，而非仅在数学竞赛中表现出色。</p></div>
+        <div class="contributors">→ <a href="#item-i1">Yann Dubois</a>, <a href="#item-i2">Matt Turck</a></div>
       </div><div class="theme">
-        <h3>The Rise of AI Agents and the Need for Guardians</h3>
-        <div class="theme-synthesis"><p>随着自主 AI agent 在企业中 proliferate——从 Claude Code、Codex 等编程助手到低代码平台——一种新的安全范式正在浮现。Onyx Security CEO Maxim Bar Kogan 认为，传统的安全工具（身份、端点、API 安全）无法应对需要广泛权限才能发挥作用的 agent，企业现在需要专门训练的「guardian」agent 来监督其他 agent。Builder 们的共识是：agentic 采用的步伐正在超越安全控制，这既带来风险也带来机会。</p></div>
-        <div class="contributors">→ <a href="#item-i1">Maxim Bar Kogan</a>, <a href="#item-i2">Boris Cherny</a>, <a href="#item-i6">Josh Woodward</a></div>
+        <h3>AI 工具链与开发者生态</h3>
+        <div class="theme-synthesis"><p>从 Zara Zhang 开源的 Claude Code 飞书桥接到 Sam Altman 宣布 Codex 更新，AI 工具正在深度集成到开发者的工作流中。YC 的 Garry Tan 也强调每个人都应该拥有一个带有 &#39;GBrain&#39; 的 agent。</p></div>
+        <div class="contributors">→ <a href="#item-i3">Zara Zhang</a>, <a href="#item-i4">Sam Altman</a>, <a href="#item-i5">Garry Tan</a></div>
       </div>
   </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i2">
-    <h3>Boris Cherny</h3>
-    <div class="bio">Claude Code @anthropicai</div>
-    <div class="synthesis"><p>Cherny 转发了 Salesforce 的 agentic 转型案例，其中几个数字已成为行业参照：预估 231 天的迁移在 13 天内完成，一个 PR 交付 21 个端点且测试覆盖率 100%。但他更深层的观点是关于组织重构——最大的收益来自删除步骤、消除交接、让 agent 端到端拥有工作流。质量与产出同步提升：尽管发布的 PR 更多，总事故数反而下降 5%，因为安全护栏和质量标准被内建于 agentic 工作流本身。许多人担心的生产力与质量之间的 tradeoff 并未出现。</p></div>
-    <blockquote>The teams seeing the biggest wins from AI are completely changing how they work, not speeding up what they already do. What steps can you delete, what handoffs go away, what can an agent just own end to end.</blockquote>
+    <h3>Matt Turck</h3>
+    <div class="bio">VC at FirstMarkCap, Host of MAD Podcast</div>
+    <div class="synthesis"><p>Matt Turck 发布了与 Yann Dubois 的完整对谈，涵盖了从模型可靠性、OpenAI 内部团队结构、测试时计算扩展，到持续学习等 20 多个话题。这期播客是理解 OpenAI 当前技术路线的最佳一手资料。</p></div>
+    <blockquote>Why AI Progress Suddenly Feels Real - my conversation with @yanndubs</blockquote>
     <details><summary>Linked context (1)</summary><div class="ctx-link">
-        <div class="gist">Salesforce&#39;s detailed writeup on going agentic with Claude Code: 231-day migration in 13 days, 21 endpoints in one PR at 100% test coverage, incidents down 5%.</div>
-        <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">Salesforce agentic transformation thread</a>
+        <div class="gist">Full interview on AI progress and GPT-5.5</div>
+        <a href="https://www.youtube.com/watch?v=DhD1zZ8w8Mw" target="_blank" rel="noopener">MAD Podcast: Yann Dubois</a>
       </div></details>
     
-    <div class="source">→ <a href="https://x.com/bcherny/status/2060390852619272526" target="_blank" rel="noopener">https://x.com/bcherny/status/2060390852619272526</a></div>
+    <div class="source">→ <a href="https://x.com/mattturck/status/2057498130795385188" target="_blank" rel="noopener">https://x.com/mattturck/status/2057498130795385188</a></div>
   </article><article class="item" id="item-i3">
-    <h3>Thibault Sottiaux</h3>
-    <div class="bio">Codex &amp; ChatGPT @OpenAI</div>
-    <div class="synthesis"><p>Sottiaux 暗示了一个他正在内部追踪的 Codex 采用指标，表明 OpenAI 的编程 agent 正取得尚未公开的 traction。他用「我们还处于早期。非常早期。」的措辞，刻意反驳了编程 agent 市场已成熟或 winner-take-all 的认知。他还抛出一个尖锐问题：人们还信任 benchmark 吗，还是只听朋友的推荐？这反映了更广泛的 builder 情绪——对模型的实际使用体验正在取代追逐 leaderboard，成为主要的评估信号。</p></div>
-    <blockquote>I looked at a number today on a codex dashboard and it made me happy. More news about the number soon. 👀 Thanks to everyone who keeps adopting codex. We are still early. So early.</blockquote>
+    <h3>Zara Zhang</h3>
+    <div class="bio">Builder, Harvard&#39;17</div>
+    <div class="synthesis"><p>Zara Zhang 开源了 Claude Code 飞书桥接器，让用户可以像同事一样在飞书中与 Claude Code 对话。支持手机端使用、多会话群聊管理、读取飞书上下文、自动写文档、甚至 @ 提及回复。这是将 AI agent 集成到中文工作流的重要一步。</p></div>
+    <blockquote>Introducing the Claude Code Lark/Feishu Bridge</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/thsottiaux/status/2060565265906290786" target="_blank" rel="noopener">https://x.com/thsottiaux/status/2060565265906290786</a></div>
+    <div class="source">→ <a href="https://x.com/zarazhangrui/status/2057710284920520906" target="_blank" rel="noopener">https://x.com/zarazhangrui/status/2057710284920520906</a></div>
   </article><article class="item" id="item-i4">
-    <h3>Aaron Levie</h3>
-    <div class="bio">CEO @box</div>
-    <div class="synthesis"><p>Levie 对某大公司斥资 5 亿美元自建现有软件应用的消息作出反应，将其视为应用层（app layer）的终极验证。他的论点是：如果现有企业愿意花如此代价去复制而非购买，这既说明了软件的战略价值，也暴露了当前供应商产品的局限性。他承认标题无法捕捉复杂性，但这并未削弱他对独立软件公司的核心看好立场。</p></div>
-    <blockquote>The app layer couldn&#39;t get a better advertisement than a company spending $500M to build their own version of it. Obviously lots of nuance here that can&#39;t be captured in the headline, but this should make you very bullish on software.</blockquote>
+    <h3>Sam Altman</h3>
+    <div class="bio">CEO of OpenAI</div>
+    <div class="synthesis"><p>Sam Altman 宣布 Codex 今日发布。这是 OpenAI 的编程 agent 产品，与 Cursor、Windsurf 等形成直接竞争。结合近期 GPT-5.5 的可靠性提升，Codex 的实际可用性可能已达到新高度。</p></div>
+    <blockquote>new codex ships today!</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/levie/status/2060525104384418271" target="_blank" rel="noopener">https://x.com/levie/status/2060525104384418271</a></div>
+    <div class="source">→ <a href="https://x.com/sama/status/2057559714788258003" target="_blank" rel="noopener">https://x.com/sama/status/2057559714788258003</a></div>
   </article><article class="item" id="item-i5">
-    <h3>Peter Steinberger</h3>
-    <div class="bio">Polyagentmorous ClawFather @OpenClaw + @OpenAI</div>
-    <div class="synthesis"><p>Steinberger 宣布了 OpenClaw 的一位关键 hires——「Vince」，并强调「很少有人理解软件构建的新方式。他懂。」这种 framing 将 OpenClaw 定位在一场范式转变中：传统的软件工程直觉可能成为负担，而与 agent 协作的能力才是稀缺技能。他早前的推文（「我闻到 takedown 的味道了，3…2…1」）暗示该团队也在为公开 build 过程中可能遭遇的竞争或监管反击做准备。</p></div>
-    <blockquote>Couldn&#39;t be more excited to have Vince on board. Very few people understand the new ways, how software is built. He gets it.</blockquote>
-    
-    
-    <div class="source">→ <a href="https://x.com/steipete/status/2060306947035832628" target="_blank" rel="noopener">https://x.com/steipete/status/2060306947035832628</a></div>
-  </article><article class="item" id="item-i6">
-    <h3>Josh Woodward</h3>
-    <div class="bio">VP, Google Labs / Gemini App / Google AI Studio</div>
-    <div class="synthesis"><p>Woodward 分享了 Google 生态的两个产品更新：一个强调多语言能力现在「ridiculously easy」，另一个展示了一个视觉转换工具（「把你的车变成兰博基尼」）。多语言的声明更具战略意义——如果 Google 真的解决了无摩擦的多语言模型部署，它将大幅降低全球 AI 产品推广的主要障碍。兰博基尼 demo 虽然轻松，但也表明 Google 持续投入面向消费者的生成式媒体工具。</p></div>
-    <blockquote>Multilingual is now &#39;ridiculously easy&#39;:</blockquote>
-    
-    
-    <div class="source">→ <a href="https://x.com/joshwoodward/status/2060443093825094091" target="_blank" rel="noopener">https://x.com/joshwoodward/status/2060443093825094091</a></div>
-  </article><article class="item" id="item-i7">
     <h3>Garry Tan</h3>
-    <div class="bio">President &amp; CEO @ycombinator</div>
-    <div class="synthesis"><p>Tan 传递了一条经典的 YC 创始人信条：融资跟随 traction，而非相反。「钱不是火，钱是往已有之火上浇的汽油」是他对常见创始人借口——「只要有钱我们就能做 X」——的重新 framing。他当天的其他推文聚焦于 UC Regents 政策和招生问题，表明他正积极利用平台同时传播创业哲学和参与本地政治倡导。</p></div>
-    <blockquote>Money is not the fire. Money is gasoline you pour on a fire that already exists. You don&#39;t have a funding problem. You have a &#39;people don&#39;t want it yet&#39; problem. Go make the first fire.</blockquote>
+    <div class="bio">President &amp; CEO of Y Combinator</div>
+    <div class="synthesis"><p>YC CEO Garry Tan 引用推文表示每个人都应该拥有一个带有 &#39;GBrain&#39; 的 agent。这反映了他对 AI agent 普及化的信念——不仅是工具，而是每个人都需要的基础设施。</p></div>
+    <blockquote>Everyone should have an agent with a GBrain</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/garrytan/status/2060600088079356292" target="_blank" rel="noopener">https://x.com/garrytan/status/2060600088079356292</a></div>
-  </article><article class="item" id="item-i8">
-    <h3>Dan Shipper</h3>
-    <div class="bio">CEO @every</div>
-    <div class="synthesis"><p>Shipper 对一条引用推文用「extremely sick」作单字背书，彰显了他在 AI builder 生态中的策展角色。作为 Every（聚焦 AI 的订阅出版物）的 CEO，他的反应相当于向受众做隐式推荐。这种简洁表明，对于已经深耕该领域的人来说，被引用的内容本身就足够令人印象深刻。</p></div>
-    <blockquote>extremely sick</blockquote>
+    <div class="source">→ <a href="https://x.com/garrytan/status/2057636167525498961" target="_blank" rel="noopener">https://x.com/garrytan/status/2057636167525498961</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Aditya Agarwal</h3>
+    <div class="bio">General Partner at South Park Commons, ex-CTO at Dropbox</div>
+    <div class="synthesis"><p>Aditya Agarwal 分享了四条关于早期招聘的硬核观点：1) 在 Series-B 前公司和 BigCo 之间犹豫的工程师不适合创业；2) 不愿接受 70% 降薪的人会在创业公司不开心；3) 谈判阶段能学到很多关于候选人的信息；4) 创业公司没有工作生活平衡，不愿投入时间的人心态不对。</p></div>
+    <blockquote>If an engineer is trying to pick between a pre Series-B company and a BigCo/BigLab --&gt; stop talking to them immediately.</blockquote>
     
     
-    <div class="source">→ <a href="https://x.com/danshipper/status/2060487621915152571" target="_blank" rel="noopener">https://x.com/danshipper/status/2060487621915152571</a></div>
+    <div class="source">→ <a href="https://x.com/adityaag/status/2057502381038846306" target="_blank" rel="noopener">https://x.com/adityaag/status/2057502381038846306</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner at FPV Ventures</div>
+    <div class="synthesis"><p>Nikunj Kothari 指出前创始人（ex-founders）是帮助 scaling 一些最标志性公司的核心驱动力，列举了 Ramp、Mercor、Figma、Anthropic、Cognition 等例子。他所在的 FPV Ventures 正在为 ex-founders 组织线下活动。</p></div>
+    <blockquote>ex founders are THE driving force helping scale some of the most iconic companies</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2057462304149778588" target="_blank" rel="noopener">https://x.com/nikunj/status/2057462304149778588</a></div>
   </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i1">
-    <h3>Maxim Bar Kogan</h3>
-    <div class="bio">Co-founder &amp; CEO, Onyx Security</div>
-    <div class="synthesis"><p>驱动 Onyx Security 的核心洞察是：AutoGPT 让所有人窥见了一个未来——模型自主决定做什么，然后在循环中执行——而这个未来正随着 Claude Code、Cowork 和 OpenCloud 的到来成为现实。Bar Kogan 的团队训练小型专用模型，作为「chess intuition」层：它们快速标记高风险的 agent 行为，让更智能的监督 agent 只在关键时刻介入。这既控制了成本和延迟，又能捕捉危险行为。国际象棋的比喻很贴切——大师不会计算每一步，而是凭直觉知道何时该停下来思考。Onyx 的方法同样关乎高效计算：把智能花在风险高的地方，而非处处。该公司还透露，目前企业 AI 使用中超过 50% 是自主编程 agent，低代码自动化占 45%，自研 first-party agent 仅占 2%——这一分布表明，大多数企业采用现成 agentic 工具的速度远快于自建。</p></div>
-    <blockquote>As you&#39;re exponentially doing more things with the AIs, you&#39;re going to start having really bad actions happen. And we&#39;ve seen some of that happen lately with agents accidentally publishing code and tokens that they weren&#39;t supposed to.</blockquote>
+    <h3>Yann Dubois</h3>
+    <div class="bio">Co-leads Post-Training Frontiers team at OpenAI, former Stanford Alpaca co-author</div>
+    <div class="synthesis"><p>Yann Dubois 详细拆解了 GPT-5.5 的训练内幕。他领导的 Post-Training Frontiers 团队负责将各个垂直团队的改进整合到最终模型中，确保模型在不同场景下表现一致而非忽好忽坏。他透露模型效率提升了约 2 倍，而公司全员对齐、朝同一个北极星目标推进是这次发布最令人骄傲的地方。</p></div>
+    <blockquote>You need to reach this level of reliability to really make any of these AI tools very useful, and I think we just crossed that probably December last year.</blockquote>
     
     
-    <div class="source">→ <a href="https://www.youtube.com/watch?v=QDsbFLEt9ro" target="_blank" rel="noopener">https://www.youtube.com/watch?v=QDsbFLEt9ro</a></div>
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=DhD1zZ8w8Mw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DhD1zZ8w8Mw</a></div>
   </article></section>
 </main>
 <footer class="digest-footer">
