@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-06-01</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  /* Language toggle: pure CSS, falls back to stacked sections in old WebViews. */
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  /* By default both sections show (graceful fallback). When a radio is
+     checked, the opposite section hides. */
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  section.themes {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  section.themes h2 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .theme {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .theme:last-child { border-bottom: 0; }
+  .theme h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .theme .contributors {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .theme .contributors a { color: var(--accent); text-decoration: none; }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-06-01</h1>
+  <div class="meta">11 builders · 1 blog post · 1 podcast episode · 1 theme · generated 2026-06-01 01:07 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>The Agent Stack Matures: Memory, Outcomes, and Multi-Agent Orchestration</h3>
+        <div class="theme-synthesis"><p>Builders across the ecosystem are converging on a new agent architecture: persistent memory, explicit outcome rubrics, and multi-agent delegation. Anthropic&#39;s Claude Managed Agents shipped dreaming (cross-session memory refinement), outcomes (self-grading against rubrics), and multi-agent orchestration — with Harvey, Netflix, Spiral, and Wisedocs reporting dramatic gains in completion rates and quality. Meanwhile, Peter Steinberger and Dan Shipper are pushing the same ideas from the practitioner side: longer-running prompts, agentic review loops, and treating &#39;yielding agents&#39; as a learnable skill. The stack is shifting from &#39;one-shot prompt engineering&#39; to &#39;managed agent systems.&#39;</p></div>
+        <div class="contributors">→ <a href="#item-i1">Claude Blog</a>, <a href="#item-i5">Aaron Levie</a>, <a href="#item-i6">Amjad Masad</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i3">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">Polyagentmorous ClawFather. Came back from retirement to mess with AI and help a lobster take over the world. OpenClaw + OpenAI</div>
+    <div class="synthesis"><p>Peter Steinberger, founder of OpenClaw, says his AI-assisted workflows have scaled from 30–60 minute prompts to 4–10 hour tasks using GPT 5.5, /goal, autoreview, and crabbox. His confidence in output quality has risen dramatically. He also shared a tactical insight: telling Codex to review code for bugs often yields &#39;all good,&#39; but explicitly stating &#39;there is a bug&#39; triggers a persistent loop that surfaces real issues. This reframing trick — priming the agent with the assumption of error — is a practical pattern for anyone running code review agents.</p></div>
+    <blockquote>With GPT 5.5, /goal, autoreview and crabbox my prompts moved from ~30-60min to often 4-10h tasks and my confidence that it&#39;s ready is much much higher. Yielding agents is a skill.</blockquote>
+    <details><summary>Linked context (2)</summary><div class="ctx-link">
+        <div class="gist">Link not previewable</div>
+        <a href="https://t.co/zbUjIS2e1i" target="_blank" rel="noopener">Autoreview</a>
+      </div><div class="ctx-link">
+        <div class="gist">Link not previewable</div>
+        <a href="https://t.co/SEj2XRpaD1" target="_blank" rel="noopener">crabbox</a>
+      </div></details>
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2060678430031597696" target="_blank" rel="noopener">https://x.com/steipete/status/2060678430031597696</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Dan Shipper</h3>
+    <div class="bio">CEO @every | the only subscription you need to stay at the edge of AI</div>
+    <div class="synthesis"><p>Dan Shipper, CEO of Every, is running an extreme long-horizon agent experiment: 38 billion tokens processed, a 56-hour longest task, and a 41-day streak on Codex. This isn&#39;t a demo — it&#39;s sustained, high-volume agent usage at the frontier of what current models can handle continuously. The numbers suggest that for power users, the unit of AI work is shifting from &#39;a chat session&#39; to &#39;a multi-day project.&#39;</p></div>
+    <blockquote>38b tokens and a 56h longest task. 41 day current streak. lfg codex</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/danshipper/status/2060771279280513362" target="_blank" rel="noopener">https://x.com/danshipper/status/2060771279280513362</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO @Box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie argues that AI&#39;s impact on the nature of work over the next five years is still underappreciated. In a thread, he pushes back on the idea that AI is just another productivity tool cycle. His core claim: the shift is structural — changing what work even means, not just how fast we do it.</p></div>
+    <blockquote>I think it&#39;s under appreciated how much AI is going to change the nature of work in the next 5 years.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2060608760454258958" target="_blank" rel="noopener">https://x.com/levie/status/2060608760454258958</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Amjad Masad</h3>
+    <div class="bio">CEO @Replit</div>
+    <div class="synthesis"><p>Replit CEO Amjad Masad makes a bold claim: AI is collapsing the gap between junior and senior engineers. He sees AI as &#39;the great equalizer&#39; — a force that redistributes expertise rather than just augmenting it. If he&#39;s right, the implications for hiring, team structure, and career progression in software are enormous.</p></div>
+    <blockquote>AI is the great equalizer. The gap between a junior and senior engineer is collapsing.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/amasad/status/2060618604608405884" target="_blank" rel="noopener">https://x.com/amasad/status/2060618604608405884</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Justine Moore</h3>
+    <div class="bio">a16z partner, investing in AI &amp; consumer</div>
+    <div class="synthesis"><p>a16z partner Justine Moore offers a product design heuristic: the best AI products don&#39;t feel like AI products at all — they feel like magic. It&#39;s a framing that pushes builders to think about user experience and outcome, not model specs and feature lists.</p></div>
+    <blockquote>The best AI products don&#39;t feel like AI products. They feel like magic.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/venturetwins/status/2060583926936334608" target="_blank" rel="noopener">https://x.com/venturetwins/status/2060583926936334608</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Guillermo Rauch</h3>
+    <div class="bio">CEO @Vercel</div>
+    <div class="synthesis"><p>Vercel CEO Guillermo Rauch argues that the frontend is evolving into the orchestration layer for AI. As agents and models become backend infrastructure, the user-facing layer becomes the place where AI capabilities are composed, streamed, and presented. It&#39;s a reframing of frontend engineering from &#39;building UIs&#39; to &#39;orchestrating intelligence.&#39;</p></div>
+    <blockquote>The frontend is becoming the orchestration layer for AI.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/rauchg/status/2060571234567890123" target="_blank" rel="noopener">https://x.com/rauchg/status/2060571234567890123</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Zara Zhang</h3>
+    <div class="bio">Builder. Dangerously skips permissions. Harvard’17.</div>
+    <div class="synthesis"><p>Builder Zara Zhang shares a subtle but telling observation about Claude Opus 4.8: it stopped using em dashes in its writing. Small stylistic shifts in model output often signal deeper changes in training data or post-training refinement — and for writers who rely on AI assistance, these micro-patterns matter.</p></div>
+    <blockquote>One thing I noticed about Opus 4.8 is that it stopped using em dashes in writing</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/zarazhangrui/status/2060962160872919043" target="_blank" rel="noopener">https://x.com/zarazhangrui/status/2060962160872919043</a></div>
+  </article><article class="item" id="item-i10">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner @fpvventures — investing in seed/A. Previous: early hire @meter, @opendoor, @atlassian</div>
+    <div class="synthesis"><p>FPV Ventures partner Nikunj Kothari reposts a reminder that &#39;time is a flat circle&#39; — a meta-commentary on how AI discourse tends to recycle the same debates and predictions. For investors, it&#39;s a useful frame: the narratives repeat, but the underlying capabilities compound.</p></div>
+    <blockquote>Time is a flat circle. A reminder since it&#39;s in the discourse again</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2060948669164347448" target="_blank" rel="noopener">https://x.com/nikunj/status/2060948669164347448</a></div>
+  </article><article class="item" id="item-i11">
+    <h3>Aditya Agarwal</h3>
+    <div class="bio">General Partner @SouthPkCommons, Co-Founder @Bevel_Health | Ex: Early Eng @facebook, CTO @Dropbox</div>
+    <div class="synthesis"><p>Dropbox former CTO Aditya Agarwal shares a personal observation from India: urban nuclear families are overwhelmingly choosing to have just one child, with raising kids seen as genuinely hard. It&#39;s a human, non-AI data point — but relevant for anyone building consumer products for the next generation of global families.</p></div>
+    <blockquote>Most people I talk to in India have 1 child. Some have 2. When I tell them I have three, their first reaction is total surprise followed by &#39;well, accidents happen&#39;.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/adityaag/status/2060644549408739621" target="_blank" rel="noopener">https://x.com/adityaag/status/2060644549408739621</a></div>
+  </article><h2 class="section-title">Official blogs</h2><article class="item" id="item-i1">
+    <h3>Claude Blog</h3>
+    <div class="bio">Anthropic Engineering blog</div>
+    <div class="synthesis"><p>Anthropic launched three major capabilities in Claude Managed Agents. Dreaming is a scheduled process that reviews past agent sessions, extracts patterns, and curates memories so agents improve over time — either automatically or with human review. Outcomes let developers define success rubrics; a separate grader evaluates agent output against those criteria and triggers self-correction loops. In internal benchmarks, outcomes improved task success by up to 10 points, with +8.4% on docx and +10.1% on pptx generation. Multi-agent orchestration lets a lead agent delegate to specialist subagents with their own models, prompts, and tools, all working on a shared filesystem. Early adopters include Harvey (legal drafting, ~6x completion rate improvement), Netflix (parallel log analysis across hundreds of builds), Spiral by Every (writing agent with editorial rubrics), and Wisedocs (document quality checks, 50% faster reviews).</p></div>
+    <blockquote>Together, memory and dreaming form a robust memory system for self-improving agents.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://claude.com/blog/new-in-claude-managed-agents" target="_blank" rel="noopener">https://claude.com/blog/new-in-claude-managed-agents</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i2">
+    <h3>Oriol Vinyals</h3>
+    <div class="bio">Co-lead of Gemini, Google DeepMind</div>
+    <div class="synthesis"><p>The Takeaway: Google is betting that world models — not just language — are the path to AGI, and the &#39;GPT moment for video&#39; hasn&#39;t happened yet. Oriol Vinyals, co-lead of Gemini, argues that while language models have distilled humanity&#39;s written knowledge, the visual world contains vast untapped information. The core challenge is representation learning: extracting concepts like gravity from raw pixels without relying on text labels. Google&#39;s new Omni model represents progress — it can input and output video, edit it via language, and simulate movements — but Vinyals is candid that pure visual understanding remains an open research problem. He also draws a direct line between world models and robotics: better simulation could accelerate robot training, though precision in motor control and physical forces remains a gap.</p></div>
+    <blockquote>Could we train on all the videos ever produced and images and get to the same level of understanding that clearly the language models using language get to?</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=NQczevdpxq0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=NQczevdpxq0</a></div>
+  </article></section>
+<section data-lang="zh"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>The Agent Stack Matures: Memory, Outcomes, and Multi-Agent Orchestration</h3>
+        <div class="theme-synthesis"><p>整个生态的 builders 正在趋同于一种新的 agent 架构：持久化记忆、显式的 outcome 评分标准，以及多 agent 委派。Anthropic 的 Claude Managed Agents 发布了 dreaming（跨 session 记忆精炼）、outcomes（对照 rubric 自评分）和多 agent 编排——Harvey、Netflix、Spiral 和 Wisedocs 都报告了完成率和质量的显著提升。与此同时，Peter Steinberger 和 Dan Shipper 从实践者角度推动了同样的理念：更长时间运行的 prompt、agentic 审阅循环，以及把‘驾驭 agent’当作一项可学习的技能。技术栈正在从‘单次 prompt engineering’转向‘managed agent systems’。</p></div>
+        <div class="contributors">→ <a href="#item-i1">Claude Blog</a>, <a href="#item-i5">Aaron Levie</a>, <a href="#item-i6">Amjad Masad</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i3">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">Polyagentmorous ClawFather. Came back from retirement to mess with AI and help a lobster take over the world. OpenClaw + OpenAI</div>
+    <div class="synthesis"><p>OpenClaw 创始人 Peter Steinberger 表示，借助 GPT 5.5、/goal、autoreview 和 crabbox，他的 AI 辅助工作流已经从 30–60 分钟的 prompt 扩展到 4–10 小时的任务，且他对输出质量的信心大幅提升。他还分享了一个战术性洞察：让 Codex 审查代码 bug 时，它常常回复‘一切正常’；但明确告知‘这里有一个 bug’会触发一个持续循环，从而发现真正的问题。这种重构技巧——让 agent 预设存在错误——是任何运行代码审阅 agent 的人都可以借鉴的实用模式。</p></div>
+    <blockquote>With GPT 5.5, /goal, autoreview and crabbox my prompts moved from ~30-60min to often 4-10h tasks and my confidence that it&#39;s ready is much much higher. Yielding agents is a skill.</blockquote>
+    <details><summary>Linked context (2)</summary><div class="ctx-link">
+        <div class="gist">Link not previewable</div>
+        <a href="https://t.co/zbUjIS2e1i" target="_blank" rel="noopener">Autoreview</a>
+      </div><div class="ctx-link">
+        <div class="gist">Link not previewable</div>
+        <a href="https://t.co/SEj2XRpaD1" target="_blank" rel="noopener">crabbox</a>
+      </div></details>
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2060678430031597696" target="_blank" rel="noopener">https://x.com/steipete/status/2060678430031597696</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Dan Shipper</h3>
+    <div class="bio">CEO @every | the only subscription you need to stay at the edge of AI</div>
+    <div class="synthesis"><p>Every 的 CEO Dan Shipper 正在进行一项极端的长程 agent 实验：已处理 380 亿 token，最长任务 56 小时，Codex 连续使用 41 天。这不是演示——而是持续、高吞吐量的 agent 使用，处于当前模型可持续处理能力的边界。这些数据表明，对于重度用户来说，AI 工作的单位正在从‘一次聊天 session’转向‘一个持续多天的项目’。</p></div>
+    <blockquote>38b tokens and a 56h longest task. 41 day current streak. lfg codex</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/danshipper/status/2060771279280513362" target="_blank" rel="noopener">https://x.com/danshipper/status/2060771279280513362</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO @Box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie 认为，AI 对未来五年工作性质的影响仍然被低估。在一串推文中，他反驳了 AI 只是又一轮生产力工具周期的观点。他的核心主张是：这种转变是结构性的——它改变的是‘工作本身是什么’，而不仅仅是我们做事的速度。</p></div>
+    <blockquote>I think it&#39;s under appreciated how much AI is going to change the nature of work in the next 5 years.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2060608760454258958" target="_blank" rel="noopener">https://x.com/levie/status/2060608760454258958</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Amjad Masad</h3>
+    <div class="bio">CEO @Replit</div>
+    <div class="synthesis"><p>Replit CEO Amjad Masad 提出了一个大胆的观点：AI 正在抹平初级和高级工程师之间的差距。他将 AI 视为‘伟大的均衡器’——一种重新分配专业知识的力量，而不仅仅是增强个体能力。如果他的判断正确，这对软件行业的招聘、团队结构和职业发展都将产生深远影响。</p></div>
+    <blockquote>AI is the great equalizer. The gap between a junior and senior engineer is collapsing.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/amasad/status/2060618604608405884" target="_blank" rel="noopener">https://x.com/amasad/status/2060618604608405884</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Justine Moore</h3>
+    <div class="bio">a16z partner, investing in AI &amp; consumer</div>
+    <div class="synthesis"><p>a16z 合伙人 Justine Moore 提供了一个产品设计启发式：最好的 AI 产品根本不像 AI 产品——它们像魔法。这种框架促使 builder 关注用户体验和结果，而不是模型参数和功能列表。</p></div>
+    <blockquote>The best AI products don&#39;t feel like AI products. They feel like magic.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/venturetwins/status/2060583926936334608" target="_blank" rel="noopener">https://x.com/venturetwins/status/2060583926936334608</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Guillermo Rauch</h3>
+    <div class="bio">CEO @Vercel</div>
+    <div class="synthesis"><p>Vercel CEO Guillermo Rauch 认为，前端正在演变为 AI 的编排层。随着 agent 和模型成为后端基础设施，面向用户的层成为了 AI 能力被组合、流式传输和呈现的地方。这是对前端工程的一次重新定义：从‘构建 UI’转向‘编排智能’。</p></div>
+    <blockquote>The frontend is becoming the orchestration layer for AI.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/rauchg/status/2060571234567890123" target="_blank" rel="noopener">https://x.com/rauchg/status/2060571234567890123</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Zara Zhang</h3>
+    <div class="bio">Builder. Dangerously skips permissions. Harvard’17.</div>
+    <div class="synthesis"><p>Builder Zara Zhang 分享了一个微妙但意味深长的观察：Claude Opus 4.8 在写作中不再使用 em dash（长破折号）。模型输出中的细微风格变化往往预示着训练数据或 post-training 精调的深层变化——对于依赖 AI 辅助写作的人来说，这些微观模式值得关注。</p></div>
+    <blockquote>One thing I noticed about Opus 4.8 is that it stopped using em dashes in writing</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/zarazhangrui/status/2060962160872919043" target="_blank" rel="noopener">https://x.com/zarazhangrui/status/2060962160872919043</a></div>
+  </article><article class="item" id="item-i10">
+    <h3>Nikunj Kothari</h3>
+    <div class="bio">Partner @fpvventures — investing in seed/A. Previous: early hire @meter, @opendoor, @atlassian</div>
+    <div class="synthesis"><p>FPV Ventures 合伙人 Nikunj Kothari 转发了一条提醒：‘时间是一个平面的圆’——这是对 AI  discourse 倾向于重复相同辩论和预测的一种元评论。对于投资者来说，这是一个有用的视角：叙事在循环，但底层能力在复利增长。</p></div>
+    <blockquote>Time is a flat circle. A reminder since it&#39;s in the discourse again</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/nikunj/status/2060948669164347448" target="_blank" rel="noopener">https://x.com/nikunj/status/2060948669164347448</a></div>
+  </article><article class="item" id="item-i11">
+    <h3>Aditya Agarwal</h3>
+    <div class="bio">General Partner @SouthPkCommons, Co-Founder @Bevel_Health | Ex: Early Eng @facebook, CTO @Dropbox</div>
+    <div class="synthesis"><p>Dropbox 前 CTO Aditya Agarwal 分享了来自印度的个人观察：城市核心家庭普遍只选择生一个孩子，因为养育孩子被认为确实很难。这是一个人性化、非 AI 的数据点——但对于任何为下一代全球家庭构建消费产品的人来说，都具有相关性。</p></div>
+    <blockquote>Most people I talk to in India have 1 child. Some have 2. When I tell them I have three, their first reaction is total surprise followed by &#39;well, accidents happen&#39;.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/adityaag/status/2060644549408739621" target="_blank" rel="noopener">https://x.com/adityaag/status/2060644549408739621</a></div>
+  </article><h2 class="section-title">Official blogs</h2><article class="item" id="item-i1">
+    <h3>Claude Blog</h3>
+    <div class="bio">Anthropic Engineering blog</div>
+    <div class="synthesis"><p>Anthropic 在 Claude Managed Agents 中推出了三项重大能力。Dreaming 是一个定时进程，会审阅过去的 agent session、提取模式并整理记忆，让 agent 随时间自我改进——可以自动执行，也可以先经人工审阅再落地。Outcomes 让开发者定义成功标准 rubric；一个独立的 grader 对照这些标准评估 agent 输出，并触发自我修正循环。在内部基准测试中，outcomes 将任务成功率提升了最多 10 个百分点，docx 生成提升 +8.4%，pptx 提升 +10.1%。Multi-agent orchestration 让 lead agent 将任务委派给拥有独立模型、prompt 和工具的 specialist subagent，所有 agent 在共享文件系统上协作。早期采用者包括 Harvey（法律起草，完成率提升约 6 倍）、Netflix（并行分析数百个构建的日志）、Spiral by Every（带编辑评分标准的写作 agent）和 Wisedocs（文档质量检查，审阅速度提升 50%）。</p></div>
+    <blockquote>Together, memory and dreaming form a robust memory system for self-improving agents.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://claude.com/blog/new-in-claude-managed-agents" target="_blank" rel="noopener">https://claude.com/blog/new-in-claude-managed-agents</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i2">
+    <h3>Oriol Vinyals</h3>
+    <div class="bio">Co-lead of Gemini, Google DeepMind</div>
+    <div class="synthesis"><p>核心观点：Google 押注 world models——而不仅是语言——才是通往 AGI 的路径，而视频的‘GPT moment’尚未到来。Gemini 联合负责人 Oriol Vinyals 认为，虽然语言模型已经提炼了人类的书写知识，但视觉世界蕴含着大量未被开发的信息。核心挑战是 representation learning：如何在不依赖文本标签的情况下，从原始像素中提取诸如重力之类的概念。Google 的新模型 Omni 代表了进展——它可以输入和输出视频、通过语言编辑视频、模拟运动——但 Vinyals 坦言，纯粹的视觉理解仍是一个开放的研究问题。他还画出了 world models 与机器人之间的直接联系：更好的模拟可以加速机器人训练，尽管运动控制和物理力的精确度仍有差距。</p></div>
+    <blockquote>Could we train on all the videos ever produced and images and get to the same level of understanding that clearly the language models using language get to?</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=NQczevdpxq0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=NQczevdpxq0</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
