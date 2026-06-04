@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-06-04</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  /* Language toggle: pure CSS, falls back to stacked sections in old WebViews. */
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  /* By default both sections show (graceful fallback). When a radio is
+     checked, the opposite section hides. */
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  section.themes {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  section.themes h2 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .theme {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .theme:last-child { border-bottom: 0; }
+  .theme h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .theme .contributors {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .theme .contributors a { color: var(--accent); text-decoration: none; }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-06-04</h1>
+  <div class="meta">10 builders · 1 podcast episode · 1 theme · generated 2026-06-04 00:12 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Coding Agents Hit an Inflection Point: From Developer Tool to Universal Platform</h3>
+        <div class="theme-synthesis"><p>Multiple signals this week confirm coding agents are crossing from developer niche to mainstream adoption. OpenAI&#39;s Codex report shows knowledge workers now represent 20% of users and are adopting 3x faster than developers — with data analysis growing 110% week-over-week. Anthropic shipped Claude Code Workflows, its biggest upgrade since skills and subagents, enabling non-technical workflows. Vercel CEO Guillermo Rauch declared the &#39;YES-CODE&#39; era, arguing coding agents made code cheap and abundant, killing the no-code thesis. Replit CEO Amjad Masad noted SWE benchmarks miss the real picture — app-building benchmarks like ViBench matter more now. The signal is clear: coding agents are no longer just for developers — they&#39;re becoming the primary computing interface for knowledge workers.</p></div>
+        <div class="contributors">→ <a href="#item-i1">Thariq</a>, <a href="#item-i2">Thibault Sottiaux</a>, <a href="#item-i3">Zara Zhang</a>, <a href="#item-i4">Guillermo Rauch</a>, <a href="#item-i5">Amjad Masad</a>, <a href="#item-i6">Peter Yang</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+    <h3>Thariq</h3>
+    <div class="bio">Claude Code @ Anthropic. Prev YC W20</div>
+    <div class="synthesis"><p>Thariq, who builds Claude Code at Anthropic, announced Workflows — the most significant upgrade to Claude Code since skills and subagents. He dove deep with Sid to document best practices and examples, and highlighted that he&#39;s particularly excited about the non-technical tasks this unlocks. The feature was accompanied by a detailed Claude Blog post. It&#39;s the kind of platform-level improvement that signals Anthropic sees Claude Code evolving beyond a developer terminal tool into a general-purpose agentic computing environment. Dan Shipper of Every corroborated the magnitude, saying people at Anthropic are internally &#39;freaking out&#39; about it and paying close attention.</p></div>
+    <blockquote>Workflows are the biggest upgrade to Claude Code&#39;s capabilities since skills and subagents.</blockquote>
+    <details><summary>Linked context (1)</summary><div class="ctx-link">
+        <div class="gist">Dan Shipper says people at Anthropic are internally &#39;freaking out&#39; about the Workflows feature.</div>
+        <a href="https://x.com/danshipper/status/2061908190040645707" target="_blank" rel="noopener">Dan Shipper&#39;s reaction</a>
+      </div></details>
+    
+    <div class="source">→ <a href="https://x.com/trq212/status/2061907538741006796" target="_blank" rel="noopener">https://x.com/trq212/status/2061907538741006796</a></div>
+  </article><article class="item" id="item-i2">
+    <h3>Thibault Sottiaux</h3>
+    <div class="bio">Codex &amp; ChatGPT @ OpenAI</div>
+    <div class="synthesis"><p>Thibault Sottiaux shipped a major Codex update: business plan users can now host and share websites directly, plugins and skills are vastly improved for broad roles, and a new visual annotation system lets users give feedback to agents inside documents, slides, and spreadsheets. In a separate thread, he declared &#39;ChatGPT... synonym with AI, soon synonym with agents.&#39; The message from OpenAI&#39;s Codex team is clear — they&#39;re not building a code editor; they&#39;re building the agentic operating system for knowledge work, one where the boundary between developer and end-user continues to dissolve.</p></div>
+    <blockquote>Tons of goodies for use of Codex for day-to-day work. If you are on a business plan you can now host and share websites, we launched vastly improved plugins and skills for broad roles and you can give feedback to your agent through visual annotations in docs, slides, sheets and more.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/thsottiaux/status/2061876999564791952" target="_blank" rel="noopener">https://x.com/thsottiaux/status/2061876999564791952</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Zara Zhang</h3>
+    <div class="bio">Builder. Dangerously skips permissions. Harvard &#39;17</div>
+    <div class="synthesis"><p>Zara Zhang highlighted the most revealing data point from OpenAI&#39;s latest Codex report: knowledge workers now account for 20% of Codex users and are adopting the platform more than 3 times faster than developers. The fastest-growing use cases — Data Analysis at 110% week-over-week, Research at 37%, and Knowledge Artifacts at 36% — paint a picture of Codex evolving into a general knowledge work platform, not just a developer tool. This data validates the thesis that AI coding agents are the wedge through which non-technical professionals access agentic computing.</p></div>
+    <blockquote>Knowledge workers now represent about 20% of Codex users and are adopting it more than 3 times as fast as developers. The fastest growing task types for knowledge workers are: Data Analysis (110% growth week over week); Research (+37%), and Knowledge Artifacts (+36%)</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/zarazhangrui/status/2061924300698091760" target="_blank" rel="noopener">https://x.com/zarazhangrui/status/2061924300698091760</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Guillermo Rauch</h3>
+    <div class="bio">Vercel CEO</div>
+    <div class="synthesis"><p>Vercel CEO Guillermo Rauch declared the &#39;YES-CODE&#39; era in a post that resonated widely (462 likes). He argued that the entire no-code software category was built on a false premise — that code is expensive and scarce — and coding agents have permanently inverted that equation. Vercel&#39;s mission, he stated, is &#39;the easiest cloud for agents that you never graduate from.&#39; In a parallel thread, he highlighted Conductor as the first IDE born for coding agents (&#39;an ADE if you will&#39;), arguing agents will take remote development mainstream because at large organizations, &#39;local isn&#39;t a thing.&#39; Rauch sees a future where developers never hit the ceiling of their platform, and where Vercel becomes the infrastructure layer for agent-generated applications.</p></div>
+    <blockquote>An entire category of software, &#39;no-code&#39;, was built under the presumption that code is expensive, difficult, and scarce. Coding agents have forever changed the equation. Code is now cheap, easy, and abundant.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/rauchg/status/2061934154732974376" target="_blank" rel="noopener">https://x.com/rauchg/status/2061934154732974376</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Amjad Masad</h3>
+    <div class="bio">CEO @ Replit. Civilizationist</div>
+    <div class="synthesis"><p>Replit CEO Amjad Masad announced a partnership with Microsoft to bring Replit into the enterprise via Microsoft&#39;s new Rayfin SDK, enabling anyone to build and deploy safe, secure Fabric data apps. This signals Replit&#39;s push from a consumer coding platform into enterprise low-code/agentic app development — exactly the direction Guillermo Rauch&#39;s &#39;YES-CODE&#39; thesis describes. Separately, Masad pointed to ViBench as a better benchmark than traditional SWE benchmarks for measuring coding agents&#39; ability to build real applications, acknowledging that the industry needs new evaluation frameworks for the agent era.</p></div>
+    <blockquote>Excited to partner with @Microsoft to enable everyone in the enterprise to build and deploy safe &amp; secure Fabric data apps. This is possible thanks to Microsoft&#39;s new Rayfin SDK.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/amasad/status/2061893093696434578" target="_blank" rel="noopener">https://x.com/amasad/status/2061893093696434578</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Peter Yang</h3>
+    <div class="bio">Product at Roblox. Practical AI tutorials for busy people.</div>
+    <div class="synthesis"><p>Peter Yang gave credit to the Devin and Windsurf teams for staying disciplined through the inevitable hype cycles and criticism that early AI coding agents faced. He noted that many AI-native builders he knows now love Devin — a signal that the product has crossed a quality threshold. In a separate thread, Yang argued that narrow-focus SaaS products face an existential threat from AI agents: when a user already pays for Claude or ChatGPT, comparing a $20/month SaaS subscription against what their AI agent can already do becomes a losing proposition. The implication: coding agents aren&#39;t just displacing developers — they&#39;re reshaping the entire SaaS business model.</p></div>
+    <blockquote>Have to give the Devin/Windsurf team flowers for staying disciplined through the ups and downs and keeping at it.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2061936952400814392" target="_blank" rel="noopener">https://x.com/petergyang/status/2061936952400814392</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">OpenClaw founder. Polyagentmorous ClawFather.</div>
+    <div class="synthesis"><p>Peter Steinberger, creator of OpenClaw, announced a partnership with Microsoft to bring OpenClaw&#39;s multi-agent platform to enterprises — a post that garnered 3,413 likes and 234 retweets, making it one of the most engaged posts in this digest. In a separate update, he highlighted work with Omar on adding observability and verifiable workspaces to OpenClaw, addressing two of the biggest blockers for enterprise agent adoption: auditability and trust. The Microsoft partnership signals that the enterprise market for multi-agent orchestration platforms is heating up fast, with OpenClaw positioning itself as the infrastructure layer for production AI agents.</p></div>
+    <blockquote>Such a privilege to work with Microsoft to bring claws to enterprises!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2061874084649025728" target="_blank" rel="noopener">https://x.com/steipete/status/2061874084649025728</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO @ Box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie articulated the thesis that model routing is an inevitable outcome as token consumption grows into a meaningful operating expense. He argues that enterprises won&#39;t be able to solve model routing at scale themselves — the products that intelligently dispatch workflows to the right model tier (frontier vs. cost-efficient) will aggregate the most demand. For now, most use cases still need frontier performance, but over time, as quality on smaller models catches up, companies will peel off individual use-cases to cheaper tiers. This is one of the clearest articulations yet of why the &#39;AI router&#39; layer will be a critical piece of enterprise infrastructure.</p></div>
+    <blockquote>As token budgets take on a larger part of operating expenses over time, model routing is the inevitable conclusion.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2061974298760495132" target="_blank" rel="noopener">https://x.com/levie/status/2061974298760495132</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Sam Altman</h3>
+    <div class="bio">CEO @ OpenAI</div>
+    <div class="synthesis"><p>Sam Altman endorsed the new US Executive Order on AI, stating it strikes the right balance between continued frontier model development, safety requirements, and putting cyber defense tools into the hands of trusted defenders. The post, at 1,740 likes, reflects OpenAI&#39;s ongoing positioning as a partner to US government AI policy — a stark contrast to the deregulatory posture of some competitors. The EO&#39;s emphasis on cyber tools for defenders aligns with OpenAI&#39;s recent cybersecurity initiatives.</p></div>
+    <blockquote>The US should lead on AI by continuing to develop the very best models, making sure they&#39;re safe, and getting cyber tools into the hands of trusted defenders. The new EO gets the balance right.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/sama/status/2061973280655904815" target="_blank" rel="noopener">https://x.com/sama/status/2061973280655904815</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i10">
+    <h3>Alfred Wahlforss</h3>
+    <div class="bio">Founder and CEO of Listen Labs — AI-first customer research platform serving 20% of the Fortune 500</div>
+    <div class="synthesis"><p>Alfred Wahlforss, founder of Listen Labs, joined the Training Data podcast to discuss how AI is transforming customer research. Listen runs thousands of simultaneous AI-conducted voice interviews — complete with video, emotional detection, and eye tracking — and serves 20% of the Fortune 500 including Microsoft, Anthropic, and Sweetgreen. The core insight: people are actually more honest with AI interviewers than humans, describing it as &#39;a therapeutic experience&#39; with a non-judgmental entity. Listen has built a panel of 30 million participants and can find hyper-specific audiences — from oncologists to sneaker influencers — by building cross-interview profiles of each person. Wahlforss&#39;s framing of the AGI future is compelling: &#39;it will be easier to build things, but the hard part will be knowing what to build.&#39; Listen&#39;s next feature — simulation — aims to predict customer responses after conducting tens of thousands of interviews, effectively building a digital twin of the market.</p></div>
+    <blockquote>As we get closer to AGI, it will be easier to build things, but the hard part will be knowing what to build. And that&#39;s what we&#39;re building at Listen.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=Rumft-rsEu4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Rumft-rsEu4</a></div>
+  </article></section>
+<section data-lang="zh"><section class="themes">
+    <h2>Themes today</h2>
+    <div class="theme">
+        <h3>Coding Agents Hit an Inflection Point: From Developer Tool to Universal Platform</h3>
+        <div class="theme-synthesis"><p>本周多个信号确认，AI编程代理正从开发者专属工具跨越到主流采用。OpenAI的Codex报告显示，知识工作者现已占用户总数的20%，且采用速度是开发者的3倍——数据分析任务周环比增长110%。Anthropic推出Claude Code Workflows，这是自skills和subagents以来的最大升级，支持非技术工作流。Vercel CEO Guillermo Rauch宣布进入&#39;YES-CODE&#39;时代，认为AI编程代理让代码变得廉价且丰富，终结了无代码的叙事。Replit CEO Amjad Masad指出，SWE基准测试无法反映真实情况——像ViBench这样衡量应用构建能力的基准才更重要。信号很明确：AI编程代理不再只是开发者的工具——它们正成为知识工作者的主要计算界面。</p></div>
+        <div class="contributors">→ <a href="#item-i1">Thariq</a>, <a href="#item-i2">Thibault Sottiaux</a>, <a href="#item-i3">Zara Zhang</a>, <a href="#item-i4">Guillermo Rauch</a>, <a href="#item-i5">Amjad Masad</a>, <a href="#item-i6">Peter Yang</a></div>
+      </div>
+  </section><h2 class="section-title">X / Twitter</h2><article class="item" id="item-i1">
+    <h3>Thariq</h3>
+    <div class="bio">Claude Code @ Anthropic. Prev YC W20</div>
+    <div class="synthesis"><p>在Anthropic负责Claude Code开发的Thariq宣布了Workflows——这是自skills和subagents以来Claude Code最具分量的升级。他与Sid深入合作，记录了最佳实践和示例，并特别强调他对非技术任务场景感到兴奋。该功能还配有详细的Claude Blog文章。这是一个平台级别的改进，表明Anthropic正将Claude Code从开发者终端工具演变为通用型智能计算环境。Every的Dan Shipper也证实了这一重要性，称Anthropic内部对此&#39;非常兴奋&#39;。</p></div>
+    <blockquote>Workflows are the biggest upgrade to Claude Code&#39;s capabilities since skills and subagents.</blockquote>
+    <details><summary>Linked context (1)</summary><div class="ctx-link">
+        <div class="gist">Dan Shipper says people at Anthropic are internally &#39;freaking out&#39; about the Workflows feature.</div>
+        <a href="https://x.com/danshipper/status/2061908190040645707" target="_blank" rel="noopener">Dan Shipper&#39;s reaction</a>
+      </div></details>
+    
+    <div class="source">→ <a href="https://x.com/trq212/status/2061907538741006796" target="_blank" rel="noopener">https://x.com/trq212/status/2061907538741006796</a></div>
+  </article><article class="item" id="item-i2">
+    <h3>Thibault Sottiaux</h3>
+    <div class="bio">Codex &amp; ChatGPT @ OpenAI</div>
+    <div class="synthesis"><p>Thibault Sottiaux发布了Codex的重大更新：商业版用户现在可以直接托管和分享网站，插件和技能大幅改进以支持更广泛的角色，新的视觉标注系统让用户可以在文档、幻灯片和电子表格中直接给代理提供反馈。他在另一条推文中宣称&#39;ChatGPT...是AI的同义词，很快也会成为代理的同义词。&#39; OpenAI Codex团队的信息很明确——他们不是在构建代码编辑器；而是在构建知识工作的智能操作系统，开发者和最终用户之间的界限正在持续消融。</p></div>
+    <blockquote>Tons of goodies for use of Codex for day-to-day work. If you are on a business plan you can now host and share websites, we launched vastly improved plugins and skills for broad roles and you can give feedback to your agent through visual annotations in docs, slides, sheets and more.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/thsottiaux/status/2061876999564791952" target="_blank" rel="noopener">https://x.com/thsottiaux/status/2061876999564791952</a></div>
+  </article><article class="item" id="item-i3">
+    <h3>Zara Zhang</h3>
+    <div class="bio">Builder. Dangerously skips permissions. Harvard &#39;17</div>
+    <div class="synthesis"><p>Zara Zhang分享了OpenAI最新Codex报告中最具洞察力的数据：知识工作者现在占Codex用户的20%，且采用速度是开发者的3倍以上。增长最快的用例——数据分析周环比增长110%、研究增长37%、知识工件增长36%——描绘出Codex正演变为通用知识工作平台的图景，而不仅仅是开发者工具。这一数据验证了一个论点：AI编程代理是非技术专业人士接入智能计算的最佳切入点。</p></div>
+    <blockquote>Knowledge workers now represent about 20% of Codex users and are adopting it more than 3 times as fast as developers. The fastest growing task types for knowledge workers are: Data Analysis (110% growth week over week); Research (+37%), and Knowledge Artifacts (+36%)</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/zarazhangrui/status/2061924300698091760" target="_blank" rel="noopener">https://x.com/zarazhangrui/status/2061924300698091760</a></div>
+  </article><article class="item" id="item-i4">
+    <h3>Guillermo Rauch</h3>
+    <div class="bio">Vercel CEO</div>
+    <div class="synthesis"><p>Vercel CEO Guillermo Rauch宣布进入&#39;YES-CODE&#39;时代，这篇帖子引起了广泛共鸣（462次点赞）。他认为，整个无代码软件类别都建立在一个错误的假设上——代码昂贵且稀缺——而AI编程代理已经永久性地颠覆了这一等式。他表示Vercel的使命是&#39;成为代理最易用的云平台，让你永远不需要升级到别处。&#39;在另一条讨论中，他强调Conductor是第一个为AI编程代理而生的IDE（&#39;如果你愿意，可以称之为ADE&#39;），并认为代理将推动远程开发成为主流，因为在大型组织中&#39;本地开发根本就不存在。&#39; Rauch预见的未来是开发者永远不会遇到平台天花板，而Vercel将成为代理生成应用的基础设施层。</p></div>
+    <blockquote>An entire category of software, &#39;no-code&#39;, was built under the presumption that code is expensive, difficult, and scarce. Coding agents have forever changed the equation. Code is now cheap, easy, and abundant.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/rauchg/status/2061934154732974376" target="_blank" rel="noopener">https://x.com/rauchg/status/2061934154732974376</a></div>
+  </article><article class="item" id="item-i5">
+    <h3>Amjad Masad</h3>
+    <div class="bio">CEO @ Replit. Civilizationist</div>
+    <div class="synthesis"><p>Replit CEO Amjad Masad宣布与微软达成合作，通过微软新的Rayfin SDK将Replit引入企业，让任何人都能构建和部署安全的Fabric数据应用。这标志着Replit从消费级编程平台向企业低代码/智能应用开发的进军——这正是Guillermo Rauch的&#39;YES-CODE&#39;论点所描述的方向。此外，Masad指出ViBench是比传统SWE基准更好的评测方式，用于衡量AI编程代理构建真实应用的能力，这承认了行业需要为代理时代建立新的评估框架。</p></div>
+    <blockquote>Excited to partner with @Microsoft to enable everyone in the enterprise to build and deploy safe &amp; secure Fabric data apps. This is possible thanks to Microsoft&#39;s new Rayfin SDK.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/amasad/status/2061893093696434578" target="_blank" rel="noopener">https://x.com/amasad/status/2061893093696434578</a></div>
+  </article><article class="item" id="item-i6">
+    <h3>Peter Yang</h3>
+    <div class="bio">Product at Roblox. Practical AI tutorials for busy people.</div>
+    <div class="synthesis"><p>Peter Yang对Devin和Windsurf团队表示赞赏，称他们在早期AI编程代理经历不可避免的炒作周期和批评时保持了自律。他指出，他认识的许多AI原生开发者现在都喜欢Devin——这表明该产品已经跨越了质量门槛。在另一条讨论中，Yang认为，专注于狭窄场景的SaaS产品面临来自AI代理的生存威胁：当用户已经付费使用Claude或ChatGPT时，将每月20美元的SaaS订阅与AI代理已经能做的事情相比，就变成了一场必输的博弈。这暗示着：AI编程代理不仅正在取代开发者——它们也在重塑整个SaaS商业模式。</p></div>
+    <blockquote>Have to give the Devin/Windsurf team flowers for staying disciplined through the ups and downs and keeping at it.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/petergyang/status/2061936952400814392" target="_blank" rel="noopener">https://x.com/petergyang/status/2061936952400814392</a></div>
+  </article><article class="item" id="item-i7">
+    <h3>Peter Steinberger</h3>
+    <div class="bio">OpenClaw founder. Polyagentmorous ClawFather.</div>
+    <div class="synthesis"><p>OpenClaw创始人Peter Steinberger宣布与微软合作，将OpenClaw的多代理平台引入企业——这条帖子获得了3,413次点赞和234次转发，是本摘要中互动最高的内容之一。在另一更新中，他提到与Omar合作，为OpenClaw增加了可观测性和可验证工作空间，解决了企业采用AI代理的两大障碍：可审计性和信任。微软合作表明，多代理编排平台的企业市场正在快速升温，OpenClaw正将自己定位为生产级AI代理的基础设施层。</p></div>
+    <blockquote>Such a privilege to work with Microsoft to bring claws to enterprises!</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/steipete/status/2061874084649025728" target="_blank" rel="noopener">https://x.com/steipete/status/2061874084649025728</a></div>
+  </article><article class="item" id="item-i8">
+    <h3>Aaron Levie</h3>
+    <div class="bio">CEO @ Box</div>
+    <div class="synthesis"><p>Box CEO Aaron Levie阐述了一个观点：随着token消耗变成一项重要的运营开支，模型路由是必然结果。他认为，企业无法自行大规模解决模型路由问题——那些能智能地将工作流分配到正确模型层级（前沿模型 vs. 成本高效模型）的产品将汇聚最多的需求。目前，大多数用例仍需要前沿模型的性能，但随着时间的推移，随着小型模型质量的提升，企业将把个别用例剥离到更便宜的层级。这是关于&#39;AI路由&#39;层为何将成为企业基础设施关键组成部分的最清晰阐述之一。</p></div>
+    <blockquote>As token budgets take on a larger part of operating expenses over time, model routing is the inevitable conclusion.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/levie/status/2061974298760495132" target="_blank" rel="noopener">https://x.com/levie/status/2061974298760495132</a></div>
+  </article><article class="item" id="item-i9">
+    <h3>Sam Altman</h3>
+    <div class="bio">CEO @ OpenAI</div>
+    <div class="synthesis"><p>Sam Altman对新的美国AI行政令表示支持，称其在持续推进前沿模型开发、安全要求以及将网络防御工具交到可信防御者手中之间取得了恰当平衡。这条获得1,740次点赞的帖子反映了OpenAI持续定位为美国政府AI政策合作伙伴的姿态——与一些竞争者主张放松监管的立场形成鲜明对比。该行政令对防御者网络工具的强调与OpenAI近期的网络安全举措方向一致。</p></div>
+    <blockquote>The US should lead on AI by continuing to develop the very best models, making sure they&#39;re safe, and getting cyber tools into the hands of trusted defenders. The new EO gets the balance right.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://x.com/sama/status/2061973280655904815" target="_blank" rel="noopener">https://x.com/sama/status/2061973280655904815</a></div>
+  </article><h2 class="section-title">Podcasts</h2><article class="item" id="item-i10">
+    <h3>Alfred Wahlforss</h3>
+    <div class="bio">Founder and CEO of Listen Labs — AI-first customer research platform serving 20% of the Fortune 500</div>
+    <div class="synthesis"><p>Listen Labs创始人Alfred Wahlforss做客Training Data播客，探讨AI如何改变客户研究。Listen同时运行数千个AI主持的语音访谈——包含视频、情绪检测和眼球追踪——服务于20%的世界500强企业，包括微软、Anthropic和Sweetgreen。核心洞察：人们实际上对AI采访者比人类更诚实，将其描述为与一个非评判性实体的&#39;疗愈体验&#39;。Listen建立了3000万参与者的面板，通过为每个人构建跨访谈档案，能够找到超特定的受众群体——从肿瘤科医生到球鞋KOL。Wahlforss对AGI未来的阐述引人深思：&#39;构建东西会变得更容易，但困难的部分将是知道该构建什么。&#39; Listen的下一个功能——模拟——旨在通过进行数万次访谈后预测客户反应，实质上是在构建市场的数字孪生。</p></div>
+    <blockquote>As we get closer to AGI, it will be easier to build things, but the hard part will be knowing what to build. And that&#39;s what we&#39;re building at Listen.</blockquote>
+    
+    
+    <div class="source">→ <a href="https://www.youtube.com/watch?v=Rumft-rsEu4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Rumft-rsEu4</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
