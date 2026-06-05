@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>AI Builders Digest — 2026-06-05</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --card: #fafafa;
+    --accent: #1f6feb;
+    --quote-bg: #f4f6f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --fg: #ececec;
+      --muted: #9aa0a6;
+      --line: #2a2d31;
+      --card: #1c1f23;
+      --accent: #79b8ff;
+      --quote-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 16px; max-width: 720px; margin: 0 auto; }
+  header.digest-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  header.digest-header h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header.digest-header .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .lang-toggle { display: flex; gap: 8px; margin: 12px 0 0; }
+  .lang-toggle input { position: absolute; left: -9999px; }
+  .lang-toggle label {
+    display: inline-block;
+    padding: 8px 14px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  #lang-en:checked ~ .lang-toggle label[for="lang-en"],
+  #lang-zh:checked ~ .lang-toggle label[for="lang-zh"] {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  #lang-en:checked ~ main section[data-lang="zh"],
+  #lang-zh:checked ~ main section[data-lang="en"] {
+    display: none;
+  }
+  h2.section-title {
+    margin: 24px 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  article.item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  article.item h3 {
+    margin: 0 0 2px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  article.item .bio {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 10px;
+  }
+  article.item .synthesis {
+    margin: 0 0 10px;
+  }
+  article.item blockquote {
+    margin: 10px 0;
+    padding: 10px 12px;
+    background: var(--quote-bg);
+    border-left: 3px solid var(--line);
+    font-size: 15px;
+    color: var(--fg);
+    border-radius: 0 6px 6px 0;
+  }
+  article.item details {
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+  article.item details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 8px 0;
+    min-height: 44px;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  article.item details summary::-webkit-details-marker { display: none; }
+  article.item details summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  article.item details[open] summary::before { transform: rotate(90deg); }
+  article.item details .ctx-link {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+  }
+  article.item details .ctx-link:first-of-type { border-top: 0; padding-top: 0; }
+  article.item details .ctx-link .gist { color: var(--fg); }
+  article.item details .ctx-link a { color: var(--accent); }
+  article.item .images { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
+  article.item .images figure { margin: 0; }
+  article.item .images img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  article.item .images figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  article.item .source {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  article.item .source a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  footer.digest-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  footer.digest-footer a { color: var(--muted); }
+  a:active, a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<input type="radio" name="lang" id="lang-en" checked>
+<input type="radio" name="lang" id="lang-zh">
+<header class="digest-header">
+  <h1>AI Builders Digest — 2026-06-05</h1>
+  <div class="meta">1 podcast episode · 1 blog post · generated 2026-06-05 01:20:16 UTC</div>
+  <div class="lang-toggle">
+    <label for="lang-en">English</label>
+    <label for="lang-zh">中文</label>
+  </div>
+</header>
+<main>
+<section data-lang="en"><h2 class="section-title">Podcasts</h2>
+<article class="item" id="item-i1">
+    <h3>Satya Nadella</h3>
+    <div class="bio">Chairman &amp; CEO of Microsoft</div>
+    <div class="synthesis"><p>The Takeaway: Microsoft CEO Satya Nadella argues that every company&#39;s most valuable IP in the AI era won&#39;t be their model — it will be their private evals, their harness, and the agentic systems they build around frontier intelligence.</p><p>In a wide-ranging conversation on No Priors, Satya Nadella lays out Microsoft&#39;s evolving AI strategy as an ecosystem play rather than a model race. He reflects on the key lessons from two years of shipping AI at Microsoft scale: the real complexity isn&#39;t in model capability — it&#39;s in the real-world deployment layer. &#39;The outcomes as measured by any benchmark is interesting, important. But the true eval is when people out there are able to do unique things that they only can value.&#39;</p><p>Nadella introduces the concept of &#39;hill climbing scaffolds&#39; — the idea that a small 5B reasoning model, when wrapped in the right harness with access to private evals and tool context, can outperform frontier models on domain-specific tasks. He points to the Land O&#39;Lakes demo where traces from GPT-5.5 were used to train a small model that achieved higher performance, calling this &#39;a new way to operate at the frontier.&#39;</p><p>The conversation surfaces a core principle: &#39;If you have an eval that&#39;s private, and you&#39;re using model A, can you switch it to model B and hill climb? If you can, you&#39;re in control. If you can&#39;t, you&#39;re not.&#39; This framing positions the harness and the eval as the new moat — more durable than any single model relationship.</p><p>Nadella also shares a striking internal example: Azure&#39;s network operations team, responsible for managing 500+ fiber operators globally, reconceptualized their work. Instead of doing networking, they built an agentic system called &#39;Miles&#39; that does the networking. &#39;They don&#39;t need headcount — they need tokens,&#39; Nadella says, illustrating how the meta-work of building the agentic system becomes the new job.</p><p>On coding specifically, he notes a paradox: coding has worked so well that the IDE itself needs to be rebuilt because the cognitive load of managing 100 agent sessions is excessive. &#39;The chat as the only artifact is also impossible — we need a canvas.&#39;</p><p>On the enterprise SaaS model, Nadella predicts a fundamental unbundling: businesses will keep rich data models (general ledgers, CRM schemas) and the business logic they built, but the packaging and UI layer will be reimagined. &#39;We sold first Exchange and SharePoint, then Teams. Now with WorkIQ, we&#39;ve exposed what may be the most important database in a company that never got used as a database.&#39;</p><p>Closing on a broader societal note, he emphasizes that the industry must deliver tangible benefits to communities — jobs, tax base, lower energy prices — because &#39;the world is going to be very skeptical of tech companies that say, trust us.&#39;</p></div>
+    <blockquote>Our job is not to do Azure networking. Our job is to build the agentic system that does Azure networking.</blockquote>
+    <div class="source">→ <a href="https://www.youtube.com/@NoPriorsPodcast" target="_blank" rel="noopener">https://www.youtube.com/@NoPriorsPodcast</a></div>
+  </article><h2 class="section-title">Blogs</h2>
+<article class="item" id="item-i2">
+    <h3>Max McGuinness, Mikaela Grace, Jiri De Jonghe, Jake Eaton, Abel Ribbink</h3>
+    <div class="bio">Anthropic Engineering</div>
+    <div class="synthesis"><p>Anthropic published a comprehensive engineering deep-dive on how they contain Claude across their three major product platforms — claude.ai, Claude Code, and Claude Cowork — each with fundamentally different containment architectures tailored to their audience.</p><p>The post opens with the striking admission that agents are now routinely granted access that would have been unthinkable a year ago, and the key engineering challenge is capping the blast radius rather than preventing failure entirely. Anthropic identifies three categories of security risk: user misuse, prompt injection, and unintended emergent behavior, and three corresponding layers of defense: the model itself, the environment it runs in, and the external content it can reach.</p><p>The most instructive part of the piece is the three containment patterns Anthropic has evolved:</p><p>1. Ephemeral containers (claude.ai): Code runs in gVisor containers on isolated infrastructure, with an ephemeral per-session filesystem. The blast radius is minimal, but so is capability.</p><p>2. Human-in-the-loop sandbox (Claude Code): Runs on the user&#39;s machine with access to filesystem, shell, and network. Initially required approval for every action, but 93% approval rates showed users stop paying attention. The fix was an OS-level sandbox achieving an 84% reduction in permission prompts.</p><p>3. Full VM isolation (Claude Cowork): Designed for non-technical users, runs inside a full VM. Only the user&#39;s selected workspace is mounted. Credentials stay in the host keychain.</p><p>Anthropic also shares several instructive failures: prompt injection through a phished employee (24/25 successful exfiltration), data exfiltration through an approved domain (a stolen API key uploaded through Anthropic&#39;s own Files API), and VM isolation blocking enterprise EDR tools.</p><p>The post concludes with forward-looking risks: persistent memory poisoning, multi-agent trust escalation, and the unresolved question of agent identity.</p></div>
+    <blockquote>Twelve months ago, we&#39;d have rejected out of hand the idea of granting Claude access sufficient to take down an internal Anthropic service. Today that level of access is routine.</blockquote>
+    <div class="source">→ <a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" rel="noopener">https://www.anthropic.com/engineering/how-we-contain-claude</a></div>
+  </article></section>
+<section data-lang="zh"><h2 class="section-title">Podcasts</h2>
+<article class="item" id="item-i1">
+    <h3>Satya Nadella</h3>
+    <div class="bio">Chairman &amp; CEO of Microsoft</div>
+    <div class="synthesis"><p>核心要点：微软 CEO Satya Nadella 认为，AI 时代每家公司最有价值的 IP 不会是其模型——而是其私有评估集、驾驭框架和围绕前沿智能构建的 Agent 系统。</p><p>在 No Priors 的深度对话中，Satya Nadella 阐述了微软不断演进的 AI 战略——这是一个生态系统玩法，而非模型竞赛。他反思了两年大规模 AI 部署的关键教训：真正的复杂性不在于模型能力，而在于现实世界的部署层。&#39;任何基准测试衡量的结果都很有趣、很重要，但真正的评估在于人们能否做出他们自己认为有价值的独特事情。&#39;</p><p>Nadella 提出了&#39;爬山脚手架&#39;的概念——一个 5B 参数的小型推理模型，当被包裹在正确的框架中，并接入私有评估和工具上下文时，可以在特定领域任务上超越前沿模型。他以 Land O&#39;Lakes 的演示为例：来自 GPT-5.5 的轨迹被用于训练一个小型模型，最终实现了更高的性能，他称之为&#39;一种前沿运作的新方式。&#39;</p><p>谈话揭示了一个核心原则：&#39;如果你有一个私有评估集，你正在使用模型 A——你能切换到模型 B 并爬山吗？如果可以，你就掌控了局面；如果不能，你就没有。&#39;这个框架将驾驭框架和评估定位为新的护城河——比任何单一模型关系都更持久。</p><p>Nadella 还分享了一个引人注目的内部案例：负责管理全球 500 多家光纤运营商的 Azure 网络运营团队重新定义了他们的工作。他们不再做网络运维，而是构建了一个名为 &#39;Miles&#39; 的 Agent 系统来管理网络。&#39;他们不需要增加人手——他们需要 token，&#39; Nadella 说，展示了构建 Agent 系统的元工作如何成为新的工作内容。</p><p>在编码方面，他指出了一个悖论：编码的效果太好了，以至于 IDE 本身需要重建，因为管理 100 个 Agent 会话的认知负荷过于沉重。&#39;聊天作为唯一的交互产物也是不可能的——我们需要一个画布。&#39;</p><p>关于企业 SaaS 模式，Nadella 预测将会发生根本性的解绑：企业将继续保留丰富的数据模型（总账、CRM 模式）和他们构建的业务逻辑，但打包和 UI 层将被重新构想。&#39;我们先是卖 Exchange 和 SharePoint，然后是 Teams。现在通过 WorkIQ，我们暴露了一个公司中最重要的但从未被作为数据库使用的数据库。&#39;</p><p>在更广泛的社会层面，他强调行业必须为社区带来切实的利益——就业、税基、更低的能源价格——因为&#39;世界将对那些说&#39;相信我们&#39;的科技公司持非常怀疑的态度。&#39;</p></div>
+    <blockquote>Our job is not to do Azure networking. Our job is to build the agentic system that does Azure networking.</blockquote>
+    <div class="source">→ <a href="https://www.youtube.com/@NoPriorsPodcast" target="_blank" rel="noopener">https://www.youtube.com/@NoPriorsPodcast</a></div>
+  </article><h2 class="section-title">Blogs</h2>
+<article class="item" id="item-i2">
+    <h3>Max McGuinness, Mikaela Grace, Jiri De Jonghe, Jake Eaton, Abel Ribbink</h3>
+    <div class="bio">Anthropic Engineering</div>
+    <div class="synthesis"><p>Anthropic 发布了一篇深度工程文章，详细介绍了他们如何跨三个主要产品平台——claude.ai、Claude Code 和 Claude Cowork——实现对 Claude 的隔离，每个平台都采用了截然不同的隔离架构，针对不同的受众进行定制。</p><p>文章开头的陈述令人震惊：Agent 现在已被常规授予一年前还不可想象的访问权限，关键工程挑战已从完全防止失败转变为限制爆炸半径。Anthropic 识别出三类安全风险：用户误用、提示注入和意外涌现行为，以及相应的三层防御：模型本身、运行环境和可访问的外部内容。</p><p>文章中最具启发的部分是 Anthropic 演进的三种隔离模式：</p><p>1. 临时容器（claude.ai）：代码在隔离基础设施的 gVisor 容器中运行，使用每个会话的临时文件系统。爆炸半径最小，但能力也最有限。</p><p>2. 人在回路沙盒（Claude Code）：在用户机器上运行，可访问文件系统、shell 和网络。最初需要为每个写/bash/网络操作申请批准，但 93% 的批准率表明用户不再关注。解决方案是操作系统级沙盒（macOS 上的 Seatbelt，Linux 上的 bubblewrap），强化了边界——允许读取，允许在工作空间内写入，默认拒绝网络——实现了 84% 的权限提示减少。</p><p>3. 完整 VM 隔离（Claude Cowork）：专为非技术知识工作者设计，在主机虚拟机管理程序上的完整虚拟机内运行。虚拟机拥有自己的 Linux 内核、文件系统和进程表。仅挂载用户选定的工作空间。凭证保留在主机钥匙串中。</p><p>Anthropic 还分享了几个最有教育意义的失败案例：通过被钓鱼的员工进行提示注入（25 次尝试中 24 次成功的数据外泄）、通过已批准域名的数据外泄（恶意文件使用窃取的 API 密钥通过 Anthropic 自己的 Files API 上传），以及 VM 隔离也阻止了企业 EDR 工具检查虚拟机内部。</p><p>文章最后展望了未来的风险：跨会话的持久内存投毒、多 Agent 信任升级，以及 Agent 身份这个尚未解决的问题——Agent 应该拥有自己的主体身份，还是作为用户的扩展？</p></div>
+    <blockquote>Twelve months ago, we&#39;d have rejected out of hand the idea of granting Claude access sufficient to take down an internal Anthropic service. Today that level of access is routine.</blockquote>
+    <div class="source">→ <a href="https://www.anthropic.com/engineering/how-we-contain-claude" target="_blank" rel="noopener">https://www.anthropic.com/engineering/how-we-contain-claude</a></div>
+  </article></section>
+</main>
+<footer class="digest-footer">
+  Generated through the Follow Builders skill · <a href="https://github.com/zarazhangrui/follow-builders">github.com/zarazhangrui/follow-builders</a>
+</footer>
+</body>
+</html>
